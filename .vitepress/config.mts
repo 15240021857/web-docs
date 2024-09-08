@@ -33,7 +33,8 @@ export default defineConfig({
       {
         text: '个人作品',
         items: [
-          { text: '即时通讯app', link: '/web-mycreation/chat-app' }
+          { text: '即时通讯app', link: '/web-mycreation/chat-app' },
+          { text: '前端博客', link: '/web-mycreation/web-docs' },
         ]
       },
       {
