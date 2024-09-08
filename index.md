@@ -7,18 +7,18 @@ hero:
   text: "前端文档与规范"
   tagline: "web is money"
   image:
-    src: /assets/imgs/web-isMoney.png
+    src: /web-isMoney.png
     alt: web工程图
   actions:
     - theme: brand
       text: 学习笔记
-      link: /src/views/web-studynote/ts
+      link: /web-studynote/ts
     - theme: alt
       text: 前端工程化
-      link: /src/views/web-engineering/cli
+      link: /web-engineering/cli
     - theme: alt
       text: 前端规范
-      link: /src/views/web-standard/annotation
+      link: /web-standard/annotation
 
 features:
   - title: Feature A
@@ -29,4 +29,4 @@ features:
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
-<link rel="stylesheet" href="../src/styles/index.scss" >
+<link rel="stylesheet" href="/index.scss" >
