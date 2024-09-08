@@ -6,7 +6,6 @@ export default defineConfig({
   title: "web-docs",
   description: "前端文档与规范",
   head: [['link', { rel: 'icon', href: '/web-docs/favicon.ico' }]],
-  // outDir: 'web-docs',
   vite: {
     build: {
       emptyOutDir: true
