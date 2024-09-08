@@ -29,4 +29,4 @@ features:
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
-<link rel="stylesheet" href="../web-docs/src/styles/index.scss" >
+<link rel="stylesheet" href="../src/styles/index.scss" >
