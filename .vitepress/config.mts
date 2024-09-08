@@ -4,8 +4,11 @@ import { defineConfig } from 'vitepress'
 const viewsPath = '/src/views/'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/web-docs/',
   title: "web-docs",
   description: "前端文档与规范",
+  head: [['link', { rel: 'icon', href: '/web-docs/assets/imgs/favicon.ico' }]],
+  outDir: 'web-docs',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/assets/imgs/web-isMoney.png',
