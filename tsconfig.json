@@ -1,6 +1,22 @@
 {
   "compilerOptions": {
-      "baseUrl": "./"
+      "baseUrl": "./",
+      "incremental": true, // 是否缓存文件，增强二次编译速度
+      "tsBuildInfoFile": "./tsbuildCacheFile", // 缓存文件地址
+      // 路径映射，相当于路径别名，会有路径提示, 相对于baseUrl
+      "paths": {
+        "@/*": ["src/"]
+      },
+      "strict": false, // 是否开启严格校验
+      "allowJs": false, // 是否运行js代码，一般不用
+      "checkJs": false, // 是否对js也进行校验，一般不用
+      "alwaysStrict": false, // ???
+      "declaration": true, // 是否生成.d.ts声明文件
+      "declarationDir": "./", // 声明文件地址 怎么填？？？
+      "diagnostics": true, // 是否打印编译信息
+      "sourceMap": true, // 为ts编译的js生成source map文件。映射出js对应ts源文件里的代码位置
+
+
   },
   "exclude": ["node_modules", "dist"]
 }
