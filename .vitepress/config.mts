@@ -24,6 +24,7 @@ export default defineConfig({
       {
         text: '学习笔记',
         items: [
+          { text: 'js', link: '/web-studynote/js' },
           { text: 'react', link: '/web-studynote/react' },
           { text: 'ts', link: '/web-studynote/ts' },
           { text: 'uniapp', link: '/web-studynote/uniapp' },
@@ -47,25 +48,25 @@ export default defineConfig({
         ]
       },
       {
-          text: '前端规范',
-          items: [
-            { text: '注释规范', link: '/web-standard/annotation' },
-            { text: 'git规范', link: '/web-standard/git' },
-  
-          ]
-        },
-        {
-          text: '大屏可视化',
-          items: [
-            { text: '可视化', link: '/web-bigscreen/index' }
-          ]
-        },
-        {
-          text: '方案设计软技能',
-          items: [
-            { text: '设计工具', link: '/web-design/index' }
-          ]
-        }
+        text: '前端规范',
+        items: [
+          { text: '注释规范', link: '/web-standard/annotation' },
+          { text: 'git规范', link: '/web-standard/git' },
+
+        ]
+      },
+      {
+        text: '大屏可视化',
+        items: [
+          { text: '可视化', link: '/web-bigscreen/index' }
+        ]
+      },
+      {
+        text: '方案设计软技能',
+        items: [
+          { text: '设计工具', link: '/web-design/index' }
+        ]
+      }
     ],
 
     socialLinks: [
