@@ -25,10 +25,13 @@ export default defineConfig({
         text: '学习笔记',
         items: [
           { text: 'js', link: '/web-studynote/js' },
+          { text: 'vue', link: '/web-studynote/vue' },
           { text: 'react', link: '/web-studynote/react' },
           { text: 'ts', link: '/web-studynote/ts' },
           { text: 'uniapp', link: '/web-studynote/uniapp' },
-
+          { text: 'network', link: '/web-studynote/network' },
+          { text: 'node', link: '/web-studynote/node' },
+          { text: 'flv视频直播', link: '/web-studynote/flv' }
         ]
       },
       {
