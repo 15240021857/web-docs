@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "web-docs"
   text: "前端文档与规范"
-  tagline: "web is money"
+  # tagline: "web is money"
   image:
     src: /web-isMoney.png
     alt: web工程图
