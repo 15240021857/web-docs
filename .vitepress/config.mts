@@ -29,9 +29,11 @@ export default defineConfig({
           { text: 'react', link: '/web-studynote/react' },
           { text: 'ts', link: '/web-studynote/ts' },
           { text: 'uniapp', link: '/web-studynote/uniapp' },
-          { text: 'network', link: '/web-studynote/network' },
+          { text: '网络', link: '/web-studynote/network' },
           { text: 'node', link: '/web-studynote/node' },
-          { text: 'flv视频直播', link: '/web-studynote/flv' }
+          { text: 'flv视频直播', link: '/web-studynote/flv' },
+          { text: '3d', link: '/web-studynote/three3d' },
+
         ]
       },
       {
@@ -71,7 +73,9 @@ export default defineConfig({
       {
         text: '方案设计软技能',
         items: [
-          { text: '设计工具', link: '/web-design/index' }
+          { text: '设计工具', link: '/web-design/index' },
+          { text: '问题解决能力', link: '/web-design/QuestionResolve' },
+
         ]
       }
     ],

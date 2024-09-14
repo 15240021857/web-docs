@@ -1,5 +1,9 @@
 # ts 笔记
 
+## 参考资料
+
+- 视频：https://www.bilibili.com/list/watchlater?oid=337697099&bvid=BV1wR4y1377K&spm_id_from=333.1007.top_right_bar_window_view_later.content.click&p=20
+
 ## 是什么
 
 - 给 js 增加类型校验，是 js 的超集扩展。
