@@ -10,7 +10,7 @@
 - 组合式 api
 - setup 语法糖
 - 来自 @vue/runtime-core 的 createRenderer API 用来创建自定义渲染函数 https://cn.vuejs.org/api/custom-renderer
-  不是很理解？？？
+  - 其中的 renderToString、renderToStream 方法用于将 vue 应用实例转为字符串或流，方便网络传输，用于 SSR
 
 ## Vue3 的奇迹之旅，从 3.0“海贼王”到 3.4“灌篮高手”
 
