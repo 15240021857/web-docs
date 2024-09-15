@@ -1,4 +1,4 @@
-# uniapp 笔记
+# uniapp 笔记 <Badge type="warning" text="doing" />
 
 ## 是什么
 

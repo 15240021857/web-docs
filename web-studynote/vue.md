@@ -1,4 +1,4 @@
-# vue 笔记
+# vue 笔记 <Badge type="warning" text="doing" />
 
 ## vue3 迁移指南
 
