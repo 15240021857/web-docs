@@ -1,4 +1,4 @@
-# git 规范
+# git 规范 <Badge type="danger" text="will do" />
 
 ## --allow-unrelated-histories
 

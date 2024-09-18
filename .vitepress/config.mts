@@ -14,6 +14,9 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/web-isMoney.png',
+    outline: {
+      level: [2, 3]
+    },
     nav: [
       { text: 'Home', link: '/' },
       { text: '学习笔记', link: '/web-studynote/react' },

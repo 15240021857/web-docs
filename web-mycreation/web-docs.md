@@ -1,4 +1,4 @@
-# 个人博客文档
+# 个人博客文档 <Badge type="tip" text="done" />
 
 - 个人前端经验总结文档，也是个人的作品
 - Github pages: https://15240021857.github.io/web-docs/
