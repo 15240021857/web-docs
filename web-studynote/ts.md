@@ -87,7 +87,7 @@ android.scanCode("android 命名空间的 scanCode");
 
 ```js
 if (true) {
-  import("A.js").then((res) => {
+  import("A.js").then(res => {
     console.log("动态引入了A.js");
   });
 }
@@ -125,3 +125,63 @@ import * as allProps from 'A.js'
 - ？？？？？？？？
 
 ## Decorator 装饰器
+
+## Set, Map, WeakSet, WeakMap
+
+### Set
+
+- Set 具有唯一性，引用类型除外
+- Set 有迭代器，所以可使用遍历方法 keys、valueentries、for-of、forEach 等
+- Set 方法有 add/delete/has/size/clear 集合大小
+- Set 和 Array 区别
+  - set 的值不重复，arr 可重复
+  - set 的值无序，arr 有序
+  - set 不可索引取值， arr 可以
+
+```ts
+const mySet: Set<number> = [1, 2, 3, 3, 3, 3, 4, 5];
+console.log(mySet); // 1,2,3,4,5
+mySet.size(); // 5
+const arr = Array.from(mySet); // [1,2,3,4,5]
+```
+
+## Map
+
+- Map 是键值对存储，有序排列，而 object 无序
+- key 可以是引用类型，而 object 的 key 不可以
+- 有迭代器，可调迭代器方法
+- 自带方法：set, get, delete,has,clear
+
+```ts
+const obj = { name: "xiaowu" };
+const myMap: Map<object, string> = new Map();
+myMap.set(obj, "值");
+myMap.get(obj); // 值
+```
+
+## WeakSet
+
+- 值只能是引用类型，当该对象不被其他引用时，该对象将被垃圾回收
+- WeakSet 不支持遍历，因为 GC 垃圾回收不稳定。
+- 方法有：add, delete, has
+
+## WeakMap
+
+- 键 key 只能是引用类型
+- 弱引用，当对象引用次数为 0 时，键值对会被垃圾回收。
+- WeakMap 不支持迭代，因为 GC 回收不稳定，所以 WeakMap 值不稳定
+- 方法有：get, set, delete, has
+
+```ts
+let obj = { name: "xiaowu" }; // 1次
+let obj2 = obj; // 2次
+const myWeakmap = new WeakMap();
+myWeakmap.set(obj, 17);
+obj = null; // -1次 = 1
+obj2 = null; // -1次 = 0
+setTimeout(() => {
+  // 因为GC回收时间至少需要200ms, 但不稳定
+  console.log(myWeakmap); // 有时有，有时没有[{ name: "xiaowu" }: 17]
+  console.log(myWeakmap.get(obj)); //有时undefined, 有时17
+}, 500);
+```

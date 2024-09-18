@@ -15,6 +15,7 @@
 ## 组成
 
 - ECMAScript, js 的基本语法和对象
+  - ES6: https://www.runoob.com/w3cnote/es6-concise-tutorial.html
 - DOM, 与文档交互的方法和接口
 - BOM, 与浏览器交互的方法和接口
 
