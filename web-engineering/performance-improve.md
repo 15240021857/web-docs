@@ -16,15 +16,16 @@
 
 - include/exclude
 
-### 多核优势
+### 并行构建
 
-- thread-loader
+- thread-loader/ happy-pack
 
 ### 缓存
 
+- 加快二次构建，直接复用，针对补偿变动的文件，提高构建效率
 - cache-loader
-- dll-plugin 将不常变动的 js 文件缓存起来 -旧版 webpack 缓存
-- webpack5-fileSystem: 将不常变动的 js 文件缓存起来，提高构建效率
+- dll-plugin -旧版 webpack 缓存
+- webpack5-fileSystem
 
 ## 生产环境-运行时
 
@@ -73,6 +74,10 @@
   - GZip 压缩
     - 前端打包 GZip
     - Nginx GZip 网络压缩
+  - 图片压缩
+    - imagemin-webpack-plugin
+    - 转成 webp
+    - 利用 picture、source、img 标签，针对不同设备加载不同清晰度、不同尺寸的图片，img 标签兼容低版本浏览器
 
 - 网络
 
