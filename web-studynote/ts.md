@@ -87,7 +87,7 @@ android.scanCode("android 命名空间的 scanCode");
 
 ```js
 if (true) {
-  import("A.js").then(res => {
+  import("A.js").then((res) => {
     console.log("动态引入了A.js");
   });
 }
@@ -119,9 +119,57 @@ import * as allProps from 'A.js'
 
 ## .d.ts 声明文件
 
+- ts 文件中，第三方库没有 d.ts，是会报错的。axios 自带 d.ts，但 express 需要手动安装@types/express,才有类型提示，才会不报错
+- ts 必须要有声明文件，否则报错，这也是 ts 没大面积流行的原因 ？？？现在没有报错了？？？
+
+### 手写.d.ts
+
+```ts
+// 可以手写express.d.ts
+declare module express {
+  interface App {
+    use(path: string, router: any): void;
+    listen(port: number, cb?: () => void): void;
+  }
+  interface Router {
+    get(path: string, cb: (req: any, res: any) => void): void;
+  }
+  interface Express {
+    (): App;
+    Router(): Router;
+  }
+  const express: Express;
+  export default express;
+}
+
+declare var a: number;
+
+declare function cb(param: string) {};
+declare class Vue {}
+declare enum C {
+  a = 1,
+}
+declare namespace IOS {}
+```
+
 ## mixin 混入
 
-- 合并多个对象的属性
+- 合并多个对象的属性,可利用 interface
+
+```ts
+interface A {
+  name: string;
+}
+interface B {
+  age: number;
+}
+
+let a: A = { name: "xiaowu" };
+let b: B = { age: 17 };
+let c = { ...A, ...B }; // c类型 {name: string, age: number}
+let d = Object.assign({}, A, B); // d类型 A&B
+```
+
 - ？？？？？？？？
 
 ## Decorator 装饰器
@@ -185,3 +233,41 @@ setTimeout(() => {
   console.log(myWeakmap.get(obj)); //有时undefined, 有时17
 }, 500);
 ```
+
+## 类型守卫
+
+## 协变、逆变、双向协变
+
+### 协变
+
+- 两对象赋值，ts 允许对象类型多的赋给少的，需要覆盖
+
+```ts
+interface A {
+  name: string;
+  age: number;
+}
+interface B {
+  name: string;
+  age: number;
+  sex: number;
+}
+const a: A = {
+  name: "xiaowu",
+  age: 17,
+};
+const b: B = {
+  name: "huazai",
+  age: 17,
+  sex: 0,
+};
+a = b; // 协变
+```
+
+### 逆变
+
+- 两函数赋值，ts 允许形参类型少的赋给多的，最终执行参数少的函数
+
+### 双向协变
+
+- ts2.0 之前 支持不论类型是否覆盖都能赋值，ts2.0 之后，觉得这样不安全，增加了配置选项，默认关闭，也建议关闭双向协变。
