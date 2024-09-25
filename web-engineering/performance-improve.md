@@ -118,12 +118,12 @@
 
   - 普通 js 引入放在 body 最下方，防止阻塞 dom 加载，而加了 async、defer 的 js 不阻塞 dom，可放在 head 中引入
   - js 异步加载 async、defer
-    - <script src="xx.js" async> 使js异步下载，下载完毕就执行，适合与dom无关的js
-    - <script src="xx.js" defer> 使js异步下载，等dom加载完毕才执行，适合与dom有关的js
+    - <script src="xx.js" async/> 使js异步下载，下载完毕就执行，适合与dom无关的js
+    - <script src="xx.js" defer/> 使js异步下载，等dom加载完毕才执行，适合与dom有关的js
   - js 预加载 preload、prefetch
 
-    - <link src="xx.js" ref="preload"> 优先加载，适合加载当前页面的js等资源
-    - <link src="xx.js" ref="prefetch"> 空闲时加载到缓存中，适合其他页面的js，等切到该页时直接从disk cache中获取，从而加快速度
+    - <link src="xx.js" ref="preload"/> 优先加载，适合加载当前页面的js等资源
+    - <link src="xx.js" ref="prefetch"/> 空闲时加载到缓存中，适合其他页面的js，等切到该页时直接从disk cache中获取，从而加快速度
 
   - 参考：https://blog.csdn.net/huangpb123/article/details/84170557
 
