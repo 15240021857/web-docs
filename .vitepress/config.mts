@@ -27,7 +27,7 @@ export default defineConfig({
       {
         text: '学习笔记',
         items: [
-          { text: 'htmlcss', link: '/web-studynote/htmlcss' }
+          { text: 'htmlcss', link: '/web-studynote/htmlcss' },
           { text: 'js', link: '/web-studynote/js' },
           { text: 'vue', link: '/web-studynote/vue' },
           { text: 'ts', link: '/web-studynote/ts' },
