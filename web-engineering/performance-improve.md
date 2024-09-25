@@ -123,7 +123,7 @@
   - js 预加载 preload、prefetch
 
     - <link src="xx.js" ref="preload"> 优先加载，适合加载当前页面的js等资源
-    - <link src="xx.js" ref="prefetch"> 空闲时加载到缓存中，适合其他页面的js，等切到该页时直接从disk cache中获取，从加快速度
+    - <link src="xx.js" ref="prefetch"> 空闲时加载到缓存中，适合其他页面的js，等切到该页时直接从disk cache中获取，从而加快速度
 
   - 参考：https://blog.csdn.net/huangpb123/article/details/84170557
 
