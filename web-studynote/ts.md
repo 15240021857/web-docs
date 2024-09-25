@@ -268,6 +268,95 @@ a = b; // 协变
 
 - 两函数赋值，ts 允许形参类型少的赋给多的，最终执行参数少的函数
 
+```ts
+const funA = (param: A) => {};
+const funB = (param: B) => {};
+```
+
 ### 双向协变
 
 - ts2.0 之前 支持不论类型是否覆盖都能赋值，ts2.0 之后，觉得这样不安全，增加了配置选项，默认关闭，也建议关闭双向协变。
+
+## 实战例子
+
+### Storage 存储有效期
+
+- 解决 localStorage 无法设置有效期的问题，模仿 cookie 设置有效期
+- 利用存储时的时间戳，与获取时的时间戳，比较得出是否过期
+- 没过期就正常获取，过期就删除掉
+
+```ts
+// Storage构造器 类型
+interface IStorage {
+  set: () => void;
+  get: () => void;
+  remove: () => void;
+  clear: () => void;
+}
+// 过期枚举类型
+enum EnumExpire {
+  permanent = "permanent", // 永久
+  expire = "__expire__", // 有过期时间
+}
+// 存的数据格式 T是实际的数据类型
+interface IValue<T> {
+  data: T;
+  [EnumExpire.expire]: EnumExpire.permanent | number; // 就相当于"__expire__: 永久或时间戳"
+}
+// 取时值的类型
+interface IResult<T> {
+  message: string;
+  data: T;
+}
+// localStorage 模仿 cookie 设置有效期
+class Storage implements IStorage {
+  set<T>(key: string, value: T, expire: EnumExpire = EnumExpire.permanent) {
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        data: value,
+        [EnumExpire.expire]: expire,
+      })
+    );
+  }
+  get<T>(key: string): IResult<T | null> {
+    const value: IValue<T> = JSON.parse(localStorage.getItem(key));
+    const { data } = value;
+    const now = new Date().getTime();
+    if (typeof value[EnumExpire.expire] === number && value[EnumExpire.expire] > now) {
+      // 没过期
+      return {
+        message: "没过期",
+        data,
+      };
+    } else if (value[EnumExpire.expire] === EnumExpire.permanent) {
+      // 永久
+      return {
+        message: "永久",
+        data,
+      };
+    } else {
+      // 已过期
+      this.remove(key);
+      return {
+        message: "已过期",
+        data: null,
+      };
+    }
+  }
+  remove(key: string) {
+    localStorage.removeItem(key);
+  }
+  clear() {
+    localStorage.clear();
+  }
+}
+
+const storage = new Storage();
+// 存data,有效期是1个小时
+storage.set<string>("name", { data: "xiaowu", expire: new Date().getTime() + 1 * 60 * 60 * 1000 });
+const data: string = storage.get<string>("name");
+console.log("拿到存储值啦", data);
+storage.remove("name");
+storage.clear();
+```
