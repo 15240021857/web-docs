@@ -34,6 +34,7 @@ export default defineConfig({
           { text: 'uniapp', link: '/web-studynote/uniapp' },
           { text: '网络', link: '/web-studynote/network' },
           { text: 'node', link: '/web-studynote/node' },
+          { text: 'electron', link: '/web-studynote/node' },
           { text: 'flv视频直播', link: '/web-studynote/flv' },
           { text: '3d', link: '/web-studynote/three3d' },
 
