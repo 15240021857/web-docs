@@ -354,9 +354,12 @@ class Storage implements IStorage {
 
 const storage = new Storage();
 // 存data,有效期是1个小时
-storage.set<string>("name", { data: "xiaowu", expire: new Date().getTime() + 1 * 60 * 60 * 1000 });
-const data: string = storage.get<string>("name");
+storage.set<string>("name", "xiaowu", expire: new Date().getTime() + 1 * 60 * 60 * 1000);
+const data: IResult<string | null> = storage.get<string>("name");
 console.log("拿到存储值啦", data);
-storage.remove("name");
-storage.clear();
+// console.log输出
+// 拿到存储值啦 {message: "没过期", data: 'xiaowu'}
+// 1小时后过期 拿到存储值啦 {message: "过期了", data: null}
+storage.remove("name"); // 直接删掉name
+storage.clear(); // 清空localStorage
 ```
