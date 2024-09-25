@@ -84,7 +84,12 @@
         },4000)
     ```
   - js 压缩：terser-plugin
+    - 去掉注释、空格、console、debugger
+    - 变量缩短
+    - 预计算，将能计算的函数执行，拿到结果
   - css 压缩：cssnano
+    - 去掉注释、空格
+    -
   - GZip 压缩
     - 前端打包 GZip
     - Nginx GZip 网络压缩
@@ -106,3 +111,23 @@
 ### 渲染
 
 - css
+  - 抽单独 css 文件，比放在 js 中加载更快。通过 mini-css-extract-plugin
+  - css 放在 header 中优先加载
+- html
+- js 阻塞
+
+  - 普通 js 引入放在 body 最下方，防止阻塞 dom 加载，而加了 async、defer 的 js 不阻塞 dom，可放在 head 中引入
+  - js 异步加载 async、defer
+    - <script src="xx.js" async> 使js异步下载，下载完毕就执行，适合与dom无关的js
+    - <script src="xx.js" defer> 使js异步下载，等dom加载完毕才执行，适合与dom有关的js
+  - js 预加载 preload、prefetch
+
+    - <link src="xx.js" ref="preload"> 优先加载，适合加载当前页面的js等资源
+    - <link src="xx.js" ref="prefetch"> 空闲时加载到缓存中，适合其他页面的js，等切到该页时直接从disk cache中获取，从加快速度
+
+  - 参考：https://blog.csdn.net/huangpb123/article/details/84170557
+
+## 用户体验
+
+- 骨架屏
+- 节流防抖
