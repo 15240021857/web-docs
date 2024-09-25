@@ -19,8 +19,8 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
-      { text: '学习笔记', link: '/web-studynote/react' },
-      { text: '前端工程化', link: '/web-engineering/cli' }
+      { text: '学习笔记', link: '/web-studynote/ts' },
+      { text: '前端工程化', link: '/web-engineering/performance-improve' }
     ],
 
     sidebar: [
@@ -29,8 +29,8 @@ export default defineConfig({
         items: [
           { text: 'js', link: '/web-studynote/js' },
           { text: 'vue', link: '/web-studynote/vue' },
-          { text: 'react', link: '/web-studynote/react' },
           { text: 'ts', link: '/web-studynote/ts' },
+          { text: 'react', link: '/web-studynote/react' },
           { text: 'uniapp', link: '/web-studynote/uniapp' },
           { text: '网络', link: '/web-studynote/network' },
           { text: 'node', link: '/web-studynote/node' },

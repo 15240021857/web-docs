@@ -31,6 +31,7 @@
 - hard-source-webpack-plugin 构建缓存
   - dev: 75s -> 25s
   - prod:
+  - 会造成项目报错？？
 - webpack5-fileSystem
 
 ## 生产环境-运行时
