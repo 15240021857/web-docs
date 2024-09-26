@@ -87,7 +87,7 @@ android.scanCode("android 命名空间的 scanCode");
 
 ```js
 if (true) {
-  import("A.js").then((res) => {
+  import("A.js").then(res => {
     console.log("动态引入了A.js");
   });
 }
@@ -179,7 +179,7 @@ let d = Object.assign({}, A, B); // d类型 A&B
 ### Set
 
 - Set 具有唯一性，引用类型除外
-- Set 有迭代器，所以可使用遍历方法 keys、valueentries、for-of、forEach 等
+- Set 有迭代器，所以可使用遍历方法 keys、values、entries、for-of、forEach 等
 - Set 方法有 add/delete/has/size/clear 集合大小
 - Set 和 Array 区别
   - set 的值不重复，arr 可重复
@@ -282,7 +282,7 @@ const funB = (param: B) => {};
 ### Storage 存储有效期
 
 - 解决 localStorage 无法设置有效期的问题，模仿 cookie 设置有效期
-- 利用存储时的时间戳，与获取时的时间戳，比较得出是否过期
+- 利用设置的时间戳，与获取时的时间戳比较，得出是否过期
 - 没过期就正常获取，过期就删除掉
 
 ```ts
