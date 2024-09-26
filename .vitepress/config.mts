@@ -60,7 +60,8 @@ export default defineConfig({
           { text: '用户体验', link: '/web-engineering/ue' },
           { text: 'devOps开发和运维', link: '/web-engineering/devOps' },
           { text: '加密技术', link: '/web-engineering/secret' },
-          { text: '单元测试', link: '/web-engineering/test' }
+          { text: '单元测试', link: '/web-engineering/test' },
+          { text: '前端监控和页面埋点', link: '/web-engineering/monitor' },
         ]
       },
       {
