@@ -19,14 +19,6 @@
 - 参考资料：https://www.bilibili.com/read/cv29773657/
 - Vue 从一开始就有一个简单的使命：成为一个让任何人都能快速学习的平易近人的框架。
 
-## VueUse
-
-### 是什么？
-
-- VueUse 是专门为 Vue 打造的工具库。提供了监听浏览器元素各种行为、和浏览器提供的蓝牙、定位、摄像头、连接游戏手柄等能力。适用于 vue2(???)和 vue3。
-  （这个描述非常简洁到位，说了是什么，说了能做什么，提供了什么功能，适合什么！）
-- 参考资料：https://juejin.cn/post/7313979304512831539
-
 ## 正题
 
 - 以下是一些知识点
@@ -94,3 +86,34 @@ model.value = '我是子组件，我直接更改了model，实现双向绑定'
 - 父组件向子组件传递 slot 插槽
 
 ## 父组件获取子组件 ref
+
+## 复用功能代码：mixins 与 hooks
+
+### 解决什么问题？
+
+- 当一个功能被反复用到，你肯定想复用，但它的代码，又包含在 data,methods,mounted,watch 等选项中，怎么办？怎么抽离呢？这时，vue2 想到用 mixins, vue3 则用了 hooks。
+
+### mixins
+
+- 是什么？将 vue2 的各个选项，糅合到组件选项中，进行使用。组件选项优先于 mixins 选项。
+- 属性选项如 data,methods 会覆盖
+- 函数选项如 mounted 生命周期类的，会合并执行
+- 参考：https://blog.csdn.net/Share_Li_98/article/details/125987983
+
+### hooks
+
+- 是什么？将 vue3 的一个功能的组合式 api 封装到函数里，并返回响应式数据，方法等，供组件使用和调用。组合式 api 包括 ref,reactive,mounted,watch,computed 等。
+- hooks 与 mixins 对比
+  - hooks 优势：hooks 这种显式的返回数据、方法的方式，比 mixins 明显更直观。
+  - mixins 缺陷：而 mixins 使用时对调用者来说是黑盒，会带来意外的变量，方法的覆盖等问题。
+- 适用场景：业务功能抽离、工具功能抽离等
+  - 业务功能如表格分页多选，记住其他页的勾选项、扫码获取设备信息等
+  - 工具功能如防抖节流、mutationObserver/resizeObserver 等各种 observer 的封装
+
+## VueUse - hooks
+
+### 是什么？
+
+- VueUse 是专门为 Vue 打造的工具库。提供了监听浏览器元素各种行为、和浏览器提供的蓝牙、定位、摄像头、连接游戏手柄等能力。适用于 vue2(???)和 vue3。
+  （这个描述非常简洁到位，说了是什么，说了能做什么，提供了什么功能，适合什么！）
+- 参考资料：https://juejin.cn/post/7313979304512831539
