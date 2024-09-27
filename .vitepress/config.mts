@@ -68,6 +68,7 @@ export default defineConfig({
       {
         text: '前端规范',
         items: [
+          { text: '代码审查Code Review', link: '/web-standard/code-review' },
           { text: '注释规范', link: '/web-standard/annotation' },
           { text: 'git规范', link: '/web-standard/git' },
 
