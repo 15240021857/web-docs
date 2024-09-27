@@ -33,13 +33,33 @@
 
 ## 特性
 
-## 堆、栈、指针
+### 堆、栈、指针
 
-## 运行机制
+### 运行机制
 
-## 单线程、异步
+### 单线程、异步
 
-## 垃圾回收、内存泄漏
+### 垃圾回收、内存泄漏
+
+## DOM
+
+### 页面显示隐藏 visibilitychange
+
+解决问题：当浏览器新增、切换标签页时触发 页面的显示、隐藏
+
+```js
+document.addEventListener("visibilitychange", function () {
+  if (document.hidden) {
+    // 当前标签页被切换到后台
+    console.log("标签页被切换到后台");
+  } else {
+    // 当前标签页被切换到前台
+    console.log("标签页被切换到前台");
+  }
+});
+```
+
+## BOM
 
 ## 设计模式
 

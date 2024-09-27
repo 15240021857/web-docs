@@ -38,7 +38,8 @@ export default defineConfig({
           { text: 'electron', link: '/web-studynote/electron' },
           { text: 'webrtc', link: '/web-studynote/webrtc' },
           { text: 'flv视频直播', link: '/web-studynote/flv' },
-          { text: '3d', link: '/web-studynote/three3d' }
+          { text: '3d', link: '/web-studynote/three3d' },
+          { text: '数据结构与算法', link: '/web-studynote/data-structure' }
         ]
       },
       {
