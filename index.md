@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "web-docs"
-  text: "前端文档与规范 of 小吴"
+  text: "前端文档与规范 of xiaowu"
   # tagline: "web is money"
   image:
     src: /web-isMoney.png
