@@ -106,11 +106,12 @@
     ```
   - js 压缩：terser-plugin
     - 去掉注释、空格、console、debugger
-    - 变量缩短
+    - 压缩、缩短变量和函数名
     - 预计算，将能计算的函数执行，拿到结果
   - css 压缩：cssnano
-    - 去掉注释、空格
-    -
+    - 去掉注释、空格、去掉无用 css
+    - 合并选择器、压缩颜色值
+    - 简化 css 代码
   - GZip 压缩
     - 前端打包 GZip
     - Nginx GZip 网络压缩
