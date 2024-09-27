@@ -135,7 +135,7 @@
 
 - css
   - 抽单独 css 文件，比放在 js 中加载更快。通过 mini-css-extract-plugin
-  - css 放在 header 中优先加载
+  - css 放在 head 中优先加载
 - html
 - js 阻塞
 

@@ -8,6 +8,31 @@
 
 - 字典：https://www.runoob.com/tags/ref-av-dom.html
 
+### html 语义化
+
+### a11y
+
 ## css
 
 - 字典：https://www.runoob.com/css/css-tutorial.html
+
+### css 模块化
+
+解决什么问题？
+
+- 解决不同页面模块 css 变量命名重复的问题
+- css 变量语义化的问题
+- 解决复用和维护的问题
+
+- BEM 架构
+  - Block 块区域:用"-"连接；Element 元素:用"\_\_" Modifier 修饰：用"--"
+  - 如 el-button--primary、el-input\_\_inner
+
+### css 响应式设计
+
+解决什么问题？
+
+- 一套代码适配不同屏幕的设备，表现一致的问题
+
+- rem 和 vw
+- 页面缩放 transform:scale(xx)
