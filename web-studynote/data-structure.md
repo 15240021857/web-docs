@@ -2,6 +2,8 @@
 
 ## 解决什么问题？
 
+- 个人理解：用各种方法操作数据，让数据在某些维度达到最优，如时间维度、遍历次数等
+
 参考资料：https://www.hello-algo.com/chapter_hello_algo/
 
 ## 组成
