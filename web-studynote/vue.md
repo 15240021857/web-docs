@@ -23,7 +23,7 @@
 
 - 以下是一些知识点
 
-## 组件双向绑定
+## v-model 组件传参之双向绑定
 
 - 父子组件通常的 prop 传值，是单向数据流，会导致子组件内部无法改变 prop 值，需要通过$emit 去通知父组件改值，这很麻烦。那么如何让父子组件都需更改值的变量，实现双向绑定呢？
   用 v-model!
@@ -85,9 +85,17 @@ model.value = '我是子组件，我直接更改了model，实现双向绑定'
 
 - 父组件向子组件传递 slot 插槽
 
-## 父组件获取子组件 ref
+```vue
+<!-- 子组件 -->
+<el-input v-model="xx">
+  <template v-slot:pre>
+  </template>
+</el-input>
+```
 
-## 复用功能代码：mixins 与 hooks
+## 父组件获取子组件的 ref
+
+## mixins 与 hooks 复用功能代码：
 
 ### 解决什么问题？
 
@@ -110,7 +118,7 @@ model.value = '我是子组件，我直接更改了model，实现双向绑定'
   - 业务功能如表格分页多选，记住其他页的勾选项、扫码获取设备信息等
   - 工具功能如防抖节流、mutationObserver/resizeObserver 等各种 observer 的封装
 
-## VueUse - hooks
+## VueUse - hooks 工具钩子
 
 ### 是什么？
 
