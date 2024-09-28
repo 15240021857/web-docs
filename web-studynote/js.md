@@ -19,17 +19,19 @@
 
 ## 组成
 
-- js 字典：
-
-  - 1：https://www.runoob.com/jsref/jsref-obj-array.html
-  - 2：https://www.runoob.com/js/js-tutorial.html
-
-- es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
-
-* ECMAScript, js 的基本语法和对象
+- ECMAScript, js 的基本语法和对象
   - ES6: https://www.runoob.com/w3cnote/es6-concise-tutorial.html
-* DOM, 与文档交互的方法和接口
-* BOM, 与浏览器交互的方法和接口
+- DOM, 与文档交互的方法和接口
+- BOM, 与浏览器交互的方法和接口
+
+```text
+js 字典：
+
+- 1：https://www.runoob.com/jsref/jsref-obj-array.html
+- 2：https://www.runoob.com/js/js-tutorial.html
+
+es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
+```
 
 ## 特性
 
