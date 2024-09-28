@@ -24,9 +24,11 @@
 - css 变量语义化的问题
 - 解决复用和维护的问题
 
-- BEM 架构
-  - Block 块区域:用"-"连接；Element 元素:用"\_\_" Modifier 修饰：用"--"
-  - 如 el-button--primary、el-input\_\_inner
+BEM 架构
+
+- Block 块区域:用"-"连接；Element 元素:用"\_\_" Modifier 修饰：用"--"
+- 如 el-button--primary、el-input\_\_inner
+- 资料：https://blog.csdn.net/YUELEI118/article/details/141296821
 
 ### css 响应式设计
 
