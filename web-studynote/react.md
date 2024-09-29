@@ -17,6 +17,8 @@ react 是构建用户界面的 js 库，和 vue 一样。我们只需关注数�
 - jsx
   - 在 js 中写 html 代码
 
+## 跟 vue 的不同
+
 ## 参考资料
 
 - 视频版：https://www.bilibili.com/video/BV1mcpPeMETt/?spm_id_from=333.999.0.0&vd_source=0a9cf58dffb3a15fec3f7d7d77eea1df
