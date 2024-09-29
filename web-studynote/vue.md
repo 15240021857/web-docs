@@ -46,6 +46,17 @@ vue 是构建用户界面的 js 库，我们只需关注数据，专注业务代
 
 - 以下是一些知识点
 
+## $attrs & $listeners & $slots 透传
+
+- 参考：https://blog.csdn.net/qq_63358859/article/details/133699476
+- 参考：https://blog.csdn.net/a123456234/article/details/142032876
+
+### 禁用 Attributes 继承
+
+是什么？
+
+- inheritAttrs: false
+
 ## v-model 组件传参之双向绑定
 
 - 父子组件通常的 prop 传值，是单向数据流，会导致子组件内部无法改变 prop 值，需要通过$emit 去通知父组件改值，这很麻烦。那么如何让父子组件都需更改值的变量，实现双向绑定呢？
