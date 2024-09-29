@@ -46,6 +46,15 @@ vue 是构建用户界面的 js 库，我们只需关注数据，专注业务代
 
 - 以下是一些知识点
 
+## vue 组件生命周期
+
+### 特别使用
+
+父组件监听子组件生命周期，两种方式
+
+1. 在 child.vue 的 mounted(){}中去 this.$emit 抛出事件，供父组件使用
+2. 在 parent.vue 调<child @hook:mounted="onChildMounted"/>时,通过@hook 去监听
+
 ## $attrs & $listeners & $slots 透传
 
 - 参考：https://blog.csdn.net/qq_63358859/article/details/133699476
