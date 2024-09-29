@@ -38,3 +38,7 @@ BEM 架构
 
 - rem 和 vw
 - 页面缩放 transform:scale(xx)
+
+### :root 根选择器
+
+能干嘛？

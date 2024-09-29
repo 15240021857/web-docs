@@ -81,11 +81,17 @@ export default defineConfig({
         ]
       },
       {
-        text: '方案设计软技能',
+        text: '软技能',
         items: [
           { text: '设计工具', link: '/web-design/index' },
           { text: '问题解决能力', link: '/web-design/QuestionResolve' },
-
+          { text: 'markdown文档能力', link: '/web-design/index' }
+        ]
+      },
+      {
+        text: '其他事',
+        items: [
+          { text: '搞钱', link: '/other-things/earn-money' }
         ]
       }
     ],
