@@ -42,4 +42,22 @@ BEM 架构
 ### :root 根选择器
 
 能干嘛？
+定义根元素的变量，供全局使用
+
+```css
+/* public.css */
+:root {
+  --main-font-color: #666;
+}
+
+.title {
+  color: --main-font-color;
+}
+```
+
+```js
+// js动态改变
+document.documentElement.style.setProperty("--main-font-color", "#333");
+```
+
 配合 vueUse 去实现，动态改变
