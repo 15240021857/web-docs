@@ -16,3 +16,7 @@
 - https://cloud.tencent.com/developer/article/2352452
 
 ### 能做什么？不能做什么？
+
+## 部署
+
+### PM2
