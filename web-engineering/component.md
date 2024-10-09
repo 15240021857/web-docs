@@ -39,6 +39,17 @@
 
 ### element table 二次封装
 
+### el-dialog 优雅实现
+
+直接通过通过 ref 去调子组件方法，实现打开。关闭弹窗，以及获取信息接口，这样子组件的逻辑可全写在子组件，非常好开发和维护
+
+- <child-dialog ref="childRef" />
+- this.$refs['childRef'].openFun()
+- this.$refs['childRef'].closeFun()
+
+是不是贼方便，不用再维护一个变量 dialogVisible=true/false
+而是把弹窗方法，完全交给弹窗组件自己，如打开和关闭方法
+
 #### 分页多选 ->mixins 可实现
 
 是什么？是表格 支持分页，也支持多选

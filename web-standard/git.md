@@ -21,8 +21,28 @@
 
 怎么做呢？
 
-## --allow-unrelated-histories
+## git 代码提交规范 commitlint
+
+是什么？
+
+- 是一种信息规范，是 git 提交 commit 代码时的 message 的前缀，让人一目了然这次提交的类型。
+
+解决什么问题？
+
+- git 提交信息，大都三言两语描述，无法快速知道每次提交是干嘛的，你写了一个 "用户列表"，我怎么知道你是新增了用户列表模块，还是修改了，还是优化了列表性能？还是重构了列表呢？
+- 那如果我写成以下方式，不是变得一目了然呢
+
+  - feat: 用户列表，那就代表新增了用户列表
+  - fix: 用户列表，代表修改了
+  - perf: 用户列表， 代表优化了，性能或功能
+  - docs: 用户列表，代表改了列表文档相关
+
+- 参考：https://www.cnblogs.com/goloving/p/7197319.html
+
+![commitlint规范图](image.png)
+
+## 关联远程和本地仓库 --allow-unrelated-histories
 
 - 当想把本地新项目代码提交到 git 仓库，
 - 但是新建的仓库中有其他文件如.gitignore、README.md、Linsence 等时，两个仓库一开始无关联，无法直接通过 git pull, git push -u origin master.
-- 此时根据 git 抛出的错误提示，可执行--allow-unrelated-histories 相关命令来进行合并或拉代码。
+- 此时根据 git 抛出的错误提示，可执行 git pull --allow-unrelated-histories 相关命令来进行合并或拉代码。
