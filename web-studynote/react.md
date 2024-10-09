@@ -82,9 +82,9 @@ react 是构建用户界面的 js 库，和 vue 一样。我们只需关注数�
 
 ### 是什么？
 
-- VDOM 是用 Js 对象去描述 DOM 结构，当有数据更新引起 dom 变化，React 会先操作 VDOM，与旧 VDOM 比较，以最小的开销去更新真实 DOM。
+- VDOM 是用 Js 对象去描述 DOM 结构，它不是直接操作浏览器 dom，而是将 dom 更新 首先在 VDOM 中进行，再高效的以最小的开销去渲染到真实 DOM。
 
 ### 解决什么问题？
 
-- 减少性能开销。直接操作 dom 是昂贵的，特别是大数据量 dom 更新，VDOM 通过 diff 算法去复用节点，以最小的开销去更新 dom。
-- 实现跨平台。VDOM 与平台无关，通过 VDOM 可生成其他平台的代码。如 RN 生成 android/ios 端代码，uniapp 生成小程序/h5/app 端的代码等等
+1. 减少性能开销。直接操作 dom 是昂贵的，特别是大数据量 dom 更新，VDOM 通过 diff 算法去复用节点，以最小的开销去更新 dom。
+2. 实现跨平台。VDOM 与平台无关，通过 VDOM 可生成其他平台的代码。如 RN 生成 android/ios 端代码，uniapp 生成小程序/h5/app 端的代码等等
