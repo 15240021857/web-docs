@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "web-docs"
-  text: "前端文档与规范 of xiaowu"
+  name: "前端文档与规范"
+  text: "Web-docs of xiaowu"
   # tagline: "web is money"
   image:
     src: /web-isMoney.png
