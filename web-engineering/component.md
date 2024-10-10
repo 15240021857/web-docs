@@ -43,7 +43,7 @@
 
 直接通过通过 ref 去调子组件方法，实现打开。关闭弹窗，以及获取信息接口，这样子组件的逻辑可全写在子组件，非常好开发和维护
 
-- <child-dialog ref="childRef" />
+- \<child-dialog ref="childRef" \/\>
 - this.$refs['childRef'].openFun()
 - this.$refs['childRef'].closeFun()
 
