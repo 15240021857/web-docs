@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: '/web-docs/',
-  title: "web-docs",
+  title: "Web-docs",
   description: "前端文档与规范",
   head: [['link', { rel: 'icon', href: '/web-docs/favicon.ico' }]],
   vite: {
