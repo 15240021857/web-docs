@@ -56,6 +56,7 @@ export default defineConfig({
           { text: 'mock数据', link: '/web-engineering/mock' },
           { text: 'JS/TS配置', link: '/web-engineering/js-config' },
           { text: '编辑器配置', link: '/web-engineering/editor' },
+          { text: '模块化', link: '/web-engineering/module' },
           { text: '组件化', link: '/web-engineering/component' },
           { text: '性能优化', link: '/web-engineering/performance-improve' },
           { text: '用户体验', link: '/web-engineering/ue' },
