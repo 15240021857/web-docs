@@ -46,3 +46,15 @@
 - 当想把本地新项目代码提交到 git 仓库，
 - 但是新建的仓库中有其他文件如.gitignore、README.md、Linsence 等时，两个仓库一开始无关联，无法直接通过 git pull, git push -u origin master.
 - 此时根据 git 抛出的错误提示，可执行 git pull --allow-unrelated-histories 相关命令来进行合并或拉代码。
+
+## 软件版本中的 Alpha,Beta,RC,Trial
+
+- 参考：http://www.hdfz.cn/IT/ShowArticle.asp?ArticleID=404
+
+### 开发阶段划分：
+
+- α（Alpha）版：内测版，内部交流或者专业测试人员测试用。Bug 较多，普通用户最好不要安装。
+- β（Beta）版：公测版，专业爱好者大规模测试用，存在一些缺陷，该版本也不适合一般用户安装。
+- γ（Gamma）版：相当成熟的测试版，与即将发行的正式版相差无几。
+- RC 版：是　 Release 　 Candidate 　的缩写，意思是发布倒计时，候选版本，处于 Gamma 阶段，该版本已经完成全部功能并清除大部分的 BUG。到了这个阶段只会除 BUG，不会对软件做任何大的更改。从 Alpha 到 Beta 再到 Gamma 是改进的先后关系，但 RC1、RC2 往往是取舍关系。
+- Final：正式版。

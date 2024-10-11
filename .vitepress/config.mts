@@ -37,8 +37,9 @@ export default defineConfig({
           { text: 'node', link: '/web-studynote/node' },
           { text: 'electron', link: '/web-studynote/electron' },
           { text: 'webrtc', link: '/web-studynote/webrtc' },
-          { text: 'flv视频直播', link: '/web-studynote/flv' },
+          { text: '视频直播flv', link: '/web-studynote/flv' },
           { text: '3d', link: '/web-studynote/three3d' },
+          { text: '地图map', link: '/web-studynote/map' },
           { text: '数据结构与算法', link: '/web-studynote/data-structure' }
         ]
       },
@@ -61,7 +62,7 @@ export default defineConfig({
           { text: '性能优化', link: '/web-engineering/performance-improve' },
           { text: '用户体验', link: '/web-engineering/ue' },
           { text: 'devOps开发和运维', link: '/web-engineering/devOps' },
-          { text: '加密技术', link: '/web-engineering/secret' },
+          { text: '安全加密', link: '/web-engineering/secret' },
           { text: '单元测试', link: '/web-engineering/test' },
           { text: '前端监控和页面埋点', link: '/web-engineering/monitor' },
         ]
