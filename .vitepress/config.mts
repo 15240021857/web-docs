@@ -93,7 +93,8 @@ export default defineConfig({
       {
         text: '其他事',
         items: [
-          { text: '搞钱', link: '/other-things/earn-money' }
+          { text: '搞钱', link: '/other-things/earn-money' },
+          { text: '失业', link: '/other-things/lose-job' }
         ]
       }
     ],
