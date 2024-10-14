@@ -13,7 +13,8 @@
 - 首先打开 vscode
 - ctrl + shift + p
 - 输入代码片段，选择 vue
-- 填入以下 json
+- 在模板转换网站，将所需 vue 代码转换为模板
+- 将模板填入以下 json
 
 ```json
 {
@@ -61,3 +62,12 @@
     "description": "插入文件头注释"
   }
 ```
+
+### 在线模板转换
+
+- 模板代码生成地址：https://snippet-generator.app
+  ![alt text](image-1.png)
+
+### 代码片段-模板规则
+
+- 参考：https://blog.csdn.net/qq_45105203/article/details/141718358
