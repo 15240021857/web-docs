@@ -79,7 +79,9 @@ vue 是构建用户界面的 js 库，我们只需关注数据，专注业务代
 - 父子组件通常的 prop 传值，是单向数据流，会导致子组件内部无法改变 prop 值，需要通过$emit 去通知父组件改值，这很麻烦。那么如何让父子组件都需更改值的变量，实现双向绑定呢？
   用 v-model!
 - vue2 的 model 选项，用于自定义 v-model 的:value :input 的字段名
-  - model: {prop: myValue, event: myEvent}
+  - ```js
+      model: {prop: myValue, event: myEvent}
+    ```
 
 ```vue
 // vue2.x----------------------------------
@@ -153,20 +155,14 @@ Vue2.6.0 以前 用 slot、slot-scoped
 <template>
   <el-input v-model="xx">
     <template slot="prefix">
-      <slot
-        name="prefix"
-        :data="{ name: 'xiaowu', age: 17 }"
-      ></slot>
+      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
     </template>
   </el-input>
 </template>
 <!-- 父组件Parent.vue -->
 <template>
   <Child>
-    <div
-      slot="prefix"
-      slot-scope="{ name, age }"
-    >
+    <div slot="prefix" slot-scope="{ name, age }">
       <span>{{ name + " - " + age }}</span>
     </div>
   </Child>
@@ -180,10 +176,7 @@ Vue2.6.0 以后，用 v-slot 或#, 废弃 slot、slot-scoped
 <template>
   <el-input v-model="xx">
     <template #prefix>
-      <slot
-        name="prefix"
-        :data="{ name: 'xiaowu', age: 17 }"
-      ></slot>
+      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
     </template>
   </el-input>
 </template>
@@ -204,10 +197,7 @@ Vue3 用 v-slot 或#, 同 Vue2.6.0 以后
 <template>
   <el-input v-model="xx">
     <template v-slot:prefix>
-      <slot
-        name="prefix"
-        :data="{ name: 'xiaowu', age: 17 }"
-      ></slot>
+      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
     </template>
   </el-input>
 </template>
