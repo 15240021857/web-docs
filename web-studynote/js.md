@@ -84,6 +84,7 @@ document.addEventListener("visibilitychange", function () {
 ### 数组迭代方法
 
 - for-of 和 foreach
+  - https://blog.csdn.net/Ed7zgeE9X/article/details/140711380
 
 ## 函数式编程
 

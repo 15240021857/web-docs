@@ -78,24 +78,26 @@ vue 是构建用户界面的 js 库，我们只需关注数据，专注业务代
 
 - 父子组件通常的 prop 传值，是单向数据流，会导致子组件内部无法改变 prop 值，需要通过$emit 去通知父组件改值，这很麻烦。那么如何让父子组件都需更改值的变量，实现双向绑定呢？
   用 v-model!
+- vue2 的 model 选项，用于自定义 v-model 的:value :input 的字段名
+  - model: {prop: myValue, event: myEvent}
 
 ```vue
 // vue2.x----------------------------------
 // 父组件调用 parent.vue
 <template>
-  <myComponent model.sync="modelParent"><myComponent/>
+  <myComponent :visible.sync="modelParent"><myComponent/>
 </template>
 // 子组件定义 myComponent.vue
 <script>
 export default {
   props: {
-    model: {
-      type: string
+    visible: {
+      type: Boolean
     }
   },
   methods: {
     updateFun() {
-      this.$emit('update:model','vue2.x在子组件改变prop值，实现父子组件数据双向绑定！')
+      this.$emit('update:visible','vue2.x在子组件改变prop值，实现父子组件数据双向绑定！')
     }
   }
 }
@@ -104,44 +106,119 @@ export default {
 // vue3.4之前---------------------------------
 // 父组件调用 parent.vue
 <template>
-  <myComponent v-model="model"><myComponent/>
+  <myComponent v-model="visible"><myComponent/>
 </template>
 // 子组件定义 myComponent.vue
 <script setup>
 defineProps({
-  model: {
-    type: string
+  visible: {
+    type: Boolean
   }
 })
-const emit = defineEmits(['update:model'])
+const emit = defineEmits(['update:visible'])
 const updateFun = () => {
-  emit('update:model', '我是子组件，可在这改变prop值')
+  emit('update:visible', '我是子组件，可在这改变prop值')
 }
 </script>
 
 // vue3.4之后------------------------------
 // 父组件调用 parent.vue
 <template>
-  <myComponent v-model="model"><myComponent/>
+  <myComponent
+  v-model="visible"
+  v-model:visible2="visible2"
+  v-model:visible3="visible3"><myComponent/>
 </template>
 // 子组件定义 myComponent.vue
 <script setup>
-const model = defineModel()
-model.value = '我是子组件，我直接更改了model，实现双向绑定'
+const visible = defineModel()
+visible.value = '我是子组件，我直接更改了model，实现双向绑定'
+const visible2 = defineModel('visible2')
+const visible3 = defineModel('visible3')
 </script>
 
 ```
 
-## slot 透传
+## slot 插槽
+
+### 透传
 
 - 父组件向子组件传递 slot 插槽
+- 作用域插槽: 父组件在给子组件写插槽内容时，能用到子组件传来的数据
+
+Vue2.6.0 以前 用 slot、slot-scoped
 
 ```vue
-<!-- 子组件 -->
-<el-input v-model="xx">
-  <template v-slot:pre>
-  </template>
-</el-input>
+<!-- 子组件Child.vue -->
+<template>
+  <el-input v-model="xx">
+    <template slot="prefix">
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
+    </template>
+  </el-input>
+</template>
+<!-- 父组件Parent.vue -->
+<template>
+  <Child>
+    <div
+      slot="prefix"
+      slot-scope="{ name, age }"
+    >
+      <span>{{ name + " - " + age }}</span>
+    </div>
+  </Child>
+</template>
+```
+
+Vue2.6.0 以后，用 v-slot 或#, 废弃 slot、slot-scoped
+
+```vue
+<!-- 子组件Child.vue -->
+<template>
+  <el-input v-model="xx">
+    <template #prefix>
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
+    </template>
+  </el-input>
+</template>
+<!-- 父组件Parent.vue -->
+<template>
+  <Child>
+    <div #prefix="{ name, age }">
+      <span>{{ name + " - " + age }}</span>
+    </div>
+  </Child>
+</template>
+```
+
+Vue3 用 v-slot 或#, 同 Vue2.6.0 以后
+
+```vue
+<!-- 子组件Child.vue -->
+<template>
+  <el-input v-model="xx">
+    <template v-slot:prefix>
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
+    </template>
+  </el-input>
+</template>
+<!-- 父组件Parent.vue -->
+<template>
+  <Child>
+    <div v-slot:prefix="{ name, age }">
+      <span>{{ name + " - " + age }}</span>
+    </div>
+  </Child>
+</template>
 ```
 
 ## 父组件获取子组件的 ref
