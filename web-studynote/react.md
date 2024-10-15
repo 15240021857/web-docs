@@ -99,3 +99,86 @@ const React = {
   createTextElement() {},
 };
 ```
+
+## jsx/tsx 语法
+
+### 是什么
+
+- jsx 是 js 语法的扩展，允许在 js 中书写 html 代码
+
+### tsx
+
+- 和 jsx 基本没什么区别，只在 jsx 基础上多了类型。
+
+### 解决什么问题
+
+- 没有 jsx 之前，是用字符串或者模版字符串去写 html 标签。但这样有很多弊端。比如以下：
+  - 保留 html 格式
+  - 支持变量、字符串
+  - 支持组件：搭配 react，可支持组件，普通模版字符串不支组件
+
+```jsx
+const obj = { name: "xiaowu", age: 17, sex: "女" };
+// 普通字符串语法
+const html =
+  "<div>" + "我叫<span>" + obj.name + "</span>" + "，年龄是<span>" + obj.age + "</span>" + "，性别是<span>" + obj.sex + "</span>" + "</div>";
+// 模版字符串
+const templateHtml = `<div>
+                        我叫<span>${obj.name}</span>，
+                        年龄是<span>${obj.name}</span>，
+                        性别是<span>${obj.sex}</span>
+                      </div>`;
+// 任意函数式组件
+function MyComponent(props) {
+  const { name, age, sex } = props?.obj;
+  return (
+    <div>
+      我是子组件，表示jsx支持组件, 参数是{name}-{age}-{sex}
+    </div>
+  );
+}
+// jsx语法
+const jsxHtml = () => {
+  return (
+    <div>
+      我叫<span>{obj.name}</span>， 年龄是<span>{obj.age}</span>， 性别是<span>{obj.sex}</span>
+      <MyComponent userInfo={obj}></MyComponent>
+    </div>
+  );
+};
+```
+
+### jsx 语法
+
+- 变量 {value}
+- 类名用 className、id 和其他属性还是一样
+- 遍历 dom 元素 map
+- 条件判断 直接三元表达式
+- 事件 onClick 小驼峰的名称格式
+- 泛型 <T,>
+- 插入 html： dangerouslySetInnerHTML
+
+```tsx
+const fn1 = () => {
+  const name: string = "xw";
+  const num: number = 666;
+  const fnInner = () => <span>test</span>;
+  return (
+    <>
+      {name}
+      {num}
+      {fnInner()}
+    </>
+  );
+};
+```
+
+## useState 用法
+
+## React 组件
+
+### 函数式组件
+
+### api 调用式组件
+
+## React 组件通讯
