@@ -152,30 +152,135 @@ const jsxHtml = () => {
 
 - 变量 {value}
 - 类名用 className、id 和其他属性还是一样
+  - 多个 className
 - 遍历 dom 元素 map
 - 条件判断 直接三元表达式
 - 事件 onClick 小驼峰的名称格式
 - 泛型 <T,>
 - 插入 html： dangerouslySetInnerHTML
+- 空标签，减少嵌套层级：React.Fragment（用 \<\>…\</\> 简写）
 
 ```tsx
+// 变量
 const fn1 = () => {
   const name: string = "xw";
   const num: number = 666;
+  const useInfo: object = { name: "xiaowu", age: 17 };
   const fnInner = () => <span>test</span>;
   return (
     <>
-      {name}
-      {num}
-      {fnInner()}
+      <div>
+        {useInfo} {/* 错误示范 */}
+        {JSON.stringify(useInfo)} {/* 错误示范 */}
+        {name}
+        {num}
+        {fnInner()}
+      </div>
+    </>
+  );
+};
+
+// 复习下BEM css模块化架构
+// 前缀"xw"，
+// B：块(即功能区"-login-form") ;
+// E：元素(即部位 item、label、body、inner "__label");
+// M：修饰（即外观或行为 action, fixed "--primary"）
+
+// 绑定属性 className、id, 多个className
+const fn2 = () => {
+  const value: string = "A";
+  const myClass = "xw-login-form__label";
+  const myStyle = { display: "flex" };
+  return (
+    <div className="xw-login-form__wrap">
+      {/* class变量 */}
+      <span className={myClass} id={value} data-index={value}>
+        class变量
+      </span>
+      {/*多class & class变量 */}
+      <input className={`xw-login-input--active ${myClass}`} />
+      {/* 绑定style */}
+      <span style={myStyle}></span>
+    </div>
+  );
+};
+```
+
+```tsx
+// 遍历dom
+const fn3 = () => {
+  const list = [
+    { name: "xw", age: 17 },
+    { name: "xx", age: 16 },
+  ];
+  return (
+    <>
+      {list.map((item) => {
+        return (
+          <span>
+            {item.name}-{item.age}
+          </span>
+        );
+      })}
     </>
   );
 };
 ```
 
+```jsx
+// 事件 on[Click]={} 小驼峰命名
+const fn4 = () => {
+  const clickFun = (params) => {
+    console.log(params);
+  };
+  return (
+    <>
+      {list.map((item) => {
+        return <span onClick={() => clickFun("参数")}>点击事件</span>;
+      })}
+    </>
+  );
+};
+// 泛型，需加一个逗号,否则被react识别为标签
+const fn4 = () => {
+  const value: string = "xiaowu";
+  const clickFun = <T，>(params: T): void => {
+    console.log(params);
+  };
+  return (
+    <>
+      {list.map((item) => {
+        return <span onClick={() => clickFun(value)}>点击事件</span>;
+      })}
+    </>
+  );
+};
+// tsx如何渲染html代码 作者为了警示html插入，特意使用属性名dangerouslySetInnerHTML，防止XSS攻击。警示程序员，不要随意使用该属性。 XSS攻击详情看 本网站安全文档。
+function App() {
+  const value: string = '<section style="color:red">xw</section>'
+  return (
+    <>
+        <div dangerouslySetInnerHTML={{ __html: value }}></div>
+    </>
+  )
+}
+
+// tsx条件判断 不用if， 用三元表达式
+function App() {
+  return (
+    <>
+        {flag ? <div>开</div> : <div>关</div> }
+    </>
+  )
+}
+```
+
 ## useState 用法
 
 ## React 组件
+
+- ts 类型式组件
+- 函数式组件传参 props
 
 ### 函数式组件
 
