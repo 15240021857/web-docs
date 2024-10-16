@@ -14,6 +14,12 @@
 - 关于前端 🛡️ 加密 🛡️ 那些事
   https://juejin.cn/post/7387220458176528419
 
+- 前端常用 6 种数据加密方式的使用（最详解） ================================2024 年 点赞 100+
+  https://blog.csdn.net/chaoPerson/article/details/135466465?ops_request_misc=%257B%2522request%255Fid%2522%253A%25226C737FA2-E125-4BD5-BFD7-6D7DC5EEAE7F%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=6C737FA2-E125-4BD5-BFD7-6D7DC5EEAE7F&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~hot_rank-2-135466465-null-null.142^v100^pc_search_result_base6&utm_term=%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86&spm=1018.2226.3001.4187
+
+- 前端 用账号密码登录的时候 对密码进行加密 【最佳解决方案】用 bcrypt.js 或者 crypto-js 两种方式帮你解决
+  https://blog.csdn.net/qq_52602294/article/details/139067951?ops_request_misc=%257B%2522request%255Fid%2522%253A%25226C737FA2-E125-4BD5-BFD7-6D7DC5EEAE7F%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=6C737FA2-E125-4BD5-BFD7-6D7DC5EEAE7F&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~hot_rank-24-139067951-null-null.142^v100^pc_search_result_base6&utm_term=%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86&spm=1018.2226.3001.4187
+
 ### 是什么？
 
 - md5、对称、非对称？
