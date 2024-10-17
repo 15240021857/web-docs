@@ -151,3 +151,25 @@ isString('xiaowu') // true
 
 </script>
 ```
+
+## 多 Tab 页面数据同步
+
+- 参考:https://mp.weixin.qq.com/s/HaerhlTwnEkudPgp7gENFw
+
+### 是什么？
+
+- 一个页面，在浏览器中打开多个 tab，需要数据同步时
+- 如，localStorage、sessionStorage?如何在多 tab 间同步变化
+
+### 解决什么问题？
+
+- 场景：当你打开多个购物车结算页面，多个 tab 页如果需要同步商品数量和总价，就算要用到
+
+### 怎么做？
+
+- 轮询去查请求、查 storage 本地存储，性能差
+- 监听 storage, 仅其他 tab 页监听，本页接收不到
+- 自定义事件 Event, CustomEvent, createEvent()
+- MessageChannel
+- boardCastChannel
+- ...
