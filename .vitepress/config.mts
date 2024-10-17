@@ -22,7 +22,10 @@ export default defineConfig({
       { text: '学习笔记', link: '/web-studynote/ts' },
       { text: '前端工程化', link: '/web-engineering/performance-improve' }
     ],
-
+    lastUpdated: {
+      // text: 'Updated at',
+      formatOptions: { dateStyle: 'short',  timeStyle: 'short' }
+    },
     sidebar: [
       {
         text: '学习笔记',
@@ -102,5 +105,6 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/15240021857/web-docs' }
     ]
-  }
+  },
+  
 })

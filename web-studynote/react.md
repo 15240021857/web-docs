@@ -88,3 +88,202 @@ react 是构建用户界面的 js 库，和 vue 一样。我们只需关注数�
 
 1. 减少性能开销。直接操作 dom 是昂贵的，特别是大数据量 dom 更新，VDOM 通过 diff 算法去复用节点，以最小的开销去更新 dom。
 2. 实现跨平台。VDOM 与平台无关，通过 VDOM 可生成其他平台的代码。如 RN 生成 android/ios 端代码，uniapp 生成小程序/h5/app 端的代码等等
+
+### 怎么做
+
+- JSX -> babel|SWC -> React.createElement()
+
+```js
+const React = {
+  createElement(type, props, children) {},
+  createTextElement() {},
+};
+```
+
+## jsx/tsx 语法
+
+### 是什么
+
+- jsx 是 js 语法的扩展，允许在 js 中书写 html 代码
+
+### tsx
+
+- 和 jsx 基本没什么区别，只在 jsx 基础上多了类型。
+
+### 解决什么问题
+
+- 没有 jsx 之前，是用字符串或者模版字符串去写 html 标签。但这样有很多弊端。比如以下：
+  - 保留 html 格式
+  - 支持变量、字符串
+  - 支持组件：搭配 react，可支持组件，普通模版字符串不支组件
+
+```jsx
+const obj = { name: "xiaowu", age: 17, sex: "女" };
+// 普通字符串语法
+const html =
+  "<div>" + "我叫<span>" + obj.name + "</span>" + "，年龄是<span>" + obj.age + "</span>" + "，性别是<span>" + obj.sex + "</span>" + "</div>";
+// 模版字符串
+const templateHtml = `<div>
+                        我叫<span>${obj.name}</span>，
+                        年龄是<span>${obj.name}</span>，
+                        性别是<span>${obj.sex}</span>
+                      </div>`;
+// 任意函数式组件
+function MyComponent(props) {
+  const { name, age, sex } = props?.obj;
+  return (
+    <div>
+      我是子组件，表示jsx支持组件, 参数是{name}-{age}-{sex}
+    </div>
+  );
+}
+// jsx语法
+const jsxHtml = () => {
+  return (
+    <div>
+      我叫<span>{obj.name}</span>， 年龄是<span>{obj.age}</span>， 性别是<span>{obj.sex}</span>
+      <MyComponent userInfo={obj}></MyComponent>
+    </div>
+  );
+};
+```
+
+### jsx 语法
+
+- 变量 {value}
+- 类名用 className、id 和其他属性还是一样
+  - 多个 className
+- 遍历 dom 元素 map
+- 条件判断 直接三元表达式
+- 事件 onClick 小驼峰的名称格式
+- 泛型 <T,>
+- 插入 html： dangerouslySetInnerHTML
+- 空标签，减少嵌套层级：React.Fragment（用 \<\>…\</\> 简写）
+
+```tsx
+// 变量
+const fn1 = () => {
+  const name: string = "xw";
+  const num: number = 666;
+  const useInfo: object = { name: "xiaowu", age: 17 };
+  const fnInner = () => <span>test</span>;
+  return (
+    <>
+      <div>
+        {useInfo} {/* 错误示范 */}
+        {JSON.stringify(useInfo)} {/* 错误示范 */}
+        {name}
+        {num}
+        {fnInner()}
+      </div>
+    </>
+  );
+};
+
+// 复习下BEM css模块化架构
+// 前缀"xw"，
+// B：块(即功能区"-login-form") ;
+// E：元素(即部位 item、label、body、inner "__label");
+// M：修饰（即外观或行为 action, fixed "--primary"）
+
+// 绑定属性 className、id, 多个className
+const fn2 = () => {
+  const value: string = "A";
+  const myClass = "xw-login-form__label";
+  const myStyle = { display: "flex" };
+  return (
+    <div className="xw-login-form__wrap">
+      {/* class变量 */}
+      <span className={myClass} id={value} data-index={value}>
+        class变量
+      </span>
+      {/*多class & class变量 */}
+      <input className={`xw-login-input--active ${myClass}`} />
+      {/* 绑定style */}
+      <span style={myStyle}></span>
+    </div>
+  );
+};
+```
+
+```tsx
+// 遍历dom
+const fn3 = () => {
+  const list = [
+    { name: "xw", age: 17 },
+    { name: "xx", age: 16 },
+  ];
+  return (
+    <>
+      {list.map((item) => {
+        return (
+          <span>
+            {item.name}-{item.age}
+          </span>
+        );
+      })}
+    </>
+  );
+};
+```
+
+```jsx
+// 事件 on[Click]={} 小驼峰命名
+const fn4 = () => {
+  const clickFun = (params) => {
+    console.log(params);
+  };
+  return (
+    <>
+      {list.map((item) => {
+        return <span onClick={() => clickFun("参数")}>点击事件</span>;
+      })}
+    </>
+  );
+};
+// 泛型，需加一个逗号,否则被react识别为标签
+const fn4 = () => {
+  const value: string = "xiaowu";
+  const clickFun = <T，>(params: T): void => {
+    console.log(params);
+  };
+  return (
+    <>
+      {list.map((item) => {
+        return <span onClick={() => clickFun(value)}>点击事件</span>;
+      })}
+    </>
+  );
+};
+// tsx如何渲染html代码 作者为了警示html插入，特意使用属性名dangerouslySetInnerHTML，防止XSS攻击。警示程序员，不要随意使用该属性。 XSS攻击详情看 本网站安全文档。
+function App() {
+  const value: string = '<section style="color:red">xw</section>'
+  return (
+    <>
+        <div dangerouslySetInnerHTML={{ __html: value }}></div>
+    </>
+  )
+}
+
+// tsx条件判断 不用if， 用三元表达式
+function App() {
+  return (
+    <>
+        {flag ? <div>开</div> : <div>关</div> }
+    </>
+  )
+}
+```
+
+## useState 用法
+
+## React 组件
+
+- ts 类型式组件
+- 函数式组件传参 props
+
+### 函数式组件
+
+### api 调用式组件
+
+## React 组件通讯
