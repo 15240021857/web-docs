@@ -11,3 +11,5 @@
 ## 哪些体验
 
 - 如操作反馈、骨架屏、首屏优化、搜索建议、信息安全等
+- element-plus 的设计原则：https://s-test.belle.cn/zh-CN/guide/design.html
+  https://element.eleme.cn/#/zh-CN/guide/design
