@@ -1,5 +1,7 @@
 # git 规范 <Badge type="danger" text="will do" />
 
+- 参考：https://mp.weixin.qq.com/s/mfgK7PYmaX-jJoUmzvb-8A
+
 ## 项目 git 分支管理
 
 解决什么问题？

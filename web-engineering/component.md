@@ -33,6 +33,11 @@
   - 代码放在跟组件库一个目录吗？还是新创建个项目呢？github pages 只能一个主页哦
     - 所以，放两个项目吧？
 
+### 基于 element-ui 源码二次开发
+
+- 参考：https://docs.pingcode.com/ask/ask-ask/255880.html
+- 参考：https://blog.51cto.com/u_12196/10164143
+
 ## 自定义组件
 
 ## 第三方组件二次封装
