@@ -69,6 +69,9 @@ document.addEventListener("visibilitychange", function () {
 
 ## 设计模式
 
+- 浅谈前端出现率高的设计模式
+  https://mp.weixin.qq.com/s/qWZBvTF_nEBX87B4b4Xn5w
+
 ### 发布订阅
 
 ### 观察者
