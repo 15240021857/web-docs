@@ -1,13 +1,62 @@
 # 组件化
 
+## 是什么？
+
+- 一个页面往往是由一个一个的功能区域组合而成。而一个功能区域，就可以是一个组件，
+  - 例如头部组件 LayoutHeader, 侧边栏组件 LayoutSider, 主内容组件 LayoutContent。他们是布局类组件，共同组合，形成一个页面的布局，使 vue 文件的 template 结构清晰。如图。
+
+![alt text](component-layout.jpg)
+
+- 下面的 vue 布局页面是不是很清晰呢~~~
+
+```vue
+<template>
+  <div class="app">
+    // 头部
+    <LayoutHeader></LayoutHeader>
+    <section class="app-body">
+      // 侧边栏
+      <LayoutSider></LayoutSider>
+      // 主内容区
+      <LayoutContent></LayoutContent>
+    </section>
+  </div>
+</template>
+```
+
 ## 解决什么问题？
 
-- 整个项目组件，功能组件每个人五花八门，表格、弹窗、提示、表单、上传
-- 整个项目样式，主题颜色，文字大小，间距，等样式五花八门
-- 全局主题颜色切换，边距切换：因为每个组件需要有颜色，阴影，间距吧
-- 场景：做好一个合肥的项目，项目搬到巢湖也复用一下，但是主题颜色、logo 等要统一改，每个组件都要改？那工作量好大啊！--咋办？
+1. 复用：复用功能块。
 
-- 如何封装才是正确的，通用的封装思想和方案，达到举一反三
+- 例如弹窗组件，很多地方要用，不可能每个页面 ctrl+c,ctrl+v 写一大堆弹窗的 html，js, css, img。封装起来，通过插槽 slot 传入内容，就省了很多代码量和心智负担。
+
+2. 结构清晰，一目了然：
+
+- 如果没有组件化，那么一个 vue 页面的代码，是由所有的功能代码堆积而成的，几千几万行代码，要找某个代码，简直眼花缭乱，大海捞针。
+- 而组件化之后。一个功能区域一个组件。一眼就能看到该页面有哪些功能组件，非常好找！要找哪个功能的代码，直接去到那个组件即可。
+
+3. 好维护：一个组件，被大量复用，改一个，全改了，即使有个别特殊情况，也可通过 props 传参等方式做处理
+
+- 若弹窗功能没有组件化，遇到产品需求改动，我要加几个图标，要加几个按钮...等等，能全局替换还好，要是不行，还得一个个改，工作量庞大，直接头大~~~
+  - 有了组件化之后，直接改组件即可
+
+4. 前端统一：前端成员都使用一种组件，那么大家的页面，都表现一致，形成统一。而不是五花八门。
+
+5. 全局主题切换：可让组件引用:root 根样式，去支持 js 动态切换主题色等样式，
+
+- ```css
+  :root {
+    --main-font-color: "#666";
+    --headerHeight: 60px;
+  }
+  ```
+- ```js
+  // js动态改变
+  document.documentElement.style.setProperty("--main-font-color", "#333");
+  ```
+
+6. 前端资产：一个项目中好的组件，可以抽离出来，给其他项目也使用，发布 npm 包，或 npm 私仓，或加到前端组件库中，作为公司或个人的积累，都是一笔好的前端资产
+7. 提高团队和个人竞争力：提高个人组件封装能力、封装思想
 
 ## 封装单个组件
 
@@ -68,6 +117,20 @@
 
 ## js-Api 方式组件封装
 
-### el-message 组件
+### 是什么？
 
-### this.$message Api 形式组件封装
+通过 js 函数调用的方式，展示 vue 组件，如 msg 提示组件、confirm 确认弹窗等
+
+### 解决什么问题？
+
+- 设想一下，当我们提交表单或操作后，无论成功还是失败，都会弹窗消息提示框。
+- 几乎每个页面都会有 message 弹窗，那我们要在每个页面写上\<message\>组件吗？会不会太多
+- 解决办法：用 this.$customMsg 调函数形式使用： 通过把 message 组件单独做成 vue 实例，挂到 vue 上，再渲染到页面上。
+
+### 怎么做？
+
+- vue2:
+  - ComponentVueChildClass = Vue.extend(vueComponent) => instance = new ComponentVueChildClass({data, methods, mounted(){}...}) => instance.$mount() => document.body.appendChild(instance.$el)
+- vue3:
+  - createVNode, render => instance = createVNode(vueComponent, {传入 props...}) => render(instance, document.getElementById('my-node'))
+    https://blog.csdn.net/Lyrelion/article/details/128261995
