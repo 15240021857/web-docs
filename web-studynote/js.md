@@ -47,6 +47,44 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
 
 ### 垃圾回收、内存泄漏
 
+### this 指向
+
+两种情况：
+
+1. 不在函数中的 this，看环境，node 指向空对象{}，浏览器指向 window
+2. 函数中的 this,每个 function 函数都有一个特殊变量 this,它在函数被调用时被创建
+
+函数调用的四种方式
+
+1. new 类名()创建实例时，this 指向实例
+2. 函数作为对象属性时，this 指向该对象
+3. call/apply/bind 调用函数时，this 指向传入的对象
+4. 函数单独调用时，this 指向 window, 严格模式下，this 指向 undefined
+
+```js
+const a = {
+  name: "xw",
+  fun1() {
+    console.log(this.name); // xw
+  },
+  fun2: () => {
+    console.log(this); // 箭头函数没有自己的this，此处指向外部的window
+    console.log(this.name); // undefined
+  },
+  fun3() {
+    setTimeout(() => {
+      console.log(this.name); // xw
+    });
+  },
+  fun4() {
+    setTimeout(function () {
+      console.log(this); // function函数内部this指向window
+      console.log(this.name); // undefined
+    });
+  },
+};
+```
+
 ## DOM
 
 ### 页面显示隐藏 visibilitychange
