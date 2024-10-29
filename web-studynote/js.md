@@ -47,6 +47,15 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
 
 ### 垃圾回收、内存泄漏
 
+内存泄漏
+
+- https://juejin.cn/post/7232127712642547770?searchId=202410281749094035F7A0BC6F470C61A6#heading-7
+- https://juejin.cn/post/7260815743661899813
+- https://juejin.cn/post/6914092198170460168
+
+如何排查
+如何解决
+
 ### this 指向
 
 两种情况：
