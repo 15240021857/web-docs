@@ -11,13 +11,30 @@
 
 ### html 语义化
 
-### a11y
+### seo 优化
+
+### a11y 无障碍支持
+
+### html5 哪些新标签
 
 ## css
 
 - 字典：https://www.runoob.com/css/css-tutorial.html
 
+### 布局
+
+#### 圣杯布局
+
+#### 双飞翼
+
+#### flex 布局
+
 ### css 模块化
+
+是什么？
+
+1. vue css scoped 组件样式作用域
+2. BEM css 架构
 
 解决什么问题？
 
@@ -62,3 +79,11 @@ document.documentElement.style.setProperty("--main-font-color", "#333");
 ```
 
 配合 vueUse 去实现，动态改变
+
+### css 动画
+
+#### css 流光效果
+
+- 参考：https://juejin.cn/post/6966482130020859912
+
+#### vue transition 标签动画
