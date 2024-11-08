@@ -43,6 +43,19 @@
 
 ![commitlint规范图](image.png)
 
+## 已有项目上传到 github 仓库
+
+```git
+git add .
+git commit -m "init"
+git remote add origin git-https地址
+git push -u origin master
+
+若远程仓库已有文件
+则需先git pull origin master
+若失败，可尝试 git pull origin master --allow-unrelated-histories
+```
+
 ## 关联远程和本地仓库 --allow-unrelated-histories
 
 - 当想把本地新项目代码提交到 git 仓库，
