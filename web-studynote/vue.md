@@ -28,6 +28,15 @@ vue 是构建用户界面的 js 库，我们只需关注数据，专注业务代
 - 知道如何迁移，则知道 vue3 和 vue2 的不同，以及提升
 - https://v3-migration.vuejs.org/zh/
 
+## vue2 为什么选择重构成 vue3？
+
+- 因为 vue2 中期才加入 Flow 的类型检查, 类型覆盖并不完整，而 Flow 本身又破坏性更新频繁，工具链支持不理想。
+- 所以 vue3 的类型检查用 typescript 重写。
+- vite 会替代 webpack 吗？完全取代应该不可能，vite 的目标不是替代 webpack。
+  - webpack 有巨大的存量
+  - webpack 有些是 vite 不打算覆盖的功能（如模块联邦 module federation）
+  - webpack 的复杂度和性能代价，对于大部分的中小型应用并无必要
+
 ## vue3 相对于 vue2 的新特性
 
 - 组合式 api
@@ -155,14 +164,20 @@ Vue2.6.0 以前 用 slot、slot-scoped
 <template>
   <el-input v-model="xx">
     <template slot="prefix">
-      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
     </template>
   </el-input>
 </template>
 <!-- 父组件Parent.vue -->
 <template>
   <Child>
-    <div slot="prefix" slot-scope="{ name, age }">
+    <div
+      slot="prefix"
+      slot-scope="{ name, age }"
+    >
       <span>{{ name + " - " + age }}</span>
     </div>
   </Child>
@@ -176,7 +191,10 @@ Vue2.6.0 以后，用 v-slot 或#, 废弃 slot、slot-scoped
 <template>
   <el-input v-model="xx">
     <template #prefix>
-      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
     </template>
   </el-input>
 </template>
@@ -197,7 +215,10 @@ Vue3 用 v-slot 或#, 同 Vue2.6.0 以后
 <template>
   <el-input v-model="xx">
     <template v-slot:prefix>
-      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
     </template>
   </el-input>
 </template>
