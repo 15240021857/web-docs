@@ -43,15 +43,20 @@
 - SQL 语句: SELECT \* FROM Articles WHERE like "%文章 10%"：
   - 意思是 "文章 10" 两个%号 前后允许任意字符。
 - SQL Orm 语法：
+
+```js
   - import {Op} from "sqlitexxx"
   - const condition = "\{ title: \{ \[Op.like\]: `\%\$\{req.query.title\}\%` \}\}"
   - const articles = Article.findAll(condition)
+```
 
 ### 分页
 
 - SQL 语句： SELECT \* from Articles WHERE LIMIT 0, 10
   - 意思是 分页查找文章，从第 0 条开始，查 10 条
 - SQL Orm 语法：
+
+```js
   - const {currentPage, pageSize} = req.query
   - const conditions = {
     title: "\{ \[Op.like]: `\%\$\{req.query.title\}\%` \}",
@@ -59,6 +64,7 @@
     limit: pageSize
     }
   - const {count, rows} = Arcitles.findAndCountAll(conditions)
+```
 
 ### 参数白名单过滤
 
@@ -67,3 +73,9 @@
 - 解决办法：后台服务只使用和插入需要的请求参数即可
 
 ### 参数验证
+
+- 用户传的参数必须验证
+- 验证可用 sequelize model 定义时进行验证
+- https://www.sequelize.cn/core-concepts/validations-and-constraints
+- allowNull：是否允许不传 allowEmpty: 是否运行空值""
+- 在 errors 中接收错误，若是验证错误返回 status: 400; 若是服务错误则返回 500

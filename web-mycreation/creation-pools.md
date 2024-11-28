@@ -15,6 +15,8 @@ todo
 ### !!!node 做博客管理后台 api 服务
 
 - 理清思路，再做，非常清晰，若直接做，则很乱 +使用 docker 搭建 windows 环境，安装 sql +创建 sql 数据库，创建表，
+
+```js
 - +node 服务通过 squlize orm 去连接数据库， +创建 model， +创建迁移文件 +创建种子，批量插入表数据 +文章详情，通过路由参数去获取 router.get('/:id', (req, res) => { const id = req.param.id })
 - +sql orm 语句：const article = Article.findByPk(id) +若找不到 article, 则 res.status(404).json({data: article, msg: '文章不存在'})
 
@@ -29,6 +31,7 @@ todo
 * sql update 语句更新文章 model 的 await article.update(req.body)
 * 200 若查到 res.json(data: article, msg: 更新文章成功) +没查到 res.status(200).json({code: 404,msg: '没找到'})
 * 500
+```
 
 ## !!vue2 new Vue
 
