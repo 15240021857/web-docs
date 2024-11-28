@@ -44,7 +44,7 @@
   - 意思是 "文章 10" 两个%号 前后允许任意字符。
 - SQL Orm 语法：
   - import {Op} from "sqlitexxx"
-  - const condition = "{ title: { [Op.like]: `%${req.query.title}%` }}"
+  - const condition = "\{ title: \{ \[Op.like\]: `\%\$\{req.query.title\}\%` \}\}"
   - const articles = Article.findAll(condition)
 
 ### 分页
@@ -54,7 +54,7 @@
 - SQL Orm 语法：
   - const {currentPage, pageSize} = req.query
   - const conditions = {
-    title: "{ [Op.like]: `%${req.query.title}%` }",
+    title: "\{ \[Op.like]: `\%\$\{req.query.title\}\%` \}",
     offset: (currentPage - 1)\*pageSize,
     limit: pageSize
     }
