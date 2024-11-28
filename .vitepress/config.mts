@@ -24,7 +24,7 @@ export default defineConfig({
     ],
     lastUpdated: {
       // text: 'Updated at',
-      formatOptions: { dateStyle: 'short',  timeStyle: 'short' }
+      formatOptions: { dateStyle: 'short', timeStyle: 'short' }
     },
     sidebar: [
       {
@@ -49,8 +49,10 @@ export default defineConfig({
       {
         text: '个人作品',
         items: [
+          { text: '待做作品池', link: '/web-mycreation/creation-pools' },
           { text: '即时通讯app', link: '/web-mycreation/chat-app' },
           { text: '前端博客', link: '/web-mycreation/web-docs' },
+          { text: 'express博客接口服务', link: '/web-mycreation/node-blog' },
         ]
       },
       {
@@ -106,5 +108,5 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/15240021857/web-docs' }
     ]
   },
-  
+
 })
