@@ -55,6 +55,22 @@ vue 是构建用户界面的 js 库，我们只需关注数据，专注业务代
 
 - 以下是一些知识点
 
+## new Vue() 和 vue3 的 createApp()
+
+- new Vue()是 vue2 创建应用实例的实例化方法。
+- createApp(App) 是 vue3 创建应用实例的方法。
+
+### createApp 做了什么？
+
+简单一句话概括：createApp 就是根据传入的根组件，解析并创建新的应用实例，包含设置响应式数据、虚拟 dom、渲染函数等，最终返回应用实例，调用 mount 方法挂载到页面上。
+
+1. 解析根实例，解析模版，脚步，样式
+2. 创建应用实例，根据根组件创建一个新的实例，包含核心功能，如响应式数据，虚拟 dom，渲染函数等
+3. 配置应用实例，通过 use,component 等方式添加全局方法，属性，指令，插件等
+4. 返回应用实例，挂载实例并启动应用
+
+### new Vue 之后做了什么？
+
 ## 虚拟 dom & diff 算法
 
 ### 虚拟 dom
@@ -164,20 +180,14 @@ Vue2.6.0 以前 用 slot、slot-scoped
 <template>
   <el-input v-model="xx">
     <template slot="prefix">
-      <slot
-        name="prefix"
-        :data="{ name: 'xiaowu', age: 17 }"
-      ></slot>
+      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
     </template>
   </el-input>
 </template>
 <!-- 父组件Parent.vue -->
 <template>
   <Child>
-    <div
-      slot="prefix"
-      slot-scope="{ name, age }"
-    >
+    <div slot="prefix" slot-scope="{ name, age }">
       <span>{{ name + " - " + age }}</span>
     </div>
   </Child>
@@ -191,10 +201,7 @@ Vue2.6.0 以后，用 v-slot 或#, 废弃 slot、slot-scoped
 <template>
   <el-input v-model="xx">
     <template #prefix>
-      <slot
-        name="prefix"
-        :data="{ name: 'xiaowu', age: 17 }"
-      ></slot>
+      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
     </template>
   </el-input>
 </template>
@@ -215,10 +222,7 @@ Vue3 用 v-slot 或#, 同 Vue2.6.0 以后
 <template>
   <el-input v-model="xx">
     <template v-slot:prefix>
-      <slot
-        name="prefix"
-        :data="{ name: 'xiaowu', age: 17 }"
-      ></slot>
+      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
     </template>
   </el-input>
 </template>

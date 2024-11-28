@@ -189,35 +189,6 @@ isNull(1) // false
 isString('xiaowu') // true
 ```
 
-- 2.解决向已定义的函数，另追加参数，如 el-input/el-select 的 change 事件函数。
-  - e 形参 是 el-select 自带的参数，但我们自己想传入参数怎么办呢？
-
-```js
-// 不带参
- <el-select @change="changeFun">
- {/* 带参 */}
- <el-select @change="changeFunMyParam($event, myParam)">
- {/* 带参 - 柯里化 */}
- <el-select @change="changeFunMyWrap(myParam)">
- <script>
-    {/* 常规用法 - 不带参 */}
-    const changeFun = (e) => {
-        console.log(e)
-    }
-    {/* 带参数 */}
-    const changeFunMyParam = (e, param) => {
-        console.log(e,param)
-    }
-    {/* 带参数 - 柯里化 */}
-    const changeFunMyWrap = (param) => {
-        return (e) => {
-            console.log(e,param)
-        }
-    }
-
-</script>
-```
-
 ## 多 Tab 页面数据同步
 
 - 参考:https://mp.weixin.qq.com/s/HaerhlTwnEkudPgp7gENFw
@@ -239,3 +210,8 @@ isString('xiaowu') // true
 - MessageChannel
 - boardCastChannel
 - ...
+
+## js 去处理文件、二进制数据、数据转换
+
+- 参考：https://mp.weixin.qq.com/s/MTce8DjP1jxQ7IqXp8PgpA
+- file、FileReader、Blob、Arraybuffer, base64, Object URL 和 DataURL
