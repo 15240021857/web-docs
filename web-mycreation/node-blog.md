@@ -16,7 +16,7 @@
   - express
 - 数据库
   - mysql
-  - sequlize-orm
+  - sequelize -orm: 用到啥，查文档即可
 - 容器
   - docker
 
@@ -44,7 +44,7 @@
   - 意思是 "文章 10" 两个%号 前后允许任意字符。
 - SQL Orm 语法：
   - import {Op} from "sqlitexxx"
-  - const condition = { title: { [Op.like]: `%${req.query.title}%` }}
+  - const condition = "{ title: { [Op.like]: `%${req.query.title}%` }}"
   - const articles = Article.findAll(condition)
 
 ### 分页
@@ -54,7 +54,7 @@
 - SQL Orm 语法：
   - const {currentPage, pageSize} = req.query
   - const conditions = {
-    title: { [Op.like]: `%${req.query.title}%` },
+    title: "{ [Op.like]: `%${req.query.title}%` }",
     offset: (currentPage - 1)\*pageSize,
     limit: pageSize
     }
@@ -65,3 +65,5 @@
 - 防止用户传了 意外的变量如 id， payStatus 字段 意外的改变了数据库数据，造成损失
 - 用户利用特殊手段如 apifox, postman 等 传参
 - 解决办法：后台服务只使用和插入需要的请求参数即可
+
+### 参数验证
