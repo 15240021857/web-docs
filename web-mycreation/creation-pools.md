@@ -69,10 +69,10 @@ https://mp.weixin.qq.com/s/ZXEBwLhSJqJxnbl7nxAC6w
 
 ### 电商
 
-- +sku&spu：https://www.bilibili.com/video/BV1y8411k7Kt?spm_id_from=333.788.recommend_more_video.2&vd_source=0a9cf58dffb3a15fec3f7d7d77eea1df
-- +sku：https://www.bilibili.com/video/BV1XX4y1d7dM/?vd_source=0a9cf58dffb3a15fec3f7d7d77eea1df
-- +sku store keeping unit 对仓库：仓库管理商品存储的最小颗粒单位 对商超：售卖商品的最小存储单位-一个 sku 对应一串条形码； +如中华烟 一包 42 块钱 一盒 420 元；乔丹鞋-42 码-红色=500 块；而乔丹鞋-43 码-红色=600 块；这些都是不同的 sku, 可存储最小单元和定价最小单元。
-- +spu Single product unit 商品款式最小单位；即乔丹鞋，科比鞋，就是不同的 spu，不同的商品。
+- sku&spu：https://www.bilibili.com/video/BV1y8411k7Kt?spm_id_from=333.788.recommend_more_video.2&vd_source=0a9cf58dffb3a15fec3f7d7d77eea1df
+- sku：https://www.bilibili.com/video/BV1XX4y1d7dM/?vd_source=0a9cf58dffb3a15fec3f7d7d77eea1df
+- sku store keeping unit 对仓库：仓库管理商品存储的最小颗粒单位 对商超：售卖商品的最小存储单位-一个 sku 对应一串条形码； +如中华烟 一包 42 块钱 一盒 420 元；乔丹鞋-42 码-红色=500 块；而乔丹鞋-43 码-红色=600 块；这些都是不同的 sku, 可存储最小单元和定价最小单元。
+- spu Single product unit 商品款式最小单位；即乔丹鞋，科比鞋，就是不同的 spu，不同的商品。
 
 ### 物联网
 

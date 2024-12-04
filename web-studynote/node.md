@@ -40,6 +40,26 @@
 
 ### 能做什么？不能做什么？
 
+## MYSQL
+
+- 表语句
+  - 查询
+    - 查询列 SELECT id,name FROM `user`
+    - 查询所有列 SELECT \* FORM `user`
+    - 排序 SELECT \* FORM `user` ORDER BY [id 列名] [DESC 降序 ASC 升序]
+    - 分页 SELECT \* FORM `user` LIMIT 0,3 从第 0 行开始，查 3 条
+    - 条件查询 SELECT \* FORM `user` WHERE name='小吴'
+    - 联合查询 WHERE name='小吴' AND age<=20
+      - WHERE name='小吴' OR age<=22
+    - 模糊查询 WHERE name LIKE '%满%';
+      - '满'字前后有字符都满足
+      - '*吴%'，*是占位字符，此处是代表一个
+  - 新增
+    - 新增一个 INSERT INTO user(`name`, `age`,`hobby`) VALUES('xiaowu', 20, 'music')
+    - 新增多个：逗号隔开即可 VALUES('xiaowu', 20, 'music'),('xiaowu2', 20, 'music')
+  - 编辑
+    - 编辑一个 UPDATE `user`
+
 ## 部署
 
 ### PM2

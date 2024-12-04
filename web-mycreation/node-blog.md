@@ -79,3 +79,14 @@
 - https://www.sequelize.cn/core-concepts/validations-and-constraints
 - allowNull：是否允许不传 allowEmpty: 是否运行空值""
 - 在 errors 中接收错误，若是验证错误返回 status: 400; 若是服务错误则返回 500
+
+### 复习：
+- nodejs常用命令：
+  - npm i express-generator -g
+  - express node-blog --no-template
+  - 创建脚手架项目
+- express路由配置
+ - express-router: router.get('/',() =>{...})
+ - app.use('admin/article', articleRouter) 文章路由都是由admin/article开头
+- RESTful风格路由
+ - 路径相同，根据动态参数不同，或方法不同，来区别不同路由

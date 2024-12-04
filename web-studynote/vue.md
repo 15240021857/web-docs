@@ -180,14 +180,20 @@ Vue2.6.0 以前 用 slot、slot-scoped
 <template>
   <el-input v-model="xx">
     <template slot="prefix">
-      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
     </template>
   </el-input>
 </template>
 <!-- 父组件Parent.vue -->
 <template>
   <Child>
-    <div slot="prefix" slot-scope="{ name, age }">
+    <div
+      slot="prefix"
+      slot-scope="{ name, age }"
+    >
       <span>{{ name + " - " + age }}</span>
     </div>
   </Child>
@@ -201,7 +207,10 @@ Vue2.6.0 以后，用 v-slot 或#, 废弃 slot、slot-scoped
 <template>
   <el-input v-model="xx">
     <template #prefix>
-      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
     </template>
   </el-input>
 </template>
@@ -222,7 +231,10 @@ Vue3 用 v-slot 或#, 同 Vue2.6.0 以后
 <template>
   <el-input v-model="xx">
     <template v-slot:prefix>
-      <slot name="prefix" :data="{ name: 'xiaowu', age: 17 }"></slot>
+      <slot
+        name="prefix"
+        :data="{ name: 'xiaowu', age: 17 }"
+      ></slot>
     </template>
   </el-input>
 </template>
@@ -268,3 +280,18 @@ Vue3 用 v-slot 或#, 同 Vue2.6.0 以后
 - VueUse 是专门为 Vue 打造的工具库。提供了监听浏览器元素各种行为、和浏览器提供的蓝牙、定位、摄像头、连接游戏手柄等能力。适用于 vue2(???)和 vue3。
   （这个描述非常简洁到位，说了是什么，说了能做什么，提供了什么功能，适合什么！）
 - 参考资料：https://juejin.cn/post/7313979304512831539
+
+### vue 组件间通信
+
+- props / defineProps
+- $emit / defineEmits
+- 自定义事件
+- $attrs / useAttrs
+  - $listeners/useListeners
+- provide/inject
+- vue2: eventBus / vue3: mitt
+- Vuex / pinia
+- $parent/$children + defineExpose
+- $refs + defineExpose
+- $root + defineExpose???
+- v-model 双向绑定
