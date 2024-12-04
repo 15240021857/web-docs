@@ -283,15 +283,23 @@ Vue3 用 v-slot 或#, 同 Vue2.6.0 以后
 
 ### vue 组件间通信
 
-- props / defineProps
-- $emit / defineEmits
-- 自定义事件
-- $attrs / useAttrs
+- 父子：props / defineProps
+- 父子：$emit / defineEmits
+- 父子：$attrs / useAttrs
   - $listeners/useListeners
-- provide/inject
-- vue2: eventBus / vue3: mitt
-- Vuex / pinia
-- $parent/$children + defineExpose
-- $refs + defineExpose
-- $root + defineExpose???
-- v-model 双向绑定
+  - $slots/useSlots
+    - 普通插槽：传 html 结构
+    - 作用域插槽: 传 html 结构 + 数据
+- 父子：$parent/$children + defineExpose
+- 父子：子组件 ref + defineExpose
+  - 可调子组件方法，从而传参
+  <!-- - $root + defineExpose??? -->
+- 父子：v-model 双向绑定
+  - vue2: v-model + .sync
+  - vue3: v-model + v-model:xxx
+- 爷孙：provide/inject
+- 任意：发布订阅
+  - vue2: eventBus
+  - vue3: mitt
+  - 自定义事件 new Event()
+- 任意：Vuex / pinia
