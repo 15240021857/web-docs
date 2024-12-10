@@ -281,7 +281,7 @@ Vue3 用 v-slot 或#, 同 Vue2.6.0 以后
   （这个描述非常简洁到位，说了是什么，说了能做什么，提供了什么功能，适合什么！）
 - 参考资料：https://juejin.cn/post/7313979304512831539
 
-### vue 组件间通信
+## vue 组件间通信
 
 - 父子：props / defineProps
 - 父子：$emit / defineEmits

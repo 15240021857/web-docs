@@ -54,13 +54,39 @@
     - 模糊查询 WHERE name LIKE '%满%';
       - '满'字前后有字符都满足
       - '*吴%'，*是占位字符，此处是代表一个
-  - 新增
+  - 新增 INSERT INTO
     - 新增一个 INSERT INTO user(`name`, `age`,`hobby`) VALUES('xiaowu', 20, 'music')
     - 新增多个：逗号隔开即可 VALUES('xiaowu', 20, 'music'),('xiaowu2', 20, 'music')
-  - 编辑
-    - 编辑一个 UPDATE `user`
+  - 编辑 UPDATE SET
+    - 编辑一个 UPDATE `user` SET name='xiaowu',age=20 WHERE id=1
+  - 删除 DELETE
+    - 单删：DELETE FROM `user` WHERE id=1
+    - 批量：DELETE FROM `user` WHERE id IN(1,2,3)
 
 ## 部署
+
+### nginx 部署
+
+- 前端项目
+  - 购买云服务器【阿里云，腾讯云...】
+  - 打包前端
+  - 上传到服务器
+    - xshell 连接服务器
+    - xftp 上传前端 dist 文件到/root/www 下
+  - 安装 nginx
+    - cd /etc 下
+    - nginx： yum install nginx
+    - 配置 nginx： vim /etc/nginx/nginx.conf
+      - 按 INSERT 键进入编辑模式
+      - 将用户名修改为 root
+      - location / {
+        root /root/www;
+        index index.html index.htm;
+        try_files $uri $uri/ /index.html;
+        }
+      - 按 ESC 键退出编辑模式，按:wq 保存退出
+      - 重启 nginx： systemctl restart nginx
+      - 访问云服务器外网 ip 加端口即可访问
 
 ### PM2
 
