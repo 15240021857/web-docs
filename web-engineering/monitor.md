@@ -11,9 +11,11 @@
   - 封装 try-catch，因为给每个都包 try-catch 很麻烦
   - ```js
     // 异常捕获处理 async/await
-    export async function asyncFunWithTrycatch({ asyncFun, data, fail, complete }) {
+    export async function asyncFunWithTrycatch(asyncFun, opts) {
+      const { success, fail, complete } = opts || {};
       try {
-        const res = await asyncFun(data);
+        const res = await asyncFun;
+        success && success(res);
         return [null, res];
       } catch (error) {
         console.error("try-catch捕获", error);
@@ -48,3 +50,46 @@
 ### Sentry 第三方监控系统
 
 - 前端异常监控之 的部署和使用
+
+#### sentry 异常监控
+
+- 现状
+  被动应对：线上问题靠测试和客户工单，客户发现问题或投诉。
+- 解决什么问题？
+  - 实时感知：线上问题
+  - 主动定位错误，行为还原
+  - 埋点分析，热力分析，业务发展提供数据依据
+- 考量
+
+  - 报错信息的全面和 性能消耗的取舍
+  - 获取异常信息自动上报
+
+- 异常采集哪些内容
+  - 1.用户信息，当前时刻的状态，权限，那个设备端
+  - 2.用户所在界面路径，执行哪些操作，操作时使用的哪些数据
+  - 3.异常信息:操作 dom 元素，stack 堆栈信息，异常类型，级别
+  - 4.环境信息：网络环境，设备信号，客户端版本，api 接口版本等
+- 异常捕获
+  - 代码块 try-catch：只能捕获同步运行错误，缺点：语法、异步错误无法捕捉
+  - window.onerror: 全局捕获，缺点: 无法捕获异步, 无法网络资源加载错误
+    无法捕获跨域资源错误
+  - window.addEventListener("error"): 跟 onerror 一样，多一个网络资源错误
+    跟 onerror 有重复
+  - window.addEventListener("unhandledrejection"): 捕获 promise 异常
+  - iframe 异常：借助 window.onerror
+  - 崩溃和卡顿：
+    - window.load 和 window.beforeload
+    - sevice worker 开启一个线程去 网页崩溃的监控
+  - 第三方库的捕获：
+    - vue.config.errorHandler 和 React ErrorBoundary
+- 统计分析
+- 报告告警：
+  - 生成报表：日、周，月 报表
+  - 邮件
+- Sentry 哨兵
+  - 监控项目运行状态，而不依赖于用户上报和反馈
+  - 主动发现产线问题，快速修复 bug
+  - npm 下载量，这两年稳步上升
+  - 打包后 20K，比较小
+  - saas 版本，私有化部署
+  - 集成 gitlab,git hook

@@ -63,6 +63,18 @@
     - 单删：DELETE FROM `user` WHERE id=1
     - 批量：DELETE FROM `user` WHERE id IN(1,2,3)
 
+## RESTful API
+
+- RESTful API 是一种 API 设计风格，即表现层状态转化，是一种设计风格，而不是标准。
+- RESTful API 设计规范
+  - URL 中使用名词，不使用动词
+  - URL 使用小写字母
+  - URL 使用连字符 - 而不是下划线 \_
+  - URL 尽量使用复数形式
+  - URL 使用 RESTful 风格的动词，如 GET、POST、PUT、DELETE 等
+  - URL 使用 RESTful 风格的参数，如 ?page=1&size=10
+- 原则：对单个资源的操作，id 建议放在路径中，如 /users/1；对多个资源的操作，id 建议放在参数中。
+
 ## 部署
 
 ### nginx 部署
