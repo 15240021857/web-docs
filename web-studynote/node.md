@@ -65,7 +65,7 @@
 
 ## RESTful API
 
-- RESTful API 是一种 API 设计风格，即表现层状态转化，是一种设计风格，而不是标准。
+- RESTful API 是一种 API 设计风格，是一种设计风格，而不是标准。
 - RESTful API 设计规范
   - URL 中使用名词，不使用动词
   - URL 使用小写字母
