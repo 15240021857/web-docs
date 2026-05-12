@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   base: '/web-docs/',
   title: "Web-docs",
-  description: "前端文档与规范",
+  description: "前端资产",
   head: [['link', { rel: 'icon', href: '/web-docs/favicon.ico' }]],
   vite: {
     build: {
@@ -48,9 +48,11 @@ export default defineConfig({
         ]
       },
       {
-        text: '个人作品',
+        text: '个人作品及成果',
         items: [
           { text: '待做作品池', link: '/web-mycreation/creation-pools' },
+          { text: '智能聊天桌面端', link: '/web-mycreation/electron-chat-pc' },
+          { text: '大屏可视化', link: '/web-bigscreen/index' },
           { text: '即时通讯app', link: '/web-mycreation/chat-app' },
           { text: '前端博客', link: '/web-mycreation/web-docs' },
           { text: 'express博客接口服务', link: '/web-mycreation/node-blog' },
@@ -83,9 +85,12 @@ export default defineConfig({
         ]
       },
       {
-        text: '大屏可视化',
+        text: '架构设计与落地',
         items: [
-          { text: '可视化', link: '/web-bigscreen/index' }
+          { text: '架构', link: '/web-architecture/architecture' },
+          { text: '网站登录鉴权设计', link: '/web-architecture/login-auth' },
+          { text: '低代码平台', link: '/web-architecture/lower-code' },
+          { text: '微前端', link: '/web-architecture/micro-web' },
         ]
       },
       {
