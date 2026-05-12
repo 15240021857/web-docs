@@ -94,6 +94,12 @@ export default defineConfig({
         ]
       },
       {
+        text: 'AI人工智能',
+        items: [
+          { text: 'AI开发项目', link: '/web-ai/project-dev'}
+        ]
+      },
+      {
         text: '软技能',
         items: [
           { text: '设计工具', link: '/web-design/index' },
