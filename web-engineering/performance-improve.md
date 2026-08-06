@@ -1,6 +1,74 @@
 # 性能优化 <Badge type="warning" text="doing" />
 
 ## 是什么？
+- 从不同维度去对前端项目进行性能优化，包括上线前，上线后，及用户使用体验等环节。
+- 这是一个非常系统，包括前端项目的各个阶段的优化
+
+# 2026年及以后
+
+## 哪些维度
+- 网络
+- 资源加载维度
+
+## 分维度进行说明，落地，量化
+
+## 具体实施
+### 资源加载优化-图片优化
+- 格式优化：avif、webp、png 利用picture 进行降级处理
+  - vite项目，配合vite插件vite-plugin-image-optimization,把项目图片生成avif,webp格式
+- 移动端或H5 做图片优化
+  - 普通图可做清晰度优化：用picture的source的srcset 去自适应处理
+  - 大图用响应式图片去节省流量：用picture的source的srcset、sizes 去自适应处理
+```vue
+  <!-- 格式优化 -->
+  <picture>
+    <source srcset="image.avif" type="image/avif">
+    <source srcset="image.webp" type="image/webp">
+    <img src="image.png" alt="image">
+  </picture>
+  <!-- 普通图可做清晰度优化 -->
+  <picture>
+    <source srcset="
+      image.avif 1x,
+      image.avif@2x 2x"
+    type="image/avif">
+    <source srcset="
+      image.webp 1x,
+      image.webp@2x 2x"
+    type="image/webp">
+    <img src="
+      image.png 1x,
+      image.png@2x 2x"
+    " alt="image">
+  </picture>
+  <!-- 大图用响应式图片去节省流量 -->
+  <picture>
+    <source srcset="
+      image-400.avif 400,
+      image-800.avif 800,
+      image-1200.avif 1200"
+    sizes="(max-width:768px) 100vw, 1200px"
+    type="image/avif">
+    <source srcset="
+      image-400.webp 400,
+      image-800.webp 800,
+      image-1200.webp 1200"
+    sizes="(max-width:768px) 100vw, 1200px"
+    type="image/webp">
+    <img 
+      src="
+        image-400.png 400,
+        image-800.png 800,
+        image-1200.png 1200"
+      sizes="(max-width:768px) 100vw, 1200px"
+    " alt="image">
+  </picture>
+```
+
+
+# 2025年以前
+
+## 是什么？
 
 - 开发时、webpack/vite 编译构建时：
   - 从开发效率出发，为了让前端服务启动更快，热更新更快，打包构建更快。
