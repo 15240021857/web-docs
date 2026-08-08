@@ -4,7 +4,7 @@
 
 - js 是网页的脚本语言，是让网页动起来。
   - 1991年开始，web1.0时期第一个网站出现，网页是静态只读的，只能看文章和新闻等，没有如轮播图、没有数据可视化，没有交互效果，发送请求会刷新页面，很不友好。如当时的新浪，搜狐等。
-  - 2004年开始出现facebook这种社交互动网站，web2.0时期，有了 js 之后，它不仅只读，它还能写，它可以让你的网页动起来，能互动，能创造内容发视频，能点赞等等。如根据 ajax 请求动态获取数据更新页面，地图交互，2D/3D 动画等。
+  - 2004年开始进入web2.0时期，陆续出现facebook这种社交互动网站，，有了 js 之后，它不仅只读，它还能写，它可以让你的网页动起来，能互动，能创造内容发视频，能点赞等等。如根据 ajax 请求动态获取数据更新页面，地图交互，2D/3D 动画等。
 - Javascript 简称 JS, 是动态脚步语言，是解释型的。支持基于原型编程，并且支持面向对象、声明式、函数式编程范式。也被用到了很多非浏览器环境中，如 node.js 后端、跨平台。
 
   - 解释型语言
@@ -42,6 +42,17 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
 ## 经典实用技术知识
 
 ### 类型判断
+- 基本类型Number, String, Boolean, Undefined, Symbol, 
+- null 用 val === null判断，因为 typeof null = object
+- 内置类型 用instanceof 或 Object.prototype.toString.call()，能判断很多类型，但不支持自定义class
+- 自定义class 用instanceof， 如果没定义[Symbol.toStringTag]，Object.prototype.toString.call() 会返回 [object Object]
+- isObject() 即非null 引用类型 val !== null && typeof val === 'object', 这里不包含纯对象{}
+- isPlainObject 即纯{}或new Object()或自定义class Object.prototype.toString.call() 会返回 [object Object]
+- 数组 Array.isArray()
+- isPromise() vue内部用鸭子类型，isObject(val) && isFunction(val.then) && isFunction(val.catch)
+  - isFunction(val) 用typeof val === 'function'
+  - isObject(val) 用val !== null && typeof val === 'object'
+- isRef, isReactive, isVNode js中难判断，在vue中会有类型标记，如__v_isRef, __v_isReactive, __v_isVNode
 
 ### 闭包、事件委托
 
@@ -52,7 +63,63 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
 ### es6+ 新增特性
 
 ### 浅拷贝，深拷贝和循环引用
-- 循环引用用weakMap 解决
+- 浅拷贝：
+  - 基本类型：直接赋值
+  - 引用类型：赋值的是引用地址，不是引用本身
+- 深拷贝：
+  - 基本类型：直接赋值
+  - 引用类型：递归赋值
+    - 递归赋值，将源对象的所有属性，包括引用类型的属性，都赋值给新对象
+    - 注意：递归赋值遇到循环引用，会无限递归，导致栈溢出
+      - 解决方法：用 weakMap 解决，weakMap 是弱引用的map，当源对象key销毁，weakMap的value也会被销毁。
+      - 过程：
+        - 在递归赋值属性前，将源对象和新对象的引用地址存到 weakMap 中
+        - 递归赋值属性时，先判断源对象是否在 weakMap 中，若在，直接返回新对象的引用地址，避免无限递归。
+```js
+const deepClone = (obj, cache = new WeakMap()) => {
+  if(obj === null || typeof obj !== 'object') {
+    return obj
+  }
+  // 处理Date, RegExp， Map.Set，Function等特殊类型
+  if(obj instanceof Date) {
+    return new Date(obj.getTime())
+  }
+  if(obj instanceof RegExp) {
+    return new RegExp(obj.source, obj.flags)
+  }
+  if(obj instanceof Map) {
+    return new Map(obj)
+  }
+  if(obj instanceof Set) {
+    return new Set(obj)
+  }
+  if(obj instanceof Function) {
+    return obj
+  }
+  // 如果cache中有obj, 就把刚刚对应创建的新对象返回
+  if(cache.has(obj)) {
+    return cache.get(obj)
+  }
+  // 如果cache中没有obj, 就创建一个新的对象
+  let newObj = Array.isArray(obj) ? [] : {};
+  cache.set(obj, newObj)
+  obj.forEach((item,key) => {
+    newObj[key] = deepClone(item, cache);
+  })
+  return newObj
+}
+
+// 使用
+const obj = {
+  name: 'xw',
+  age: 18
+}
+// 循环引用
+obj.important = obj
+const cloneObj = deepClone(obj)
+console.log(cloneObj)
+console.log(cloneObj.important)
+```
 
 ### 性能优化指标
 
