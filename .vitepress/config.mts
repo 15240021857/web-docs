@@ -3,9 +3,9 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: '/web-docs/',
-  title: "Web-docs",
+  title: "Wu's FE",
   description: "前端资产",
-  head: [['link', { rel: 'icon', href: '/web-docs/favicon.ico' }]],
+  head: [['link', { rel: 'icon', href: '/web-docs/wu.ico' }]],
   vite: {
     build: {
       emptyOutDir: true
@@ -13,7 +13,7 @@ export default defineConfig({
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/web-isMoney.png',
+    logo: '/dest-logo.png',
     outline: {
       level: [2, 3]
     },
@@ -27,6 +27,19 @@ export default defineConfig({
       formatOptions: { dateStyle: 'short', timeStyle: 'short' }
     },
     sidebar: [
+      {
+        text: '个人作品及成果',
+        items: [
+          { text: '待做作品池', link: '/web-mycreation/creation-pools' },
+          { text: '智能聊天桌面端', link: '/web-mycreation/electron-chat-pc' },
+          { text: '前端博客', link: '/web-mycreation/web-docs' },
+          // { text: '大屏可视化', link: '/web-bigscreen/index' },
+          // { text: 'AI试衣app', link: '/web-mycreation/chat-app' },
+          { text: 'cli脚手架', link: '/web-mycreation/cli' },
+          // { text: '即时通讯app', link: '/web-mycreation/chat-app' },
+          { text: 'express博客接口服务', link: '/web-mycreation/node-blog' },
+        ]
+      },
       {
         text: '学习笔记',
         items: [
@@ -47,17 +60,7 @@ export default defineConfig({
           { text: '数据结构与算法', link: '/web-studynote/data-structure' }
         ]
       },
-      {
-        text: '个人作品及成果',
-        items: [
-          { text: '待做作品池', link: '/web-mycreation/creation-pools' },
-          { text: '智能聊天桌面端', link: '/web-mycreation/electron-chat-pc' },
-          { text: '大屏可视化', link: '/web-bigscreen/index' },
-          { text: '即时通讯app', link: '/web-mycreation/chat-app' },
-          { text: '前端博客', link: '/web-mycreation/web-docs' },
-          { text: 'express博客接口服务', link: '/web-mycreation/node-blog' },
-        ]
-      },
+      
       {
         text: '前端工程化',
         items: [
@@ -120,5 +123,9 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/15240021857/web-docs' }
     ]
   },
-
+  markdown: {
+    image: {
+      lazyLoading: true,
+    }
+  }
 })

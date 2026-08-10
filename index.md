@@ -4,28 +4,33 @@ layout: home
 
 hero:
   # name: "前端文档与规范"
-  name: "前端资产"
-  text: "Web-docs of xiaowu"
+  name: "吴的前端小世界"
+  text: "Wu's FrontEnd Home"
   # tagline: "web is money"
   image:
-    src: /web-isMoney.png
+    src: /fe-banner.png
     alt: web工程图
   actions:
     - theme: brand
+      text: 个人作品
+      link: /web-mycreation/electron-chat-pc
+    - theme: alt
+      text: 经验积累
+      link: /web-engineering/performance-improve
+    - theme: alt
       text: 学习笔记
       link: /web-studynote/ts
     - theme: alt
-      text: 前端工程化
-      link: /web-engineering/performance-improve
-    - theme: alt
-      text: 前端规范
-      link: /web-standard/annotation
+      text: 流程规范
+      link: /web-standard/git
 
 features:
-  - title: 学习笔记
-    details: 通过学习，理解，执行，反馈[学习笔记]，打破旧思维，形成新思维习惯。
-  - title: 前端工程化
-    details: 让你的前端项目拥有全面的基础设施，为了方便合作开发，联调，测试，部署和运维。
   - title: 个人作品
-    details: 学习技能知识，最终是为了做东西。
+    details: 学知识，做东西，将想法变成现实，满足实际需求，丰富项目经验。
+  - title: 经验积累
+    details: 通过项目实践，积累经验，解决各种实际问题，形成对很多业务或功能达到专长，专业。
+  - title: 学习笔记
+    details: 需要做什么项目，若没有相关经验，那就学着做，不断扩充丰富前端武器库。
+  - title: 流程规范
+    details: 从项目实践沉淀下来的流程规范或官方权威的规范，能够大大减少沟通成本，规范项目流程，提高开发效率，减少错误。
 ---

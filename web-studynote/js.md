@@ -4,7 +4,7 @@
 
 - js 是网页的脚本语言，是让网页动起来。
   - 1991年开始，web1.0时期第一个网站出现，网页是静态只读的，只能看文章和新闻等，没有如轮播图、没有数据可视化，没有交互效果，发送请求会刷新页面，很不友好。如当时的新浪，搜狐等。
-  - 2004年开始进入web2.0时期，陆续出现facebook这种社交互动网站，，有了 js 之后，它不仅只读，它还能写，它可以让你的网页动起来，能互动，能创造内容发视频，能点赞等等。如根据 ajax 请求动态获取数据更新页面，地图交互，2D/3D 动画等。
+  - 2004年开始进入web2.0时期，陆续出现facebook这种社交互动网站，，有了 js 之后，它不仅只读，它还能写，它可以让你的网页动起来，能互动，能创造内容发视频，能点赞等等。还有 ajax 请求动态获取数据更新页面等。
 - Javascript 简称 JS, 是动态脚步语言，是解释型的。支持基于原型编程，并且支持面向对象、声明式、函数式编程范式。也被用到了很多非浏览器环境中，如 node.js 后端、跨平台。
 
   - 解释型语言
@@ -17,11 +17,6 @@
   - 1997 年制定 ECMA 最初标准。
   - 2012 年所有浏览器都支持 ECMAScript5.1, 即 ES5. 旧版本浏览器至少支持 ES3
   - 2015 年 6 月 17 日，ECMA 国际组织正式发布了 ECMA2015, 即 ES6
-
-## 解决什么问题？
-
-- 在 js 创造出来之前，网页是静态的，只能看文章和新闻等，没有如轮播图、没有数据可视化，没有交互效果，发送请求会刷新页面，很不友好。
-- 有了 js 之后，它可以让你的网页动起来。如根据 ajax 请求动态获取数据更新页面，地图交互，2D/3D 动画等。
 
 ## 组成
 
@@ -42,7 +37,7 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
 ## 经典实用技术知识
 
 ### 类型判断
-- 基本类型Number, String, Boolean, Undefined, Symbol, 
+- 基本类型Number, String, Boolean, Undefined, Symbol,  用typeof
 - null 用 val === null判断，因为 typeof null = object
 - 内置类型 用instanceof 或 Object.prototype.toString.call()，能判断很多类型，但不支持自定义class
 - 自定义class 用instanceof， 如果没定义[Symbol.toStringTag]，Object.prototype.toString.call() 会返回 [object Object]
