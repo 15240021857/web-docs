@@ -33,7 +33,7 @@ export default defineConfig({
           { text: '待做作品池', link: '/web-mycreation/creation-pools' },
           { text: '智能聊天桌面端', link: '/web-mycreation/electron-chat-pc' },
           { text: '前端博客', link: '/web-mycreation/web-docs' },
-          // { text: '大屏可视化', link: '/web-bigscreen/index' },
+          { text: '景点天气预警大屏', link: '/web-mycreation/screen-weather-warn' },
           // { text: 'AI试衣app', link: '/web-mycreation/chat-app' },
           { text: 'cli脚手架', link: '/web-mycreation/cli' },
           // { text: '即时通讯app', link: '/web-mycreation/chat-app' },
