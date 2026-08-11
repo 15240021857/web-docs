@@ -4,7 +4,7 @@
 
 - js 是网页的脚本语言，是让网页动起来。
   - 1991年开始，web1.0时期第一个网站出现，网页是静态只读的，只能看文章和新闻等，没有如轮播图、没有数据可视化，没有交互效果，发送请求会刷新页面，很不友好。如当时的新浪，搜狐等。
-  - 2004年开始进入web2.0时期，陆续出现facebook这种社交互动网站，，有了 js 之后，它不仅只读，它还能写，它可以让你的网页动起来，能互动，能创造内容发视频，能点赞等等。还有 ajax 请求动态获取数据更新页面等。
+  - 2004年开始进入web2.0时期，陆续出现facebook这种社交互动网站，有了 js 之后，它不仅只读，它还能写，能互动，能创造内容发视频，能点赞，Ajax 发送请求获取数据无刷新更新页面等，它可以让你的网页动起来。
 - Javascript 简称 JS, 是动态脚步语言，是解释型的。支持基于原型编程，并且支持面向对象、声明式、函数式编程范式。也被用到了很多非浏览器环境中，如 node.js 后端、跨平台。
 
   - 解释型语言
@@ -49,13 +49,29 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
   - isObject(val) 用val !== null && typeof val === 'object'
 - isRef, isReactive, isVNode js中难判断，在vue中会有类型标记，如__v_isRef, __v_isReactive, __v_isVNode
 
+### es6+ Promise & async /await
+- 讲的很清楚：https://blog.csdn.net/luo1831251387/article/details/115643059?spm=1001.2014.3001.5501
+- 方法：
+  - Promise.resolve(), Promise.reject(), Promise.catch(),   Promise.all(), Promise.race(), Promise.allSettled(), Promise.any()等
+  - Promise.race() 竞争，第一个完成【无论resolve,reject】，就返回
+  - Promise.any() 竞争，有一个成功，就返回；若没有成功的，所有失败，才返回
+- async 函数 返回Promise
+  - await 后面接Promise，会返回Promise的resolve成功值；
+    - 若接其他值，会直接返回该值，例如'123'
+
 ### 闭包、事件委托
 
-### 大文件上传
+### 上传，大文件上传及预览
+- 前端
+  1. 先算文件大小，小文件<50MB 直传，大文件>50MB用分片上传
+  2. 先算出文件的md5/sha256值，是文件唯一标识，用于文件校验，重命名，秒传等
+  3. 后端判断md5值是否存在，若文件已存在，则直接返回文件路径，实现秒传
+  4. 若存在分片，则返回分片列表，前端根据分片列表，去分片上传，或断点续传
+  5. 分片上传完毕，调用合并分片接口，完成后返回文件路径
+
 
 ### 虚拟滚动
 
-### es6+ 新增特性
 
 ### 浅拷贝，深拷贝和循环引用
 - 浅拷贝：
