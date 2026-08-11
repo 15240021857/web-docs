@@ -5,7 +5,18 @@
   - css 是网页的样式，就像人的衣服和装饰。
   - js 是网页的动作，就像人走路，唱歌，写字等，是让网页动起来，不仅仅是静态只读的，还能写和动态交互。
 
-## html
+
+## 经典实用技术知识
+
+### 1. 回流，重绘
+
+### 2. BFC
+
+### 3. flex 布局
+
+### 4. grid 布局
+
+## html5
 
 - 字典：https://www.runoob.com/tags/ref-av-dom.html
 
@@ -17,21 +28,11 @@
 
 ### html5 哪些新标签
 
-## css
+## css3
 
 - 字典：https://www.runoob.com/css/css-tutorial.html
 
 ### 布局
-
-#### flex 布局
-
-#### grid 布局
-
-## 经典实用技术知识
-
-### 回流，重绘
-
-### BFC
 
 ### css 模块化
 

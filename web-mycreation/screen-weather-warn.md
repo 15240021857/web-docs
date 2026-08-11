@@ -13,7 +13,10 @@
 ## 架构组成
 
 ## 项目截图
+- 主地区与景点数据展示
 ![alt text](images/screen-overlay.png)
+- 预警弹窗
+![alt text](images/warn-dialog.png)
 
 ## 核心数据流转
 

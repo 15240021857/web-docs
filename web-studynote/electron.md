@@ -6,6 +6,4 @@
   - 用 web 技术去开发桌面端应用，如 vue, html, css, js
   - 跨平台，一套代码可打包运行在 windows, MacOs, Lincus
 
-## 原理
-
-## 怎么做？
+## 架构组成

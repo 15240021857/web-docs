@@ -1,22 +1,42 @@
 # 待做作品池
 
-## 是什么？
+## 是什么
 
 - 在工作学习过程中，发现很多想做的东西，时间有限，先记录下来，一个个去做。
+- 防止遗忘
 
-## 解决什么问题？
+## 一 微前端个人项目合集
+### 项目设想
+- 将所有个人项目，都放到这个项目中，作为综合前端项目。
+- 各个项目，都是独立自主的，互不干扰。
 
-- 想做的东西很多，时间有限，防止遗忘。
+### 技术选型
+- 微前端：qiankun
+- 前端：vue3 + vite + ts
+- 部署：
+  - 主项目：阿里云/腾讯云轻量服务器 + nginx
+  <!-- - 子项目： -->
 
-## 具体内容
+## 二 数据可视化设计器
+### 项目设想
+- 做一个类似阿里云DataV的大屏设计器，低代码，可拖拽生成数据大屏
+- 支持各类组件，如装饰组件，统计，图表，滚动表格，2D/2.5D/3D地图, 电力元器件等
+- 支持属性样式，数据源，事件绑定
+- 业务支持各类大屏，接线图等
+- 支持保存，预览，发布等
 
-todo
+### 技术选型
+- 前端：vue3 + meta2d.js去搭建组态可拖拽编辑器
 
-### !!!node 做博客管理后台 api 服务
+## 三 数字农场可视化大屏 three
+- https://mp.weixin.qq.com/s/C88148zvEYt2rsGCH3pZKA
 
-- 理清思路，再做，非常清晰，若直接做，则很乱 +使用 docker 搭建 windows 环境，安装 sql +创建 sql 数据库，创建表，
+## Nodejs 做博客管理后台 api 服务
+
+- 使用 docker 搭建 windows 环境，安装 sql +创建 sql 数据库，创建表，
 
 ```js
+- 草稿：
 - +node 服务通过 squlize orm 去连接数据库， +创建 model， +创建迁移文件 +创建种子，批量插入表数据 +文章详情，通过路由参数去获取 router.get('/:id', (req, res) => { const id = req.param.id })
 - +sql orm 语句：const article = Article.findByPk(id) +若找不到 article, 则 res.status(404).json({data: article, msg: '文章不存在'})
 
@@ -32,15 +52,6 @@ todo
 * 200 若查到 res.json(data: article, msg: 更新文章成功) +没查到 res.status(200).json({code: 404,msg: '没找到'})
 * 500
 ```
-
-## !!vue2 new Vue
-
-## !!!vue3 小满，重学，知其原理
-
-## !!uniapp 看文档吧
-
-## !!three.js 3D 学习
-
 ## websocket 心跳监测，断线重连
 
 https://mp.weixin.qq.com/s/AURtQS_zO2SXSxM_2Wjqdg
@@ -61,9 +72,6 @@ https://mp.weixin.qq.com/s/ZXEBwLhSJqJxnbl7nxAC6w
 
 ## !行业及方案：
 
-### !!!可视化大屏
-
-- https://mp.weixin.qq.com/s/C88148zvEYt2rsGCH3pZKA
 
 ### 物流
 

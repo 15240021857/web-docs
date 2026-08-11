@@ -1,4 +1,4 @@
-# 能源设备全寿命周期管控专家系统 <Badge type="tip" text="done" />
+# 设备全寿命周期管控专家系统 <Badge type="tip" text="done" />
 
 ## 项目背景与介绍
 

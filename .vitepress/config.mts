@@ -27,6 +27,7 @@ export default defineConfig({
       formatOptions: { dateStyle: 'short', timeStyle: 'short' }
     },
     sidebar: [
+      
       {
         text: '个人作品及成果',
         items: [
@@ -34,12 +35,19 @@ export default defineConfig({
           { text: '智能聊天桌面端', link: '/web-mycreation/electron-chat-pc' },
           { text: '前端博客', link: '/web-mycreation/web-docs' },
           { text: '景点天气预警大屏', link: '/web-mycreation/screen-weather-warn' },
-          // { text: 'AI试衣app', link: '/web-mycreation/chat-app' },
+          { text: 'AI试衣app', link: '/web-mycreation/app-ai-tryon' },
           { text: 'cli脚手架', link: '/web-mycreation/cli' },
           // { text: '即时通讯app', link: '/web-mycreation/chat-app' },
           { text: 'express博客接口服务', link: '/web-mycreation/node-blog' },
         ]
       },
+      {
+        text: '项目经验',
+        items: [
+          { text: '设备全寿命周期管控专家系统', link: '/web-project-experience/qingdao-device-expert-system' },
+        ]
+      },
+      // 
       {
         text: '学习笔记',
         items: [
