@@ -8,3 +8,9 @@
 .image-src {
   max-width: 260px !important;
 }
+.medium-zoom-overlay {
+  z-index: 99;
+}
+.medium-zoom-image--opened {
+  z-index: 100;
+}

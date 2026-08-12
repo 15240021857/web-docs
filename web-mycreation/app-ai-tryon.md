@@ -1,11 +1,19 @@
-# AI-tryon <Badge type="tip" text="done" />
+# wx智能试衣app <Badge type="tip" text="done" />
 ## 项目背景与介绍
-- 背景：
-- 介绍：桌面端智能助理聊天软件，自主管理接入多个模型可供选择，如字节豆包，智谱清言GLM, 阿里千问等，特别支持创建多个子窗口同时对话，用户可自主对比出喜欢的回答。
+- 背景：现在电商有很多AI试穿功能，但大多基于店铺商品，我想做一个基于用户衣橱的AI试衣功能。
+- 介绍：一款用户可以自主上传形象和衣服，自主管理已上传的形象和衣橱衣服，智能生成试衣效果的app。
+- 客户端：小程序/H5端/安卓端，ios端本地支持但未发布。
 
 ## 项目地址
-- Github repo（代码）: https://github.com/15240021857/wx-electron-intel-chat
-- Github release（软件包）: https://github.com/15240021857/wx-electron-intel-chat/releases
+- 腾讯云原生仓库CNB（代码）: https://cnb.cool/wuxi-2026/wx-ai-tryon
+- uniCloud 网页托管（H5体验）: https://env-00jy6l3d83tr-static.normal.cloudstatic.cn
+- 蒲公英（安卓端）: https://www.pgyer.com/wxzhinengshiyi?sig=YlSA2SCpaTtGivXMjgZHjnmUZp63FagUHYQLUi9%2Bpmko5bQJt8W%2B58BcjElW%2BBPYLrOYgV4btLqsZk5CflM6KQ%3D%3D
+    - 密码：111111
+    - ![apk下载二维码](images/android-code.png)
+- 微信小程序：（AI深度合成类目卡个人开发者，暂未备案与发布）
+![小程序二维码](images/十八号很美体验版（8月19日前有效）.png)
+
+
 
 ## 功能与特性
 
