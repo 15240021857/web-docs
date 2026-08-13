@@ -14,3 +14,16 @@
 .medium-zoom-image--opened {
   z-index: 100;
 }
+/* .vitepress/theme/custom.css */
+.st {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  font-size: 11px;
+  line-height: 18px;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+.st-done  { color: #18794e; background: #d8f5e3; }
+.st-doing { color: #b25e00; background: #ffeccc; }
+.st-todo  { color: #8250a0; background: #f1e0fb; }
