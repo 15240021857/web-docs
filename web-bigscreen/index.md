@@ -1,21 +1,5 @@
 # 大屏可视化
 
-## 项目背景与介绍
-- 
-
-## 项目地址
-- Github repo（代码地址）: https://github.com/15240021857/wx-ol-journey-screen
-- Github Pages（线上地址）: https://15240021857.github.io/wx-ol-journey-screen/
-
-## 人员组成
-- 项目负责人：独立个人
-
-## 架构组成
-
-## 项目截图
-
-## 核心数据流转
-
 ## 开源参考
 - https://blog.csdn.net/2401_82881178/article/details/139430053
 

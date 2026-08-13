@@ -5,7 +5,7 @@ layout: home
 hero:
   # name: "前端文档与规范"
   name: "吴的前端小世界"
-  text: "Wu's FrontEnd Home"
+  text: "Wu's Frontend Home"
   # tagline: "web is money"
   image:
     src: /fe-banner.png

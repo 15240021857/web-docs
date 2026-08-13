@@ -32,11 +32,11 @@ export default defineConfig({
         text: '个人作品及成果',
         items: [
           { text: '待做作品池', link: '/web-mycreation/creation-pools' },
-          { text: '智能聊天桌面端', link: '/web-mycreation/electron-chat-pc' },
-          { text: 'wx智能试衣app', link: '/web-mycreation/app-ai-tryon' },
-          { text: '前端博客', link: '/web-mycreation/web-docs' },
-          { text: '景点天气预警大屏', link: '/web-mycreation/screen-weather-warn' },
-          { text: 'cli脚手架', link: '/web-mycreation/cli' },
+          { text: 'Electron智能聊天桌面端', link: '/web-mycreation/electron-chat-pc' },
+          { text: 'Uniapp智能试衣移动端', link: '/web-mycreation/app-ai-tryon' },
+          { text: 'Openlayers景点天气预警大屏', link: '/web-mycreation/screen-weather-warn' },
+          { text: 'Vitepress前端资产博客', link: '/web-mycreation/web-docs' },
+          { text: 'Nodejs项目创建脚手架xw-cli', link: '/web-mycreation/cli' },
           // { text: '即时通讯app', link: '/web-mycreation/chat-app' },
           { text: 'express博客接口服务', link: '/web-mycreation/node-blog' },
         ]
@@ -47,7 +47,23 @@ export default defineConfig({
           { text: '设备全寿命周期管控专家系统', link: '/web-project-experience/qingdao-device-expert-system' },
         ]
       },
-      // 
+      {
+        text: '工程化',
+        items: [
+          { text: '脚手架', link: '/web-mycreation/cli' },
+          { text: 'mock数据', link: '/web-engineering/mock' },
+          { text: 'JS/TS配置', link: '/web-engineering/js-config' },
+          { text: '编辑器配置', link: '/web-engineering/editor' },
+          { text: '模块化', link: '/web-engineering/module' },
+          { text: '组件化', link: '/web-engineering/component' },
+          { text: '性能优化', link: '/web-engineering/performance-improve' },
+          { text: '用户体验', link: '/web-engineering/ue' },
+          { text: 'devOps开发和运维', link: '/web-engineering/devOps' },
+          { text: '安全加密', link: '/web-engineering/secret' },
+          { text: '单元测试', link: '/web-engineering/test' },
+          { text: '前端监控和页面埋点', link: '/web-engineering/monitor' },
+        ]
+      },
       {
         text: '学习笔记',
         items: [
@@ -66,24 +82,6 @@ export default defineConfig({
           { text: '3d', link: '/web-studynote/three3d' },
           { text: '地图map', link: '/web-studynote/map' },
           { text: '数据结构与算法', link: '/web-studynote/data-structure' }
-        ]
-      },
-      
-      {
-        text: '前端工程化',
-        items: [
-          { text: '脚手架', link: '/web-engineering/cli' },
-          { text: 'mock数据', link: '/web-engineering/mock' },
-          { text: 'JS/TS配置', link: '/web-engineering/js-config' },
-          { text: '编辑器配置', link: '/web-engineering/editor' },
-          { text: '模块化', link: '/web-engineering/module' },
-          { text: '组件化', link: '/web-engineering/component' },
-          { text: '性能优化', link: '/web-engineering/performance-improve' },
-          { text: '用户体验', link: '/web-engineering/ue' },
-          { text: 'devOps开发和运维', link: '/web-engineering/devOps' },
-          { text: '安全加密', link: '/web-engineering/secret' },
-          { text: '单元测试', link: '/web-engineering/test' },
-          { text: '前端监控和页面埋点', link: '/web-engineering/monitor' },
         ]
       },
       {
