@@ -36,6 +36,27 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
 
 ## 经典实用技术知识
 
+### 事件循环
+- *** 背景 ***：因为js设计出来就是单线程，遇到串行等待任务会阻塞js主线程，所以需要事件循环来处理异步任务
+- *** 是什么？ ***
+  - js执行，先执行同步代码
+  - 遇到异步任务，微任务放微任务队列，宏任务放宏任务队列
+  - 同步代码清空
+  - 清空微任务队列
+  - 浏览器有空就去 渲染UI
+  - 再执行下一个宏任务
+  - 如此循环下去
+- *** 简单总结： ***
+  - 执行script代码(宏任务) > 同步代码清空 > 微队列清空 > 有空闲就渲染UI > 循环下去...
+- *** 宏任务 & 微任务 ***
+  - 宏任务：script, setTimeout/setInterval, dom回调，网络回调， I/O回调等
+  - 微任务：Promise, async /await, MutationObserver，queueMicrotask等
+  - UI渲染，RAF不属于这两个任务，它是浏览器的渲染任务
+- *** nodejs 事件循环 ***
+  - 微任务优先级 process.nextTick > Promise.then (是每个阶段的清道夫)
+  - nodejs 宏任务6个阶段：
+     - 1.times(setTimeout/setInterval) > 2.xx >3.xx > 4.poll(I/O回调) > 5.check(setImmediate) > 6. close callback
+
 ### 类型判断
 - 基本类型Number, String, Boolean, Undefined, Symbol,  用typeof
 - null 用 val === null判断，因为 typeof null = object
