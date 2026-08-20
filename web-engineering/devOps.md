@@ -5,9 +5,17 @@
 ## 是什么
 
 - 是 development 和 Operations 的组合，是一个方法论。是重视 dev 开发人员和 Ops 运维人员的沟通、协作的流程。通过自动化的构建、测试、部署，来让流程变得快捷、稳定、可靠。
-- 就是 CI/CD???
+- CI: Continuous Integration，持续集成
+- CD: Continuous Delivery，持续交付
 
 ## 为什么需要 devOps？
+- 让开发和运维之前的沟通和协作更加紧密，流畅，高效，避免了很多运维部署隐患。
+
+## 怎么做
+- docker 容器化部署
+- github actions 自动化部署
+- 规范化部署流程
+- ...
 
 ## 部署
 

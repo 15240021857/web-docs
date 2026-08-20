@@ -36,5 +36,6 @@
 ## 科技感提升计划
 - https://blog.csdn.net/2401_82881178/article/details/139430053
 - 按钮流过效果：https://juejin.cn/post/6966482130020859912
+- 3D 大屏可视化：https://github.com/knight-L/sc-datav
 
 

@@ -50,6 +50,7 @@ export default defineConfig({
       {
         text: '工程化',
         items: [
+          { text: '前端基建', link: '/web-engineering/base-building' },
           { text: '脚手架', link: '/web-mycreation/cli' },
           { text: 'mock数据', link: '/web-engineering/mock' },
           { text: 'JS/TS配置', link: '/web-engineering/js-config' },
@@ -67,11 +68,11 @@ export default defineConfig({
       {
         text: '学习笔记',
         items: [
-          { text: 'htmlcss', link: '/web-studynote/htmlcss' },
+          { text: 'htmlcss <span class="st st-doing">Doing</span>', link: '/web-studynote/htmlcss' },
           { text: '浏览器', link: '/web-studynote/web-broswer' },
           { text: 'js', link: '/web-studynote/js' },
           { text: 'vue', link: '/web-studynote/vue' },
-          { text: 'ts', link: '/web-studynote/ts' },
+          { text: 'ts <span class="st st-done">Done</span>', link: '/web-studynote/ts' },
           { text: 'react', link: '/web-studynote/react' },
           { text: 'uniapp', link: '/web-studynote/uniapp' },
           { text: '网络', link: '/web-studynote/network' },
