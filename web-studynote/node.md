@@ -4,6 +4,13 @@
 
 是 javascript, 运行在服务端，由 V8 引擎驱动？
 
+## 架构组成
+- 核心api
+  - 内置模块：fs,path,http,net,crypto, stream,os,child_process等
+  - 事件循环：libuv(c++)，异步IO, 网络，定时器等
+  - JS执行：V8 引擎，负责执行 javascript 代码。
+  - C++底层模块：操作系统调用，如读取硬件等 
+
 ## node.js 能做什么
 
 - 搭建后台静态资源服务器，将前端包作为静态资源去发到线上，供所有人访问。
