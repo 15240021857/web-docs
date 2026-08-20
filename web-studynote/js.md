@@ -152,6 +152,12 @@ console.log(cloneObj.important)
 
 如何排查
 如何解决
+- 注意哪些：
+  1. 合理使用闭包，不用了，要及时释放内存
+  2. dom事件监听，删除dom之前要卸载事件监听
+  3. vue/react 组件卸载时，要清除事件监听，延时器等
+  4. URL.createObjectURL() 创建的 url，要及时revokeObjectURL()
+  5. resizeObserver，intersectionObserver， mutationObserver 等，要及时卸载
 
 ### this 指向
 
