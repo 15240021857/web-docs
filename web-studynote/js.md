@@ -2,23 +2,32 @@
 
 ## 是什么
 
-- js 是网页的脚本语言，是让网页动起来。
-  - 1991年开始，web1.0时期第一个网站出现，网页是静态只读的，只能看文章和新闻等，没有如轮播图、没有数据可视化，没有交互效果，发送请求会刷新页面，很不友好。如当时的新浪，搜狐等。
-  - 2004年开始进入web2.0时期，陆续出现facebook这种社交互动网站，有了 js 之后，它不仅只读，它还能写，能互动，能创造内容发视频，能点赞，Ajax 发送请求获取数据无刷新更新页面等，它可以让你的网页动起来。
 - Javascript 简称 JS, 是动态脚步语言，是解释型的。支持基于原型编程，并且支持面向对象、声明式、函数式编程范式。也被用到了很多非浏览器环境中，如 node.js 后端、跨平台。
 
-  - 解释型语言
+  - **解释型语言**
     - V8 执行 js 过程：
       - js 代码 ->【解析器 parser】-> AST -> 【解释器 Ignition】 -> 字节码(边解释边执行) -> 机器码【底层 CPU 指令】-> 交给 CPU 执行
       - 这种运行时编译代码的技术称为 JIT(即时编译)，极大提高 js 执行性能
 
-- 发展历史
-  - 1995 年被开发出来，起初叫 LiveScript, 后来因为创造时受之启发，也想蹭 Java 热度改名 Javascript
-  - 1997 年制定 ECMA 最初标准。
-  - 2012 年所有浏览器都支持 ECMAScript5.1, 即 ES5. 旧版本浏览器至少支持 ES3
-  - 2015 年 6 月 17 日，ECMA 国际组织正式发布了 ECMA2015, 即 ES6
+- **发展历史**
 
-## 组成
+- **1995**：—｜开发出来，起初叫 LiveScript，后改名 JavaScript
+- **1997**：—｜制定 ECMA 最初标准
+- **2012**：**ES5**｜所有浏览器支持 ECMAScript 5.1（ES5），旧浏览器至少支持 ES3
+- **2015-06-17**：**ES6** (ES2015)｜let/const、箭头函数、模板字符串、解构、默认参数/rest/spread、Promise、class、模块、Symbol、Map/Set/WeakMap/WeakSet、for...of、生成器、Proxy、Reflect
+- **2016**：**ES7** (ES2016)｜includes、指数运算符 **
+- **2017**：**ES8** (ES2017)｜async/await、Object.values/entries、padStart/padEnd
+- **2018**：**ES9** (ES2018)｜异步迭代(for await...of)、对象 rest/spread、Promise.finally
+- **2019**：**ES10** (ES2019)｜flat/flatMap、fromEntries、稳定排序
+- **2020**：**ES11** (ES2020)｜?.、??、BigInt、动态 import、allSettled
+- **2021**：**ES12** (ES2021)｜replaceAll、Promise.any、数字分隔符、逻辑赋值
+- **2022**：**ES13** (ES2022)｜私有字段 #、顶层 await、at(-1)
+- **2023**：**ES14** (ES2023)｜toSorted/toReversed、findLast
+- **2024**：**ES15** (ES2024)｜groupBy、Promise.withResolvers、正则 /v
+- **2025**：**ES16** (ES2025)｜Iterator helpers、Set 代数方法、Promise.try
+- **2026**：**ES17** (ES2026, Stage 4)｜Array.fromAsync、Uint8Array 编解码
+
+## 架构组成
 
 - ECMAScript, js 的基本语法和对象
   - ES6: https://www.runoob.com/w3cnote/es6-concise-tutorial.html
@@ -37,8 +46,9 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
 ## 经典实用技术知识
 
 ### 事件循环
-- *** 背景 ***：因为js设计出来就是单线程，遇到串行等待任务会阻塞js主线程，所以需要事件循环来处理异步任务
-- *** 是什么？ ***
+**背景**
+因为js设计出来就是单线程，遇到串行等待任务会阻塞js主线程，所以需要事件循环来处理异步任务
+- **是什么？**
   - js执行，先执行同步代码
   - 遇到异步任务，微任务放微任务队列，宏任务放宏任务队列
   - 同步代码清空
@@ -46,15 +56,15 @@ es6 字典：https://www.runoob.com/w3cnote/es6-map-set.html
   - 浏览器有空就去 渲染UI
   - 再执行下一个宏任务
   - 如此循环下去
-- *** 简单总结： ***
+- **简单总结**
   - 执行script代码(宏任务) > 同步代码清空 > 微队列清空 > 有空闲就渲染UI > 循环下去...
-- *** 宏任务 & 微任务 ***
+- **宏任务 & 微任务**
   - 宏任务：script, setTimeout/setInterval, dom回调，网络回调， I/O回调等
   - 微任务：Promise, async /await, MutationObserver，queueMicrotask等
   - UI渲染，RAF不属于这两个任务，它是浏览器的渲染任务
-- *** nodejs 事件循环 ***
+- **nodejs 事件循环**
   - 微任务优先级 process.nextTick > Promise.then (是每个阶段的清道夫)
-  - nodejs 宏任务6个阶段：
+  - nodejs 宏任务6个阶段：（不断轮询去执行，这样循环下去）
      - 1.times(setTimeout/setInterval) > 2.xx >3.xx > 4.poll(I/O回调) > 5.check(setImmediate) > 6. close callback
 
 ### 类型判断
