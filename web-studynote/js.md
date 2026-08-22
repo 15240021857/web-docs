@@ -14,7 +14,7 @@
 - **1995**：—｜开发出来，起初叫 LiveScript，后改名 JavaScript
 - **1997**：—｜制定 ECMA 最初标准
 - **2012**：**ES5**｜所有浏览器支持 ECMAScript 5.1（ES5），旧浏览器至少支持 ES3
-- **2015-06-17**：**ES6** (ES2015)｜let/const、箭头函数、模板字符串、解构、默认参数/rest/spread、Promise、class、模块、Symbol、Map/Set/WeakMap/WeakSet、for...of、生成器、Proxy、Reflect
+- **2015-06-17**：**ES6** (ES2015)｜let/const、箭头函数、模板字符串、解构、默认参数/rest/spread、Promise、class、ESM模块、Symbol、Map/Set/WeakMap/WeakSet、for...of、生成器、Proxy、Reflect
 - **2016**：**ES7** (ES2016)｜includes、指数运算符 **
 - **2017**：**ES8** (ES2017)｜async/await、Object.values/entries、padStart/padEnd
 - **2018**：**ES9** (ES2018)｜异步迭代(for await...of)、对象 rest/spread、Promise.finally
@@ -164,6 +164,37 @@ console.log(cloneObj.important)
 ```
 
 ### 性能优化指标
+
+### 用raf优化动画
+```js
+let startY = 0;
+let currentY = 0;
+let rafId = null;
+
+header.addEventListener('pointerdown', e => {
+  startY = e.clientY;
+});
+
+document.addEventListener('pointermove', e => {
+  currentY = e.clientY - startY;
+
+  if (!rafId) {
+    rafId = requestAnimationFrame(() => {
+      panel.style.transform = `translateY(${currentY}px)`;
+      rafId = null;
+    });
+  }
+});
+
+document.addEventListener('pointerup', () => {
+  cancelAnimationFrame(rafId);
+  rafId = null;
+  // 回弹 / 关闭逻辑
+});
+```
+- 触摸或拖拽动画体验明显更丝滑
+- 一帧最多只执行一次
+- 这是最低成本的高收益优化
 
 ## 特性
 

@@ -28,6 +28,24 @@
     ```
 
 - <b>页面埋点</b>：帮助分析用户偏好，提升用户体验
+  - 曝光埋点
+```js
+// vue指令形式，当元素进入可见时，上报曝光事件
+Vue.directive('exposure', {
+  inserted(el, binding) {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        binding.value()
+        observer.disobserve(el)
+      }
+    }, { threshold: 0.2 })
+
+    observer.observe(el)
+  }
+})
+// 使用指令
+<div v-exposure="() => report('banner')"></div>
+```
 
 ## 怎么做？
 
