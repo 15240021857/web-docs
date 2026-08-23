@@ -8,8 +8,12 @@
     - V8 执行 js 过程：
       - js 代码 ->【解析器 parser】-> AST -> 【解释器 Ignition】 -> 字节码(边解释边执行) -> 机器码【底层 CPU 指令】-> 交给 CPU 执行
       - 这种运行时编译代码的技术称为 JIT(即时编译)，极大提高 js 执行性能
-
-- **发展历史**
+## 为什么是单线程？
+1. 设计之初，不想因为多线程导致的复杂度增加。
+2. 单线程可以避免线程避免 dom的竞态问题、死锁等。
+   - 多个线程同时操作一个dom，会导致dom状态冲突，页面诡异bug
+   - 死锁: 多线程直接互相等待对方资源，导致程序无法继续执行
+## **发展历史**
 
 - **1995**：—｜开发出来，起初叫 LiveScript，后改名 JavaScript
 - **1997**：—｜制定 ECMA 最初标准
@@ -31,8 +35,72 @@
 
 - ECMAScript, js 的基本语法和对象
   - ES6: https://www.runoob.com/w3cnote/es6-concise-tutorial.html
-- DOM, 与文档交互的方法和接口
-- BOM, 与浏览器交互的方法和接口
+
+```js
+浏览器运行环境
+│
+├── ECMAScript（JS 语言核心）
+│   ├── Promise / async / await
+│   ├── Array / Object / Map
+│   └── 语法 & 执行模型
+│
+└── Web API（浏览器标准能力全集）
+    │
+    ├── DOM API ⭐ 与文档交互
+    │   ├── document / Element / Node
+    │   ├── Event / EventTarget
+    │   └── Range / Selection
+    │
+    ├── BOM API ⭐ 与浏览器交互
+    │   ├── window / navigator
+    │   ├── location / history / screen
+    │   ├── timers（setTimeout / setInterval）
+    │   └── matchMedia
+    │
+    ├── 存储 API
+    │   ├── localStorage / sessionStorage
+    │   ├── Cookies / IndexedDB
+    │   ├── Cache API / OPFS
+    │   └── File / FileReader
+    │
+    ├── 网络与通信
+    │   ├── Fetch / XHR / Ajax
+    │   ├── WebSocket / WebRTC
+    │   └── Beacon / SSE
+    │
+    ├── 并发与性能
+    │   ├── Web Worker
+    │   ├── Service Worker
+    │   └── WebAssembly
+    │
+    ├── 观测与调度 API
+    │   ├── IntersectionObserver
+    │   ├── ResizeObserver / MutationObserver
+    │   ├── PerformanceObserver
+    │   └── requestIdleCallback
+    │
+    ├── 渲染与动画调度 
+    │   ├── requestAnimationFrame（帧同步）
+    │   ├── cancelAnimationFrame
+    │   ├── Web Animations API
+    │   └── ScrollTimeline / ViewTimeline（新标准）
+    │
+    ├── 设备与系统能力
+    │   ├── Bluetooth / USB
+    │   ├── Geolocation / Sensors
+    │   ├── Notification / Clipboard
+    │   └── MediaDevices
+    │
+    ├── 文件与交互
+    │   ├── Drag & Drop
+    │   ├── Fullscreen
+    │   └── Pointer / Touch
+    │
+    └── 图形 / 多媒体
+        ├── Canvas / WebGL
+        ├── Web Audio
+        └── Media Stream
+```
 
 ```text
 js 字典：
@@ -192,7 +260,7 @@ document.addEventListener('pointerup', () => {
   // 回弹 / 关闭逻辑
 });
 ```
-- 触摸或拖拽动画体验明显更丝滑
+- 触摸或拖拽体验明显更丝滑
 - 一帧最多只执行一次
 - 这是最低成本的高收益优化
 

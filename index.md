@@ -19,7 +19,7 @@ hero:
       link: /web-engineering/performance-improve
     - theme: alt
       text: 学习笔记
-      link: /web-studynote/ts
+      link: /web-studynote/js
     - theme: alt
       text: 流程规范
       link: /web-standard/git
