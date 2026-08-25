@@ -16,7 +16,9 @@
 - 搭建后台静态资源服务器，将前端包作为静态资源去发到线上，供所有人访问。
 - 搭建后台 api 接口服务，如增删改查等。
 - npm，全称是 Node Package Manager。是 javascript 世界的包管理工具仓库，也是 node.js 的默认包管理工具仓库。将造好的轮子发布到 npm 供所有人使用。
+- SSR，服务端渲染
 - BFF，全称 Backend For Frontend, 即为前端服务的后端。
+- 开发代码脚手架
 - 开启前端服务：为 webpack/vite 等搭建前端开发服务器。
 - 代码优化：代码转化，混淆压缩等支持，如 babel，terser-pligin 等
 - 跨平台支持：协助代码编译转换，将 vue、uniapp 等框架代码，通过虚拟 dom，ast 等技术，编译成不同终端设备支持的代码，如小程序，安卓，ios，桌面端等。
@@ -45,7 +47,160 @@
 - Backends For Frontends, 服务于前端的后端
 - https://cloud.tencent.com/developer/article/2352452
 
-### 能做什么？不能做什么？
+### 选型结论
+1. **Koa2 最适合这种轻量 BFF** ✅
+   - 中间件模型简洁，async/await 原生友好，没有 Express 回调地狱；
+   - 足够做：鉴权透传、http 代理转发、返回数据过滤、统一异常处理；
+   - 包体积小，启动快，部署简单；
+2. Express：也可以，但是老的回调写法多，异步错误处理容易漏，写`async`路由必须自己捕获异常；
+3. Node 原生 http：**不推荐**，要自己写路由、解析 query、body、header，轮子太多，容易出 bug。
+4. NestJS：适合 BFF 后续要加大量内部业务、定时任务、内部数据库、复杂守卫；如果你 BFF 未来 1 年内不会膨胀，完全没必要上。
+
+> BFF 本质：**薄转发层，无本地数据库，权限全部来自 Java 后端**，这一类叫「代理型 BFF」，Koa/Express 完全 hold 住。
+
+```js
+sim-bff/
+├── .env                #环境变量，Java后端地址
+├── package.json
+├── src
+│   ├── app.js          #入口
+│   ├── router
+│   │   └── sim.router.js  #sim卡相关bff接口
+│   ├── service
+│   │   └── java-backend.service.js #封装所有调用Java的http请求
+│   ├── middleware
+│   │   ├── error-handler.js #全局错误捕获
+│   │   └── token-propagate.js #透传token工具
+│   └── utils
+│       └── data-filter.js #核心工具：行过滤、字段过滤函数
+└── Dockerfile
+```
+**src/service/java-backend.service.js**
+```js
+const axios = require('axios');
+require('dotenv').config();
+
+const javaClient = axios.create({
+  baseURL: process.env.JAVA_API_BASEURL,
+  timeout: Number(process.env.JAVA_TIMEOUT)
+})
+
+// 获取当前用户权限信息
+async function getUserPermission(token){
+  const res = await javaClient.get('/api/user/currentInfo',{
+    headers:{
+      Authorization: token
+    }
+  })
+  return res.data; // {roles, allowFields, dataScope}
+}
+
+// 获取SIM原始列表（Java做分页、行过滤）
+async function getRawSimList(token, queryParams){
+  const res = await javaClient.get('/api/sim/rawList',{
+    headers:{ Authorization: token },
+    params: queryParams
+  })
+  return res.data;
+}
+
+// 透传post写操作给java
+async function forwardSimUpdate(token, body){
+  const res = await javaClient.post('/api/sim/update', body,{
+    headers:{ Authorization: token }
+  })
+  return res.data;
+}
+
+module.exports = {
+  getUserPermission,
+  getRawSimList,
+  forwardSimUpdate
+}
+
+```
+
+**src/router/sim.router.js**
+```js
+const Router = require('@koa/router');
+const router = new Router({prefix:'/bff/sim'});
+const javaService = require('../service/java-backend.service');
+const { filterSimList } = require('../utils/data-filter');
+
+// sim卡列表接口
+router.get('/list', async ctx=>{
+  const token = ctx.headers.authorization;
+  if(!token){
+    ctx.throw(401, '缺少token');
+  }
+  // 1、调用Java拿用户权限
+  const perm = await javaService.getUserPermission(token);
+  // 2、调用Java拿原始SIM分页列表，Java完成数据库分页+行级数据权限过滤
+  const rawPageData = await javaService.getRawSimList(token, ctx.query);
+  // 3、BFF仅做字段裁剪
+  const filteredRecords = filterSimList(rawPageData.records, perm.allowFields);
+
+  ctx.body = {
+    total: rawPageData.total,
+    records: filteredRecords
+  }
+})
+
+// 修改SIM状态，直接透传
+router.post('/update', async ctx=>{
+  const token = ctx.headers.authorization;
+  const body = ctx.request.body;
+  ctx.body = await javaService.forwardSimUpdate(token, body);
+})
+
+module.exports = router;
+
+```
+
+**src/middleware/error-handler.js**
+```js
+module.exports = async (ctx, next)=>{
+  try{
+    await next();
+  }catch(err){
+    ctx.status = err.status || 500;
+    ctx.body = {
+      code: err.status || -1,
+      msg: err.message || '服务异常'
+    }
+  }
+}
+```
+**src/app.js**
+```js
+const Koa = require('koa');
+const bodyParser = require('koa-bodyparser');
+const logger = require('koa-logger');
+const errorHandler = require('./middleware/error-handler');
+const simRouter = require('./router/sim.router');
+require('dotenv').config();
+
+const app = new Koa();
+
+app.use(logger());
+app.use(errorHandler);
+app.use(bodyParser());
+
+//注册路由
+app.use(simRouter.routes()).use(simRouter.allowedMethods());
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, ()=>{
+  console.log(`BFF service run on port ${PORT}`);
+})
+```
+
+### BFF部署
+- nginx 部署 用PM2 管理进程，实现高可用
+  - /java/xx 为 java 接口路径 转发到8080
+  - /bff/xx 为 BFF 接口路径 转发到3000
+- 部署到容器化环境，如 docker, k8s 等
+- 部署到云服务器，如阿里云，腾讯云...
 
 ## MYSQL
 
