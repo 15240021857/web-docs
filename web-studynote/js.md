@@ -15,7 +15,7 @@
    - 死锁: 多线程直接互相等待对方资源，导致程序无法继续执行
 ## **发展历史**
 
-- **1995**：—｜开发出来，起初叫 LiveScript，后改名 JavaScript
+- **1995**：—｜开发出来，起初叫 Mocha/LiveScript，后改名 JavaScript
 - **1997**：—｜制定 ECMA 最初标准
 - **2012**：**ES5**｜所有浏览器支持 ECMAScript 5.1（ES5），旧浏览器至少支持 ES3
 - **2015-06-17**：**ES6** (ES2015)｜let/const、箭头函数、模板字符串、解构、默认参数/rest/spread、Promise、class、ESM模块、Symbol、Map/Set/WeakMap/WeakSet、for...of、生成器、Proxy、Reflect
