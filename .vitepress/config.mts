@@ -58,10 +58,10 @@ export default defineConfig({
           { text: '模块化', link: '/web-engineering/module' },
           { text: '组件化', link: '/web-engineering/component' },
           { text: '性能优化 <span class="st st-done">Done</span>', link: '/web-engineering/performance-improve' },
+          { text: '测试体系', link: '/web-engineering/test' },
           { text: '用户体验', link: '/web-engineering/ue' },
           { text: 'devOps开发和运维', link: '/web-engineering/devOps' },
           { text: '安全加密', link: '/web-engineering/secret' },
-          { text: '单元测试', link: '/web-engineering/test' },
           { text: '前端监控和页面埋点', link: '/web-engineering/monitor' },
         ]
       },
