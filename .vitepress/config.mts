@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: '/web-docs/',
-  title: "Wu's FE",
+  title: "吴的前端小世界",
   description: "前端资产",
   head: [['link', { rel: 'icon', href: '/web-docs/wu.ico' }]],
   vite: {
