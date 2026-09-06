@@ -27,18 +27,11 @@
 ## 解决什么问题？
 
 1. 复用：复用功能块。
-
 - 例如弹窗组件，很多地方要用，不可能每个页面 ctrl+c,ctrl+v 写一大堆弹窗的 html，js, css, img。封装起来，通过插槽 slot 传入内容，就省了很多代码量和心智负担。
 
-2. 结构清晰，一目了然：
-
-- 如果没有组件化，那么一个 vue 页面的代码，是由所有的功能代码堆积而成的，几千几万行代码，要找某个代码，简直眼花缭乱，大海捞针。
-- 而组件化之后。一个功能区域一个组件。一眼就能看到该页面有哪些功能组件，非常好找！要找哪个功能的代码，直接去到那个组件即可。
+2. 结构清晰，一目了然
 
 3. 好维护：一个组件，被大量复用，改一个，全改了，即使有个别特殊情况，也可通过 props 传参等方式做处理
-
-- 若弹窗功能没有组件化，遇到产品需求改动，我要加几个图标，要加几个按钮...等等，能全局替换还好，要是不行，还得一个个改，工作量庞大，直接头大~~~
-  - 有了组件化之后，直接改组件即可
 
 4. 前端统一：前端成员都使用一种组件，那么大家的页面，都表现一致，形成统一。而不是五花八门。
 
@@ -58,11 +51,42 @@
 6. 前端资产：一个项目中好的组件，可以抽离出来，给其他项目也使用，发布 npm 包，或 npm 私仓，或加到前端组件库中，作为公司或个人的积累，都是一笔好的前端资产
 7. 提高团队和个人竞争力：提高个人组件封装能力、封装思想
 
-## 封装单个组件
+## 组件封装规范
 
-解决什么问题？
+- **不同类型组件放哪**
 
-- 一个组件，需要复用，可抽离
+| **组件范围** | **代码位置(放哪)** |
+| ---- | ---- | 
+| 仅当前页面使用 | pages/xxx/components |
+| 单模块私有业务组件 | pages/xxx/components |
+| 纯UI基础组件 | components/common/xxx |
+| 多模块共用业务组件，如企业树 | components/business/xxx |
+
+- **组件配件放哪**
+  - 建议自包含：组件独有的hooks、utils、types、apis等
+  
+
+```js
+src/
+├── components/
+│   ├── common/              # 纯 UI 基础组件（Button、Modal、Table...）
+│   │   ├── Button/
+│   │   └── Modal/
+│   └── business/            # 跨模块复用的业务组件
+│       ├── EnterpriseTree/  # 企业树
+│       │   ├── index.vue
+│       │   ├── types.ts     # 自包含组件的类型、hooks、api, 好找，职责清晰，团队协作友好
+│       │   └── api.ts       # 组件自身的接口请求
+│       ├── DeptTree/        # 部门树
+│       └── UserSelector/    # 人员选择器
+├── pages/
+│   ├── order/
+│   │   ├── components/      # 订单模块私有组件
+│   │   └── OrderList.vue
+│   └── user/
+│       ├── components/      # 用户模块私有组件
+│       └── UserList.vue
+```
 
 ## 封装组件库
 
@@ -74,15 +98,41 @@
 
 - 需要一系列的组件，统一的主题色，字体大小，间距等等
 
-怎么做？
+### **组件库目录结构**
+```text
+my-component-lib/
+├── packages/
+│   ├── components/        # 组件库
+│   │   ├── src/
+│   │   ├── __tests__/     # 组件单元测试
+│   │   ├── package.json
+│   │   └── vite.config.ts
+│   ├── hooks/             # 组合式函数库（新增）
+│   │   ├── src/
+│   │   │   ├── useLoading/
+│   │   │   │   ├── index.ts
+│   │   │   │   └── index.test.ts   # 测试和源码放一起
+│   │   │   ├── useTable/
+│   │   │   └── index.ts
+│   │   ├── __tests__/     # 或者集中放测试（二选一）
+│   │   ├── package.json
+│   │   └── vite.config.ts
+│   ├── utils/             # 工具函数库
+│   │   ├── src/
+│   │   ├── __tests__/     # 工具函数单元测试
+│   │   ├── package.json
+│   │   └── vite.config.ts
+│   └── styles/            # 主题系统
+├── docs/                  # VitePress 文档站（组件+hooks+工具函数共用）
+│   ├── .vitepress/
+│   ├── components/
+│   ├── hooks/             # hooks 文档
+│   └── utils/
+├── vitest.config.ts       # 根目录统一测试配置
+├── pnpm-workspace.yaml
+└── package.json
+```
 
-- 1.组件库代码: 基于 element-ui 二次封装
-  - 先搭建框架，封装一个 card 组件看看
-- 2.组件库文档: 基于 vitepress
-  - 代码放在跟组件库一个目录吗？还是新创建个项目呢？github pages 只能一个主页哦
-    - 所以，放两个项目吧？
-
-### 基于 element-ui 源码二次开发
 
 - 参考：https://docs.pingcode.com/ask/ask-ask/255880.html
 - 参考：https://blog.51cto.com/u_12196/10164143
