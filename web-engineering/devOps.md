@@ -1,4 +1,4 @@
-# devOps & CI/CD
+# devOps 开发运维自动化 & CI/CD 持续集成/持续部署
 
 - 参考资料：https://blog.csdn.net/2401_83384536/article/details/140321988
 
@@ -23,18 +23,152 @@
 
 - 传统发版方式一：前端手动打包dist给运维会造成很多隐患问题
   1. dist是否通过 lint + 单元测试 --不知道
-  2. dist时windows下的node@20打包的，在linus上能否正常运行  --不知道
+  2. dist在windows下的node@20打包的，在linus上能否正常运行  --不知道
 - gitlab-ci 能在每次打包部署前，自动校验lint、test、build等
 - docker 解决构建打包环境的一致性
 - docker build构建镜像 有版本可追溯，回滚容易
 
 
-## 操作步骤（gitlab-ci + docker为例）
+## 实战操作步骤（gitlab-ci + docker为例）
 ### 代码仓库gitlab（代码托管）
-### 开通阿里云镜像仓库（镜像中转）
+![gitlab-repo](./images/cicd/gitlab-repo.png)
+### gitlab自带镜像仓库/开通阿里云镜像仓库（镜像中转）
 ### 开通阿里云服务器（部署服务器）
-### 写gitlab-ci文件（写流水线）
+![gitlab-repo](./images/cicd/aliyun-ecs.png)
+### 根目录.npmrc，设置npm镜像加速pnpm install
+```.npmrc
+registry=https://registry.npmmirror.com
+```
+### 项目根目录编写pnpm-workspace.yaml 
+- 解决docker环境@sentry/cli报错问题
+```yaml
+allowBuilds:
+   "@sentry/cli": true
+```
 ### 写Dockerfile（构建镜像）
+```Dockerfile
+# 一阶段 构建vue项目
+FROM node:22-alpine AS build-stage
+# 设置npm镜像
+# RUN npm config set registry https://registry.npmmirror.com
+WORKDIR /app
+COPY package*.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
+RUN npm install -g pnpm
+RUN pnpm -v
+# RUN pnpm config get registry
+RUN pnpm install --frozen-lockfile
+COPY . .
+RUN pnpm build
+
+# 二阶段 部署到容器的nginx中运行 对外暴露80端口 
+FROM nginx:stable-alpine AS production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+# 配置nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# 暴露80端口
+EXPOSE 80
+# 启动nginx容器 并暴露80端口 关闭守护进程 不占用宿命令行
+CMD ["nginx", "-g", "daemon off;"]
+
+```
+### 设置gitlab环境变量
+![gitlab-repo](./images/cicd/gitlab-ci-variable.png)
+### 写gitlab-ci文件（写流水线）
+```yaml
+# 定义任务
+stages:
+  - build
+  - deploy
+# 定义变量
+variables:
+  DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+  CONTAINER_NAME: wu-vue-app
+  HOST_PORT: 80
+  CONTAINER_PORT: 80
+
+# ===========公共配置：构建+推送==============
+.docker-build-common:
+  # Use the official docker image.
+  image: docker:cli
+  stage: build
+  services:
+  - name: docker:24-dind
+    command:
+      - "--registry-mirror=https://docker.m.daocloud.io"
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_HOST: "tcp://docker:2376"
+    # $CI_COMMIT_REF_SLUG is the branch name and $CI_COMMIT_SHA is the commit sha
+  before_script:
+    - docker info | grep -A3 "Registry Mirrors"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  # All branches are tagged with $DOCKER_IMAGE_NAME (defaults to commit ref slug)
+  # Default branch is also tagged with $branch_name
+  script:
+    - docker build --pull -t "$DOCKER_IMAGE_NAME" .
+    - docker push "$DOCKER_IMAGE_NAME"
+    - docker tag "$DOCKER_IMAGE_NAME" "$CI_REGISTRY_IMAGE:$branch_name"
+    - docker push "$CI_REGISTRY_IMAGE:$branch_name"
+  # Run this job in a branch where a Dockerfile exists
+  # $CI_DEFAULT_BRANCH 默认是main
+  rules:
+    - exists:
+        - Dockerfile
+
+# ===========默认 main 分支：构建+推送==============
+docker-build-main:
+  extends: .docker-build-common
+  variables:
+    branch_name: "main"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      exists:
+        - Dockerfile
+
+# ===========dev 分支：构建+推送==============
+docker-build-dev:
+  extends: .docker-build-common
+  variables:
+    branch_name: "dev"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
+      exists:
+        - Dockerfile
+# =========== release 部署到阿里云 ==============
+deploy-to-aliyun:
+  stage: deploy
+  image: alpine:latest
+  needs:
+    - docker-build-main
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+  before_script:
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -H $ALIYUN_HOST >> ~/.ssh/known_hosts
+  script:
+    - |
+      ssh $ALIYUN_USER@$ALIYUN_HOST << EOF
+        set -e
+
+        docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+        docker pull $DOCKER_IMAGE_NAME
+
+        docker stop $CONTAINER_NAME 2>/dev/null || true
+        docker rm $CONTAINER_NAME 2>/dev/null || true
+
+        docker run -d \
+          --name $CONTAINER_NAME \
+          -p $HOST_PORT:$CONTAINER_PORT \
+          --restart always \
+          $DOCKER_IMAGE_NAME
+      EOF     
+```
+### 触发gitlab-ci自动化部署流程
+- 当代码`push`到`main`分支，触发流水线作业，开始自动构建镜像，`docker push`到`gitlab`镜像仓库，`ssh`登录阿里云云服务器，`docker pull`镜像，`docker run`运行镜像，`docker run -p 80:80` 将主机`80`端口 映射到 docker容器的`80`端口，访问云服务器HOST域名，正常看到web网页，即部署成功！
 
 ## docker 容器化部署
 

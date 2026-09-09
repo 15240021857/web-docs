@@ -1,4 +1,4 @@
-# 前端监控、错误处理和页面埋点
+# 前端监控与Sentry自托管部署
 
 ## 解决什么问题？
 
@@ -32,7 +32,13 @@
   - 实时感知：线上问题
   - 主动定位错误，行为还原
   - 埋点分析，热力分析，业务发展提供数据依据
-
+### 效果截图
+- 错误列表
+![错误列表](./images/monitor/错误列表.png)
+- 定位错误
+![错误列表](./images/monitor/定位错误.png)
+- 录制用户界面报错前后的操作录频
+![错误列表](./images/monitor/replay操作录频.png)
 ### Sentry win11本地自托管部署
  - **部署步骤**
   ```text
@@ -79,6 +85,10 @@ autoMemoryReclaim=gradual # 空闲时渐进回收内存，还给 Windows
   http://localhost:9000
   ```
   ![monitor](images/monitor/up_success.png)
+  - vue3接入Sentry
+  ![vue3接入Sentry](images/monitor/with-vue.png)
+  - 生产环境接入Sentry需要在sentry平台申请Organization Tokens 即`SENTRY_AUTH_TOKEN`，本地在`.env.local`设置，gitlab-ci部署时在gitlab变量中设置
+  ![SENTRY_AUTH_TOKEN](images/monitor/prod-sentry-token.png)
 
 ### Sentry 生产自托管部署
 #### 踩坑注意
@@ -88,6 +98,8 @@ autoMemoryReclaim=gradual # 空闲时渐进回收内存，还给 Windows
       - 若为 60（默认常规值）：内存用到约 40% 时就会开始少量换页。
       - 云服务器为了追求性能，通常倾向于“尽量不用 Swap”，避免磁盘 I/O 拖慢响应
       - **需设置至少为** `10` 才会让 Swap 真正发挥作用（比如跑一些内存会偶尔飙高的服务） `sysctl vm.swappiness=10`
+      - 这个交换就是swap，要是`docker compose up -d` 之后cpu与内存暴涨，`交换`却没动，就说明它没生效，就需要设置`sysctl vm.swappiness=10`，然后重启`up`让它生效
+      ![swap](./images/monitor/swap.png)
 2. 登录后页面报`CSRF Validation Failed`
 ```text
 CSRF Validation Failed
