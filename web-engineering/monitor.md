@@ -33,7 +33,7 @@
   - 主动定位错误，行为还原
   - 埋点分析，热力分析，业务发展提供数据依据
 
-### sentry 自托管部署
+### Sentry win11本地自托管部署
  - **部署步骤**
   ```text
     > 下载安装wsl2 
@@ -80,16 +80,43 @@ autoMemoryReclaim=gradual # 空闲时渐进回收内存，还给 Windows
   ```
   ![monitor](images/monitor/up_success.png)
 
-  - **日常维护**
+### Sentry 生产自托管部署
+#### 踩坑注意
+1. 服务器要求至少 4核 + 16G内存，如果不足建议配置Swap 做弹性内存，防止Sentry服务被杀导致OOM
+    - Swap配置后，如果一直不生效需查看 `cat /proc/sys/vm/swappiness`
+      - 若是0 则 内核会极力避免使用 Swap，直到物理内存几乎完全耗尽（或仅作为极端兜底） 内核被配置成"打死也不用 Swap"
+      - 若为 60（默认常规值）：内存用到约 40% 时就会开始少量换页。
+      - 云服务器为了追求性能，通常倾向于“尽量不用 Swap”，避免磁盘 I/O 拖慢响应
+      - **需设置至少为** `10` 才会让 Swap 真正发挥作用（比如跑一些内存会偶尔飙高的服务） `sysctl vm.swappiness=10`
+2. 登录后页面报`CSRF Validation Failed`
+```text
+CSRF Validation Failed
+安全令牌不存在或无效
+
+Rotate the CSRF Token
+If you're continually seeing this issue, try the following steps:
+```
+   - 这个报错是 Sentry 自托管常见 CSRF 问题
+   - 改配置（自托管）
+    编辑 `sentry/sentry.conf.py`：
+```python
+  CSRF_TRUSTED_ORIGINS = [
+    "https://sentry.example.com",
+    "http://1.2.3.4:9000",
+    "http://127.0.0.1:9000",
+  ]
+```
+  - 然后重启web
+    `docker compose restart web`
+
+
+### **日常维护**
   ```bash
   # 启动所有服务（后台模式）, 不占命令行
   docker compose up -d
 
   # 加了 --wait：命令会一直阻塞等待，直到所有服务都达到 running 或 healthy 状态后才返回
   docker compose up --wait
-
-  # 启动时只跑 1 个 worker 容器 
-  docker compose up -d --scale worker=1
   
   # 查看服务状态
   docker compose ps
