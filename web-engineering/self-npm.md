@@ -1,9 +1,19 @@
 # 建设 NPM 私仓 - Verdaccio
 
 ## 是什么
+
+> 轻量级 Node.js 私有 npm 仓库 / 代理缓存仓库（private npm registry）
+
 - `Verdaccio` 是一个轻量级的私有 npm 仓库，目前在 GitHub 上有 17.7k Star。它不需要数据库，开箱即用，内置了自己的小型存储引擎，同时支持代理其他 registry（比如 npmjs.org），在拉取依赖时自动缓存下载的包。
 
+- 语言：意大利语
+- 原意：暗绿色 / 壁画底色
+- 前端里：私有 npm 仓库工具 Verdaccio
+> github: https://github.com/verdaccio/verdaccio
+
 > NPM: https://www.npmjs.com/package/verdaccio
+
+> 官网：https://www.verdaccio.org/
 
 ## 为什么
 - 对于需要在公司内部使用 npm 包管理、又不想把代码推到公网的团队来说，`Verdaccio` 是一个直接可用的方案。
@@ -37,4 +47,86 @@ verdaccio
 ## 如何使用
 
 ```bash
+# 创建用户
+npm adduser --registry http://服务器IP:4873
+
+# 配置根目录.npmrc: @mycompany/xxx 的npm包走私仓源， vue/react/lodash包还走公网npm（verdaccio 会做代理+缓存）
+@mycompany:registry=http://服务器IP:4873
+//服务器IP:4873/:_authToken=你的token        # 可不配，等npm login时在~/.npmrc自动生成
+
+# 发布 npm 包 
+# 注意：npm login 会在 ~/.npmrc 里生成 //服务器IP:4873/:_authToken=你的token，就无需在项目根目录.npmrc里写了
+npm login --registry http://服务器IP:4873 
+npm publish
+
+# 项目安装 npm 包
+npm i @company/eptable -S
+# 使用私仓包
+import EpTable from '@company/eptable'
+```
+## 私仓config
+```yaml
+storage: /verdaccio/storage
+
+auth:
+  htpasswd:
+    file: /verdaccio/conf/htpasswd
+    # max_users: -1  # 禁止 npm adduser 自助注册，可以手动在文件(~/verdaccio/conf/htpasswd)中添加 zhangsan:123456
+    max_users: 50    # 允许50个人自助注册
+    algorithm: bcrypt
+
+uplinks:             # 上游源
+  npmmirror:         # taobao 镜像
+    url: https://registry.npmmirror.com
+    timeout: 30s
+    maxage: 10m
+    max_fails: 3
+    fail_timeout: 5m
+
+  npmjs:                   # npm 官方源
+    url: https://registry.npmjs.org
+    timeout: 30s      
+
+packages:
+  # 公司私有包：绝不走公网
+  '@mycompany/*':
+    access: $authenticated
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: []       # 公司私有包不走上游源，防止装到别人的包（未知风险）
+
+  # 公共包：只读缓存
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 30d
+
+middlewares:
+  audit:
+    enabled: true
+
+server:
+  keepAliveTimeout: 60
+
+log:
+  type: stdout
+  format: pretty
+  level: http
+```
+## Monorepo架构下，子包的发布
+- 同样支持根目录下的.npmrc
+```.npmrc
+@mycompany:registry=http://服务器IP:4873
+```
+- 发布包
+```bash
+npm login
+pnpm publish --filter @company/eltable
 ```

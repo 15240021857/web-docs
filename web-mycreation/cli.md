@@ -12,7 +12,17 @@
 - 目的是快速开始项目，减少从零搭建的繁杂工作。
 
 ## 项目地址
-- 我的脚手架：https://gitee.com/Wuaixi/xw-tpl-cli
+- Gitee：https://gitee.com/Wuaixi/xw-tpl-cli
+- Npm: https://www.npmjs.com/package/xw-tpl-cli
+
+- 命令行创建
+
+![create-tpl](./images/self-npm/create-tpl.png)
+<!-- - 内置模板列表
+![tpl-list](./images/self-npm/tpl-list.png) -->
+- 选中模板，下载模板代码
+
+![download-tpl](./images/self-npm/download-tpl.png)
 
 ## 如何使用
 - 执行一行命令即可，确认项目名称，再按提示选择模板
@@ -35,11 +45,5 @@ tpl -V
     "nuxt": "https://github.com/15240021857/xw-nuxt-vue2-template.git"
 }
 ```
-- 命令行创建
-![create-tpl](./images/self-npm/create-tpl.png)
-<!-- - 内置模板列表
-![tpl-list](./images/self-npm/tpl-list.png) -->
-- 选中模板，下载模板代码
-![download-tpl](./images/self-npm/download-tpl.png)
 
 

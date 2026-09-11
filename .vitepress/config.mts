@@ -36,7 +36,8 @@ export default defineConfig({
           { text: 'Uniapp智能试衣移动端 <span class="st st-done">Done</span>', link: '/web-mycreation/app-ai-tryon' },
           { text: 'Openlayer天气预警大屏 <span class="st st-done">Done</span>', link: '/web-mycreation/screen-weather-warn' },
           { text: 'Vitepress前端资产博客 <span class="st st-done">Done</span>', link: '/web-mycreation/web-docs' },
-          { text: 'Nodejs项目创建脚手架 <span class="st st-done">Done</span>', link: '/web-mycreation/cli' },
+          { text: 'Nodejs大前端脚手架 <span class="st st-done">Done</span>', link: '/web-mycreation/cli' },
+          { text: 'NPM个人开源包 <span class="st st-doing">Doing</span>', link: '/web-mycreation/npm-mit' },
           // { text: '即时通讯app', link: '/web-mycreation/chat-app' },
           // { text: 'express博客接口服务', link: '/web-mycreation/node-blog' },
         ]
