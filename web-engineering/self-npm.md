@@ -15,6 +15,9 @@
 
 > 官网：https://www.verdaccio.org/
 
+- 私仓项目启动页面
+![home page](./images/self-npm/visit-page.png)
+
 ## 为什么
 - 对于需要在公司内部使用 npm 包管理、又不想把代码推到公网的团队来说，`Verdaccio` 是一个直接可用的方案。
 
@@ -43,6 +46,8 @@ npm i -g verdaccio
 # 4. 跑起来
 verdaccio
 ```
+启动成功如图
+![安装启动](./images/self-npm/安装启动.png)
 
 ## 如何使用
 
@@ -126,7 +131,65 @@ log:
 @mycompany:registry=http://服务器IP:4873
 ```
 - 发布包
+
+- 发布时，子包 package.json 注意点
+```json
+{
+  "name": "@company/eptable",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"]
+}
+```
+
+- Monorepo 子包之间互相引用
+```json
+"@company/epform": "workspace:*"
+```
+
+发布后 pnpm 会把 `workspace:*` 换成真实版本号
+
+### 本地发布单个包
 ```bash
+# 首先登录
 npm login
-pnpm publish --filter @company/eltable
+pnpm --filter @company/eptable build
+pnpm --filter @company/eptable publish
+```
+
+### 本地发布所有包
+```bash
+# 首先登录
+pnpm run build -r
+pnpm run publish -r  # -r 是 --recursive 的缩写，意思是递归地把所有版本有变化的包都发上去。
+```
+
+### 发包处理版本问题
+
+Monorepo包一多，需要通过 changesets 管理版本
+
+```bash
+pnpm add @changesets/cli -Dw     # 安装 -D是编译时依赖 -w是根目录安装
+pnpm changeset init
+```
+
+- 开发完
+```bash
+pnpm changeset   # 记一下改了什么
+```
+
+- 发布时
+
+```bash
+pnpm changeset version  # 改一下版本
+pnpm build -r    # 打包
+pnpm publish -r  # 发布 
 ```

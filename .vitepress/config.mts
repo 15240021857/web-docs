@@ -53,7 +53,7 @@ export default defineConfig({
         items: [
           { text: '前端基建', link: '/web-engineering/base-building' },
           { text: '大前端脚手架 <span class="st st-doing">Doing</span>', link: '/web-mycreation/cli' },
-          { text: '建设NPM私仓 - Verdaccio', link: '/web-engineering/self-npm' },
+          { text: '建设NPM私仓 <span class="st st-done">Done</span>', link: '/web-engineering/self-npm' },
           { text: 'mock数据', link: '/web-engineering/mock' },
           { text: '性能优化 <span class="st st-done">Done</span>', link: '/web-engineering/performance-improve' },
           { text: 'devOps & CI/CD <span class="st st-done">Done</span>', link: '/web-engineering/devOps' },
