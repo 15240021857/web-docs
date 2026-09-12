@@ -20,7 +20,8 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: '学习笔记', link: '/web-studynote/ts' },
-      { text: '前端工程化', link: '/web-engineering/performance-improve' }
+      { text: '前端工程化', link: '/web-engineering/base-building' },
+      { text: '流程规范', link: '/web-standard/web-dev' }
     ],
     lastUpdated: {
       // text: 'Updated at',
@@ -43,12 +44,6 @@ export default defineConfig({
         ]
       },
       {
-        text: '项目经验',
-        items: [
-          { text: '设备全寿命周期管控专家系统 <span class="st st-todo">Todo</span>', link: '/web-project-experience/qingdao-device-expert-system' },
-        ]
-      },
-      {
         text: '工程化',
         items: [
           { text: '前端基建', link: '/web-engineering/base-building' },
@@ -64,6 +59,16 @@ export default defineConfig({
           { text: '组件化与组件规范', link: '/web-engineering/component' },{ text: '测试体系', link: '/web-engineering/test' },
           { text: '用户体验', link: '/web-engineering/ue' },
           { text: '安全加密', link: '/web-engineering/secret' },
+        ]
+      },
+      {
+        text: '前端流程与规范',
+        items: [
+          { text: '前端开发规范', link: '/web-standard/web-dev' },
+          { text: '代码审查Code Review', link: '/web-standard/code-review' },
+          { text: '注释规范', link: '/web-standard/annotation' },
+          { text: 'git规范', link: '/web-standard/git' },
+
         ]
       },
       {
@@ -87,12 +92,9 @@ export default defineConfig({
         ]
       },
       {
-        text: '前端规范',
+        text: '项目经验',
         items: [
-          { text: '代码审查Code Review', link: '/web-standard/code-review' },
-          { text: '注释规范', link: '/web-standard/annotation' },
-          { text: 'git规范', link: '/web-standard/git' },
-
+          { text: '设备全寿命周期管控专家系统 <span class="st st-todo">Todo</span>', link: '/web-project-experience/qingdao-device-expert-system' },
         ]
       },
       {

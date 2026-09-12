@@ -15,14 +15,14 @@ hero:
       text: 个人作品
       link: /web-mycreation/electron-chat-pc
     - theme: alt
-      text: 经验积累
-      link: /web-engineering/performance-improve
+      text: 前端工程化
+      link: /web-engineering/base-building
     - theme: alt
       text: 学习笔记
       link: /web-studynote/js
     - theme: alt
       text: 流程规范
-      link: /web-standard/git
+      link: /web-standard/code-review
 
 features:
   - title: 个人作品
