@@ -382,7 +382,7 @@ UniApp 页面是 Vue，但运行时不是浏览器。**H5 能跑不等于能合�
 - 少用 `!important`。用了要能说清是在覆盖第三方，并尽快收到主题覆盖里。
 - 中后台不要在业务页写一套新的按钮颜色。UniApp 自定义导航栏注意状态栏高度，不要内容顶到电量上。
 
-### 10. 什么时候抽组件、hooks、utils
+### 10. 什么时候抽组件、hooks、utils, 以及 hooks 放哪
 
 按「出现次数 × 有没有独立名字」判断，不要为了目录好看先建空壳。
 
@@ -399,7 +399,24 @@ hooks 必须显式返回，调用方一眼能看见拿了什么。不要学 mixi
 
 公共组件的 props 只谈通用能力（`title`、`modelValue`、`disabled`）。订单金额、审批流节点不要漏进 `components/common`。
 
-改了 `components/`、`hooks/`、`utils/`、`api` 封装、`router`、`stores` 基础结构：PR 打 `会审候选`，按 [Code Review](./code-review.md) 走。
+改了 `components/`、`hooks/`、`utils/`、`api` 封装、`router`、`stores` 基础结构：PR 打 `会审候选`，按 [Code Review](./code-review.md) 
+
+#### 不同范围 hooks 放哪
+```text
+src/
+├── hooks/                    # 全局通用 + 跨模块复用的
+│   ├── useTable.ts
+│   ├── usePagination.ts
+│   └── user/                 # 用户模块级 hooks（可被多个 views 用）
+│       └── useUserList.ts
+│
+└── views/
+    └── user/
+        ├── hooks/            # 只在这个页面/目录下用的
+        │   └── useUserCard.ts
+        └── index.vue
+```
+
 
 ### 11. 列表页和表单页：默认骨架
 

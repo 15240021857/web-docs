@@ -72,6 +72,12 @@ export default defineConfig({
         ]
       },
       {
+        text: '难点亮点',
+        items: [
+          { text: '前端弱网断网处理方案', link: '/web-star/weak-net' },
+        ]
+      },
+      {
         text: '学习笔记',
         items: [
           { text: 'htmlcss <span class="st st-doing">Doing</span>', link: '/web-studynote/htmlcss' },
