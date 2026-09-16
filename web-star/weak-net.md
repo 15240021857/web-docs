@@ -236,4 +236,6 @@ async function fetchStream(url: string, fromIndex: number) {
   }
 }
 ```
-### 大文件上传，断线重连，断点续传
+### 大文件上传，断点续传
+可参考 [大文件上传SDK封装](../web-star/bigfile-upload.md)
+- 通过文件hash获取已上传分片，接着上传剩下的分片

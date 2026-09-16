@@ -65,16 +65,16 @@ export default defineConfig({
         text: '前端流程与规范',
         items: [
           { text: '前端开发规范', link: '/web-standard/web-dev' },
-          { text: '代码审查Code Review', link: '/web-standard/code-review' },
+          { text: '代码审查CR流程', link: '/web-standard/code-review' },
           { text: '注释规范', link: '/web-standard/annotation' },
           { text: 'git规范', link: '/web-standard/git' },
-
         ]
       },
       {
         text: '难点亮点',
         items: [
           { text: '前端弱网断网处理方案', link: '/web-star/weak-net' },
+          { text: '大文件上传SDK封装', link: '/web-star/bigfile-upload' },
         ]
       },
       {
