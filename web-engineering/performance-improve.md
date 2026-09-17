@@ -10,6 +10,20 @@
 - 这是一个非常系统，包括前端项目的各个阶段的优化
 - vue3官网也有性能优化建议：https://cn.vuejs.org/guide/best-practices/performance.html
 
+
+## 性能优化监控
+1. ✅ **开发阶段**
+- Chrome DevTools
+- Lighthouse
+- vite build + rollup-plugin-visualizer（包体积）
+2. ✅ **测试/预发**
+- web-vitals 打 console
+- Performance 录屏
+3. ✅ **生产**
+- Sentry（错误 + Tracing + Web Vitals + Replay）, 参考[monitor监控和埋点](./monitor.md)
+- 自建 /api/vitals 上报（做自己的报表/告警）
+- 路由级性能自己埋
+
 ## 首先定位项目性能瓶颈
 **前端性能排查**的核心路径为， 以 Core Web Vitals 指标为基准：
 - 通过 Lighthouse 快速定位方向，

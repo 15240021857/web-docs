@@ -15,9 +15,7 @@
   - 通过点击事件，拿到哪些按钮、链接比较受欢迎
   - 通过广告进入视口的时长和次数，来对广告进行收费等
 
-## 具体实施
-
-### 监控系统
+## 监控系统
 
 - 上报异常
   如果有必要的话，你可以把异常信息和日志，上报给监控服务器，然后集中分析。我每天上班第一件事，
@@ -31,7 +29,47 @@
 ### 解决什么问题
   - 实时感知：线上问题
   - 主动定位错误，行为还原
+  - 监测性能: Sentry 会自动采集：
+    - 页面加载 Transaction
+    - 路由切换 Transaction
+    - LCP / FCP / TTFB / CLS / INP
+    - 前端资源加载
+    - 接口耗时（如果匹配 tracePropagationTargets）
+    - Long tasks（部分版本/配置）
+    - Session Replay（看用户卡在哪）
   - 埋点分析，热力分析，业务发展提供数据依据
+```ts
+// src/instrument/sentry.ts
+import { createApp } from 'vue'
+import * as Sentry from '@sentry/vue'
+import router from '@/router'
+
+export function initSentry(app: ReturnType<typeof createApp>) {
+  if (import.meta.env.DEV) return
+
+  Sentry.init({
+    app,
+    dsn: 'https://xxx@o0.ingest.sentry.io/0',
+    integrations: [
+      Sentry.browserTracingIntegration({
+        router, // Vue Router 路由性能
+      }),
+      Sentry.replayIntegration(),
+    ],
+
+    // 性能采样
+    tracesSampleRate: 0.2,
+    // Session Replay 采样
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1.0,
+
+    // INP 在新版默认开
+    enableInp: true,
+
+    tracePropagationTargets: ['/api', 'your-api.com'],
+  })
+}
+```
 ### 效果截图
 - 错误列表
 ![错误列表](./images/monitor/错误列表.png)
@@ -238,62 +276,44 @@ Installing, this may take a few minutes...
 #### 端口 `9000` 被占用：编辑 `.env` 文件，修改 `SENTRY_BIND=9000` 为其他端口
 #### 内存不足导致容器反复重启：`Sentry` 建议至少 `4GB` 内存，`WSL2` 下可在 `%UserProfile%\.wslconfig` 中配置 `memory=4GB`
 
-## 其他需要关注的点
+### Sentry 自动采集 ≠ 完全不用写代码
+Sentry 能自动做 80%，剩下 20% 要补：
 
-- 异常采集哪些内容
-  - 1.用户信息，当前时刻的状态，权限，那个设备端
-  - 2.用户所在界面路径，执行哪些操作，操作时使用的哪些数据
-  - 3.异常信息:操作 dom 元素，stack 堆栈信息，异常类型，级别
-  - 4.环境信息：网络环境，设备信号，客户端版本，api 接口版本等
-- 异常捕获
-  - 代码块 try-catch：只能捕获同步运行错误，缺点：语法、异步错误无法捕捉
-  - window.onerror: 全局捕获，缺点: 无法捕获异步, 无法网络资源加载错误
-    无法捕获跨域资源错误
-  - window.addEventListener("error"): 跟 onerror 一样，多一个网络资源错误
-    跟 onerror 有重复
-  - window.addEventListener("unhandledrejection"): 捕获 promise 异常
-  - iframe 异常：借助 window.onerror
-  - 崩溃和卡顿：
-    - window.load 和 window.beforeload
-    - sevice worker 开启一个线程去 网页崩溃的监控
-  - 第三方库的捕获：
-    - vue.config.errorHandler 和 React ErrorBoundary
-- 统计分析
-- 报告告警：
-  - 生成报表：日、周，月 报表
-  - 邮件
-- Sentry 哨兵
-  - 监控项目运行状态，而不依赖于用户上报和反馈
-  - 主动发现产线问题，快速修复 bug
-  - npm 下载量，这两年稳步上升
-  - 打包后 20K，比较小
-  - saas 版本，私有化部署
-  - 集成 gitlab,git hook
+1. **业务自定义耗时**
+```ts
+const span = Sentry.startInactiveSpan({ name: 'load-list-data', op: 'ui.task' })
+await loadList()
+span.end()
+```
 
-- <b>错误处理</b>，当 async 函数中有 6 个 await 异步 promise 函数，假如第一个函数抛出了 reject('一个错误')异常，造成其他 5 个函数都被中断。是不是感觉因小失大？
+2. **web-vitals补上报**
+```ts
+import { onLCP, onCLS, onINP } from 'web-vitals'
+import * as Sentry from '@sentry/vue'
 
-  - 原因：await 函数异常了，底层相当于 return Promise.reject(); 造成后续代码不执行。
-  - 如何解决呢？答案是给每个 await 异步函数包上 try-catch 捕获即可
-  - 封装 try-catch，因为给每个都包 try-catch 很麻烦
-  - ```js
-    // 异常捕获处理 async/await
-    export async function asyncFunWithTrycatch(asyncFun, opts) {
-      const { success, fail, complete } = opts || {};
-      try {
-        const res = await asyncFun;
-        success && success(res);
-        return [null, res];
-      } catch (error) {
-        console.error("try-catch捕获", error);
-        fail && fail(error);
-        return [error, null];
-      } finally {
-        complete && complete();
-      }
-    }
-    ```
+function send(metric: any) {
+  Sentry.getCurrentScope().setTag(`web_vital_${metric.name}`, metric.value)
+}
 
-- <b>页面埋点</b>：帮助分析用户偏好，提升用户体验
+onLCP(send)
+onCLS(send)
+onINP(send)
+```
+
+## 性能优化监控
+1. ✅ 开发阶段
+- Chrome DevTools
+- Lighthouse
+- vite build + rollup-plugin-visualizer（包体积）
+2. ✅ 测试/预发
+- web-vitals 打 console
+- Performance 录屏
+3. ✅ 生产
+- Sentry（错误 + Tracing + Web Vitals + Replay）
+- 自建 /api/vitals 上报（做自己的报表/告警）
+- 路由级性能自己埋
+
+### <b>页面埋点</b>：帮助分析用户偏好，提升用户体验
   - 曝光埋点
 ```js
 // vue指令形式，当元素进入可见时，上报曝光事件

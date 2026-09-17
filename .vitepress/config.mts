@@ -54,8 +54,8 @@ export default defineConfig({
           { text: 'devOps & CI/CD <span class="st st-done">Done</span>', link: '/web-engineering/devOps' },
           { text: '错误监控与埋点 <span class="st st-done">Done</span>', link: '/web-engineering/monitor' },
           { text: 'JS/TS配置', link: '/web-engineering/js-config' },
-          { text: '编辑器配置', link: '/web-engineering/editor' },
-          { text: '模块化', link: '/web-engineering/module' },
+          { text: '编辑器配置', link: '/web-engineering/editor <span class="st st-done">Done</span>' },
+          { text: '模块化', link: '/web-engineering/module <span class="st st-done">Done</span>' },
           { text: '组件化与组件规范', link: '/web-engineering/component' },{ text: '测试体系', link: '/web-engineering/test' },
           { text: '用户体验', link: '/web-engineering/ue' },
           { text: '安全加密', link: '/web-engineering/secret' },
@@ -64,8 +64,8 @@ export default defineConfig({
       {
         text: '前端流程与规范',
         items: [
-          { text: '前端开发规范', link: '/web-standard/web-dev' },
-          { text: '代码审查CR流程', link: '/web-standard/code-review' },
+          { text: '前端开发规范 <span class="st st-done">Done</span>', link: '/web-standard/web-dev' },
+          { text: '代码审查CR流程 <span class="st st-done">Done</span>', link: '/web-standard/code-review' },
           { text: '注释规范', link: '/web-standard/annotation' },
           { text: 'git规范', link: '/web-standard/git' },
         ]
@@ -73,8 +73,8 @@ export default defineConfig({
       {
         text: '难点亮点',
         items: [
-          { text: '前端弱网断网处理方案', link: '/web-star/weak-net' },
-          { text: '大文件上传SDK封装', link: '/web-star/bigfile-upload' },
+          { text: '前端弱网断网处理方案 <span class="st st-done">Done</span>', link: '/web-star/weak-net' },
+          { text: '大文件上传SDK封装 <span class="st st-done">Done</span>', link: '/web-star/bigfile-upload' },
         ]
       },
       {
@@ -82,7 +82,7 @@ export default defineConfig({
         items: [
           { text: 'htmlcss <span class="st st-doing">Doing</span>', link: '/web-studynote/htmlcss' },
           { text: '浏览器', link: '/web-studynote/web-broswer' },
-          { text: 'js', link: '/web-studynote/js' },
+          { text: 'js <span class="st st-done">Done</span>', link: '/web-studynote/js' },
           { text: 'vue', link: '/web-studynote/vue' },
           { text: 'ts <span class="st st-done">Done</span>', link: '/web-studynote/ts' },
           { text: 'react', link: '/web-studynote/react' },
@@ -90,8 +90,8 @@ export default defineConfig({
           { text: '网络', link: '/web-studynote/network' },
           { text: 'node', link: '/web-studynote/node' },
           { text: 'electron', link: '/web-studynote/electron' },
-          { text: 'webrtc', link: '/web-studynote/webrtc' },
-          { text: '视频直播flv', link: '/web-studynote/flv' },
+          { text: 'webrtc <span class="st st-doing">Doing</span>', link: '/web-studynote/webrtc' },
+          { text: '视频直播flv <span class="st st-done">Done</span>', link: '/web-studynote/flv' },
           { text: '3d', link: '/web-studynote/three3d' },
           { text: '地图map', link: '/web-studynote/map' },
           { text: '数据结构与算法', link: '/web-studynote/data-structure' }
