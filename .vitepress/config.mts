@@ -81,6 +81,7 @@ export default defineConfig({
         text: '学习笔记',
         items: [
           { text: '怎么学习 <span class="st st-done">Done</span>', link: '/web-studynote/how-study' },
+          { text: '怎么记笔记 <span class="st st-done">Done</span>', link: '/web-studynote/how-note' },
           { text: 'htmlcss <span class="st st-doing">Doing</span>', link: '/web-studynote/htmlcss' },
           { text: '浏览器', link: '/web-studynote/web-broswer' },
           { text: 'js <span class="st st-done">Done</span>', link: '/web-studynote/js' },
