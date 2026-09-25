@@ -115,6 +115,12 @@ export default defineConfig({
         ]
       },
       {
+        text: '面试总结，补齐短板',
+        items: [
+          { text: '20260921合肥一面 <span class="st st-done">Done</span>', link: '/web-interview/20260921' },
+        ]
+      },
+      {
         text: 'AI人工智能',
         items: [
           { text: 'AI开发项目', link: '/web-ai/project-dev'}
