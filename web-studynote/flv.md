@@ -1,4 +1,4 @@
-# flv.js <Badge type="danger" text="will do" />
+# flv.js <Badge type="tip" text="done" />
 
 ## 是什么？
 

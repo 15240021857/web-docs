@@ -1,4 +1,4 @@
-# ts 笔记 <Badge type="warning" text="doing" />
+# Typescript 笔记 <Badge type="tip" text="done" />
 
 ## 是什么
 

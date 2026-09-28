@@ -22,6 +22,13 @@ export default defineConfig({
       { text: '学习笔记', items: [
         { text: '如何学习', link: '/web-studynote/how-study' },
         { text: '如何记笔记', link: '/web-studynote/how-note' },
+        { text: 'Javascript', link: '/web-studynote/js' },
+        { text: 'Typescript', link: '/web-studynote/ts' },
+        { text: 'Vue', link: '/web-studynote/vue' },
+        { text: 'React', link: '/web-studynote/react' },
+        { text: 'Uniapp', link: '/web-studynote/uniapp' },
+        { text: 'Node', link: '/web-studynote/node' },
+        { text: 'Electron', link: '/web-studynote/electron' },
       ]},
       { text: '前端工程化', items: [
         { text: '前端基建', link: '/web-engineering/base-building' },
@@ -38,12 +45,12 @@ export default defineConfig({
         { text: 'Nestjs全栈开发', link: '/web-fullstack/nestjs' },
         { text: 'Python全栈开发', link: '/web-fullstack/python' },
       ]},
-      // { text: '架构设计', items: [
-      //   { text: '架构设计与技术方案', link: '/web-architecture/architecture' },
-      //   { text: '网站登录鉴权设计', link: '/web-architecture/login-auth' },
-      //   // { text: '低代码平台', link: '/web-architecture/lower-code' },
-      //   { text: '微前端', link: '/web-architecture/micro-web' },
-      // ]},
+      { text: '架构设计', items: [
+        { text: '架构设计与技术方案', link: '/web-architecture/architecture' },
+        { text: '网站登录鉴权设计', link: '/web-architecture/login-auth' },
+        // { text: '低代码平台', link: '/web-architecture/lower-code' },
+        // { text: '微前端', link: '/web-architecture/micro-web' },
+      ]},
       { text: '流程规范', link: '/web-standard/web-dev' }
     ],
     lastUpdated: {
