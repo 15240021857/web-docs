@@ -15,39 +15,19 @@
     - 做前端页面可用AI做，但你要懂业务，懂描述，稍微懂点前端基础知识，懂审查代码
     - 做后台服务可用AI做，但你要懂业务，懂后端技术，懂部署，懂运维，懂高并发，高性能等等，更要懂做AI应用。
 
-## 为什么先转 nest.js 全栈
-1. **语法相同**：前端熟悉js 和 node.js，语法熟悉，设计模式类似
-2. **小步快走**: 先转 nest.js 更快，而且企业级，熟悉后端技术后再学Python 转战AI应用，工作之后，有余力再去攻坚 java，
-3. **语言相通**：nest.js, python, java 其实在很多方面都是一个道理，学习一个，入门其他后端语言非常快
-```text
-Node.js
-    框架：Nest.js(express, koa)
-    数据库：Postgresql（orm-, typeOrm, prisma）, Mysql, mongodb
-    缓存：redis
-    工具库, 中间件
-        消息队列: rabbitMQ, Kafka
-        权限系统：jwt, oauth2
-        文件系统：oss buckets 
-    AI agent: langchain, langgraph, Deep, agents    
+## 为什么先转 Nest.js 全栈
+1. **语法相同**：前端熟悉js 和 Node.js，语法熟悉，设计模式类似
+2. **小步快走**: 先转 Nest.js 更快，而且企业级服务端框架，熟悉后端技术后再学 Python 转战AI应用，最后工作之后，有余力再去攻坚 Java
+3. **语言相通**：Nest.js, Python, Java 其实在很多方面都是一个道理，学习一个，入门其他后端语言非常快
 
-Python
-    基础：语法，条件判断，循环，函数
-    框架：FastApi
-    数据库：Postgresql（orm-, typeOrm, prisma）, Mysql, mongodb
-    缓存：redis
-    工具库, 中间件
-        消息队列: rabbitMQ, Kafka
-        权限系统：jwt, oauth2
-        文件系统：oss buckets 
-    AI agent: langchain, langgraph, Deep, agents 
-Java
-    基础：语法，条件判断，循环，函数
-    框架：spring boot， spring cloud
-    数据库：Postgresql（orm-, typeOrm, prisma）, Mysql, mongodb
-    缓存：redis
-    工具库, 中间件
-        消息队列: rabbitMQ, Kafka
-        权限系统：jwt, oauth2
-        文件系统：oss buckets 
-    AI agent: langchain, langgraph, Deep, agents 
-```
+## 计划
+**最终目标**：做一个 nest.js 企业级的AI应用，包括基础的Web服务API, 还包含 AI 功能需支持智能客服、Rag知识库问答、AI agent等
+
+## 步骤与进度
+1. 先看官方文档，花20-30分钟看总体文档脉络，以后当字典查
+2. 问 AI 学习简单入门教程，学完跟着敲，了解哪些模块是干嘛的，不会的也可以去查视频课程
+3. 开始写一个Todo list CURD Demo，接入数据库如Postgresql, MySql, Mongodb（Orm框架、typeOrm、 prisma）
+4. 开始做完整的 Web 服务API接口， 包含用户登录注册，jwt权限系统，RBAC的角色权限模块，用户/企业等模块的CURD等
+5. 开始考虑进阶的性能优化，如缓存Redis, 中间件如消息队列 RabbitMq、kafka
+6. 开始接入AI 做流式输出，做智能客服
+7. 做Rag应用，如利用 langchain 等AI框架 做文档切片，向量化，向量检索，

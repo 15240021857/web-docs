@@ -23,11 +23,27 @@ export default defineConfig({
         { text: '如何学习', link: '/web-studynote/how-study' },
         { text: '如何记笔记', link: '/web-studynote/how-note' },
       ]},
-      { text: '前端工程化', link: '/web-engineering/base-building' },
+      { text: '前端工程化', items: [
+        { text: '前端基建', link: '/web-engineering/base-building' },
+        { text: '大前端脚手架', link: '/web-mycreation/cli' },
+        { text: '建设NPM私仓', link: '/web-engineering/self-npm' },
+        { text: 'mock数据', link: '/web-engineering/mock' },
+        { text: '性能优化', link: '/web-engineering/performance-improve' },
+        { text: 'devOps & CI/CD', link: '/web-engineering/devOps' },
+        { text: '错误监控与埋点', link: '/web-engineering/monitor' },
+        { text: 'JS/TS配置', link: '/web-engineering/js-config' },
+      ]},
       { text: '全栈之路', items: [
+        { text: '全栈之路', link: '/web-fullstack/full-stack' },
         { text: 'Nestjs全栈开发', link: '/web-fullstack/nestjs' },
         { text: 'Python全栈开发', link: '/web-fullstack/python' },
       ]},
+      // { text: '架构设计', items: [
+      //   { text: '架构设计与技术方案', link: '/web-architecture/architecture' },
+      //   { text: '网站登录鉴权设计', link: '/web-architecture/login-auth' },
+      //   // { text: '低代码平台', link: '/web-architecture/lower-code' },
+      //   { text: '微前端', link: '/web-architecture/micro-web' },
+      // ]},
       { text: '流程规范', link: '/web-standard/web-dev' }
     ],
     lastUpdated: {
@@ -71,6 +87,7 @@ export default defineConfig({
       {
         text: '全栈开发',
         items: [
+          { text: '全栈之路', link: '/web-fullstack/full-stack' },
           { text: 'Nestjs全栈开发之路 <span class="st st-doing">Doing</span>', link: '/web-fullstack/nestjs' },
           { text: 'Python全栈开发之路 <span class="st st-todo">Todo</span>', link: '/web-fullstack/python' },
         ]
