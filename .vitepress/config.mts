@@ -19,8 +19,15 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
-      { text: '学习笔记', link: '/web-studynote/ts' },
+      { text: '学习笔记', items: [
+        { text: '如何学习', link: '/web-studynote/how-study' },
+        { text: '如何记笔记', link: '/web-studynote/how-note' },
+      ]},
       { text: '前端工程化', link: '/web-engineering/base-building' },
+      { text: '全栈之路', items: [
+        { text: 'Nestjs全栈开发', link: '/web-fullstack/nestjs' },
+        { text: 'Python全栈开发', link: '/web-fullstack/python' },
+      ]},
       { text: '流程规范', link: '/web-standard/web-dev' }
     ],
     lastUpdated: {
@@ -59,6 +66,13 @@ export default defineConfig({
           { text: '组件化与组件规范', link: '/web-engineering/component' },{ text: '测试体系', link: '/web-engineering/test' },
           { text: '用户体验', link: '/web-engineering/ue' },
           { text: '安全加密', link: '/web-engineering/secret' },
+        ]
+      },
+      {
+        text: '全栈开发',
+        items: [
+          { text: 'Nestjs全栈开发之路 <span class="st st-doing">Doing</span>', link: '/web-fullstack/nestjs' },
+          { text: 'Python全栈开发之路 <span class="st st-todo">Todo</span>', link: '/web-fullstack/python' },
         ]
       },
       {

@@ -44,16 +44,16 @@ vue 是构建用户界面的 js 库，我们只需关注数据，专注业务代
 - 来自 @vue/runtime-core 的 createRenderer API 用来创建自定义渲染函数 https://cn.vuejs.org/api/custom-renderer
   - 其中的 renderToString、renderToStream 方法用于将 vue 应用实例转为字符串或流，方便网络传输，用于 SSR
 
-## Vue3 的奇迹之旅，从 3.0“海贼王”到 3.4“灌篮高手”
 
-- 从争议到巅峰
-- 从什么地方来，到什么地方去
-- 参考资料：https://www.bilibili.com/read/cv29773657/
-- Vue 从一开始就有一个简单的使命：成为一个让任何人都能快速学习的平易近人的框架。
+## vue的设计模式
 
-## 正题
+### vue响应式原理的设计模式
+#### vue2：观察者模式
+#### vue3：代理模式 + 发布-订阅模式
 
-- 以下是一些知识点
+### vue的provider & inject 设计模式
+#### 依赖注入模式
+
 
 ## new Vue() 和 vue3 的 createApp()
 
