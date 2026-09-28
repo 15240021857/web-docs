@@ -46,8 +46,9 @@ export default defineConfig({
         { text: 'Python全栈开发', link: '/web-fullstack/python' },
       ]},
       { text: '架构设计', items: [
-        { text: '架构设计与技术方案', link: '/web-architecture/architecture' },
-        { text: '网站登录鉴权设计', link: '/web-architecture/login-auth' },
+        { text: '高级程序设计', link: '/web-architecture/advanced-code-design' },
+        // { text: '架构设计与技术方案', link: '/web-architecture/architecture' },
+        // { text: '网站登录鉴权设计', link: '/web-architecture/login-auth' },
         // { text: '低代码平台', link: '/web-architecture/lower-code' },
         // { text: '微前端', link: '/web-architecture/micro-web' },
       ]},
