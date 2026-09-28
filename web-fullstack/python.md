@@ -1,11 +1,13 @@
-# 前端转 Python 全栈之路 <Badge type="warning" text="Todo" />
-> 努力学习中，敬请期待~~
+# 前端转 Python 全栈之路 <Badge type="warning" text="Doing" />
+> 实战中，敬请期待~~
 ## 为什么学Python
 - 因为 Python 非常适合做企业级AI应用
 - FastApi
 
 ## 计划
-**最终目标**：做一个 python 企业级的AI应用，AI功能需支持智能客服、Rag知识库问答、AI agent等
+
+- **最终目标**：利用 `python` 熟悉整个前后端协作、部署、运维，拥有高性能、高并发、高可用等企业生产级完整项目流程
+- **阶段目标**：做一个 `python` 企业级的AI应用，AI功能需支持智能客服、Rag知识库问答、AI agent等
 
 ## 步骤与进度
 1. 先看官方文档，花20-30分钟看总体文档脉络，以后当字典查
