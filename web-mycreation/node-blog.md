@@ -10,7 +10,7 @@
 - 完整开发后台项目，作为经验
 
 ## 项目地址
-- 待完善
+- Github: https://gitee.com/Wuaixi/xw-node-blog-server
 
 ## 技术栈说明
 
@@ -23,9 +23,23 @@
 - 容器
   - docker
 
-## 步骤
+## 项目截图
+- 启动docker,创建mysql容器
 
-## 学习
+![docker-mysql](./images/node-blog/docker-mysql.png)
+
+- vscode/cursor 查看mysql 用户表
+
+![mysql](./images/node-blog/mysql.png)
+
+- 启动 node-express 服务 登录
+![login-api](./images/node-blog/login-api.png)
+
+- 调获取文章列表接口
+![articles-api](./images/node-blog/articles-api.png)
+
+
+## 实现
 
 ### 传参方式
 
@@ -83,7 +97,7 @@
 - allowNull：是否允许不传 allowEmpty: 是否运行空值""
 - 在 errors 中接收错误，若是验证错误返回 status: 400; 若是服务错误则返回 500
 
-### 复习：
+### 复盘：
 - nodejs常用命令：
   - npm i express-generator -g
   - express node-blog --no-template
