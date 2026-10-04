@@ -70,7 +70,20 @@ export default defineConfig({
           // { text: '微前端', link: '/web-architecture/micro-web' },
         ],
       },
-      { text: "流程规范", link: "/web-standard/web-dev" },
+      // { text: "流程规范", link: "/web-standard/web-dev" },
+      {
+        text: "技术方案",
+        items: [
+          {
+            text: "前端弱网/断网处理方案",
+            link: "/web-star/weak-net",
+          },
+          {
+            text: "大文件上传SDK封装",
+            link: "/web-star/bigfile-upload",
+          },
+        ],
+      },
     ],
     lastUpdated: {
       // text: 'Updated at',
@@ -185,7 +198,7 @@ export default defineConfig({
         ],
       },
       {
-        text: "难点亮点",
+        text: "技术方案",
         items: [
           {
             text: '前端弱网断网处理方案 <span class="st st-done">Done</span>',
