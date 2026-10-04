@@ -75,6 +75,80 @@
    - Interceptor：对响应进行包装，如添加响应头、格式化响应数据等
    - ExceptionFilter：处理异常，如捕获并返回异常信息
 
+## Nest项目目录结构
+
+```text
+src/
+├── main.ts
+├── app.module.ts
+├── common/                    # 全局公共层
+│   ├── interceptors/
+│   │   └── response.interceptor.ts
+│   ├── filters/
+│   │   └── http-exception.filter.ts
+│   ├── guards/
+│   ├── pipes/
+│   ├── decorators/
+│   ├── dto/
+│   └── utils/
+│
+├── modules/                   # 业务模块
+│   ├── auth/
+│   │   ├── auth.module.ts
+│   │   ├── auth.controller.ts
+│   │   ├── auth.service.ts
+│   │   ├── dto/
+│   │   │   ├── login.dto.ts
+│   │   │   └── register.dto.ts
+│   │   └── strategies/
+│   │
+│   ├── users/
+│   │   ├── users.module.ts
+│   │   ├── users.controller.ts
+│   │   ├── users.service.ts
+│   │   ├── entities/
+│   │   │   └── user.entity.ts
+│   │   └── dto/
+│   │       ├── create-user.dto.ts
+│   │       └── user-response.dto.ts
+│   │
+│   ├── sim-cards/
+│   │   ├── sim-cards.module.ts
+│   │   ├── sim-cards.controller.ts
+│   │   ├── sim-cards.service.ts
+│   │   ├── entities/
+│   │   └── dto/
+│   │
+│   └── orders/
+│       ├── orders.module.ts
+│       ├── orders.controller.ts
+│       └── orders.service.ts
+│
+└── config/
+    ├── database.config.ts
+    └── app.config.ts
+```
+
+### app.module.ts 只做"胶水"
+
+```text
+@Module({
+  imports: [
+    ConfigModule.forRoot(), // 加载配置文件
+    TypeOrmModule.forRoot(), // 初始化数据库连接
+    AuthModule, // 引入xxx模块
+    UsersModule,
+    SimCardsModule,
+    OrdersModule,
+  ],
+  providers: [
+    { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor }, // 全局响应拦截器
+    { provide: APP_FILTER, useClass: HttpExceptionFilter }, // 全局异常过滤器
+  ],
+})
+export class AppModule {}
+```
+
 ## Nest 核心模块笔记
 
 #### nest cli命令行
@@ -122,17 +196,32 @@
 
 #### interceptors 拦截器：响应拦截器
 
-```ts
-intercept(context: ExecutionContext, next: CallHandler) {
-  const handler = context.getHandler();     // ✅ 知道是哪个方法
-  const controller = context.getClass();     // ✅ 知道是哪个 Controller
-  const roles = this.reflector.get('roles', handler); // ✅ 读元数据
-  const req = context.switchToHttp().getRequest();
+**请求+拦截器+过滤器流程**
 
-  // ✅ 能包装返回值
-  return next.handle().pipe(
-    map(data => ({ code: 0, data, msg: 'ok' }))
-  );
+```text
+请求
+  ↓
+Interceptor.before
+  ↓
+Controller 正常返回 → Interceptor.after → 统一格式 { code:0, data, msg }
+  ↓
+Controller 抛异常 → ExceptionFilter → 统一格式 { code:错误码, msg:错误信息 }
+```
+
+**拦截器定义**
+
+```ts
+@Injectable()
+export class xxxInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler) {
+    const handler = context.getHandler(); // ✅ 知道是哪个方法
+    const controller = context.getClass(); // ✅ 知道是哪个 Controller
+    const roles = this.reflector.get("roles", handler); // ✅ 读元数据
+    const req = context.switchToHttp().getRequest();
+
+    // ✅ 能包装返回值
+    return next.handle().pipe(map((data) => ({ code: 0, data, msg: "ok" })));
+  }
 }
 ```
 
