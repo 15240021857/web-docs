@@ -151,7 +151,7 @@ export class AppModule {}
 
 ## Nest 核心模块笔记
 
-#### nest cli命令行
+### nest cli命令行
 
 1. nest --help 查询命令
 2. 创建
@@ -161,20 +161,20 @@ export class AppModule {}
 3. nest g mi xxx 创建中间件
 4. nest g pi login 创建管道
 
-#### provider 提供者
+### provider 提供者
 
 1. 在service里`@injectable` 定义 要注入的服务类
 2. 在module里将服务写入providers数组中， module算是IoC容器，管理类
 3. 在controller里用服务（`@inject`的简写可隐藏）
 
-#### module 模块
+### module 模块
 
 1. 通过 `@module` 定义一个类/一个数组/一个值
 2. 通过 在 `@module` 装饰器参数的 `imports: [UserModule, ListModule]`传入其他模块
 3. 通过 providers 传入自己依赖注入的 Service 服务
 4. 通过 exports 导出自己的 Service, 供其他模块的 Controller 使用
 
-#### middleware 中间件
+### middleware 中间件
 
 - 全局中间件
   - 第三方：express 的`cors：app.use(cors())`
@@ -186,11 +186,11 @@ export class AppModule {}
     - 路由规则如：`'user' / userController`去拦截user路径 或user控制器所有路由
     - 还可以传入对象，指定`{path， method}`
 
-#### Rxjs
+### Rxjs
 
 一个js工具包，提供 Observable 观察者模式
 
-#### staticAssets 静态资源服务器
+### staticAssets 静态资源服务器
 
 1. `app.useStaticAssets(join(__dirname, 'images'), { prefix: '/xiaoman' })`
 
@@ -229,13 +229,13 @@ export class xxxInterceptor implements NestInterceptor {
 2. 然后用 `@Injectable()` 装饰 作为依赖注入类
 3. 在 `main.js` 中添加中间件 `app.useGlobalInterceptors(new Response())`
 
-#### filters 异常过滤器：
+### filters 异常过滤器：
 
 1. 例如定义一个异常过滤器 `class HttpExceptionFilter` 统一处理异常，需 `implements 实现 ExceptionFilter`
 2. 用`@catch(HttpException)` 装饰，作异常捕获
 3. 在 `main.js` 中添加中间件过滤器 `app.useGlobalFilters(new HttpExceptionFilter())`
 
-#### pipe 管道：参数校验/转换
+### pipe 管道：参数校验/转换
 
 1. 转换 前端传入字符串，管道可以转成number
    [参考内置管道](https://www.nestjs.com.cn/pipes#built-in-pipes)
@@ -243,7 +243,7 @@ export class xxxInterceptor implements NestInterceptor {
    - 在 `DTO` 文件中用装饰器 对参数 进行约束
    - 在 `main.js` 中设置全局验证管道 `app.useGlobalPipes(new ValidationPipe());` 直接验证全局的验证异常
 
-#### guards 守卫：权限校验/角色校验
+### guards 守卫：权限校验/角色校验
 
 在进入路由访问之前，比如检查一下，是否有权限访问
 
@@ -268,13 +268,13 @@ async create(createCatDto) {
 }
 ```
 
-#### decorators 自定义装饰器
+### decorators 自定义装饰器
 
 1. 通过命令行去创建 `nest g d role`
 2. [装饰器官方用法](https://www.nestjs.com.cn/custom-decorators#param-decorators)
 3. `createParamDecorator` 属性装饰器
 
-#### nest.js 连接数据库
+### nest.js 连接数据库
 
 nest.js 连接数据库，对app的数据进行表的定义和数据的存储
 
@@ -287,7 +287,7 @@ nest.js 连接数据库，对app的数据进行表的定义和数据的存储
    - 看表：show tables
    - 看表字段结构：desc xxx
 
-#### 用`typeORM` 连接并操作 `mysql` 数据库
+### 用`typeORM` 连接并操作 `mysql` 数据库
 
 1. 安装 typeORM 框架
    - `npm install typeorm mysql2`
@@ -298,12 +298,97 @@ nest.js 连接数据库，对app的数据进行表的定义和数据的存储
 6. 前端利用`vue + ant-design-vue` 创建项目，实现简单 `列表 + 搜索 + 分页` 功能
 7. 调用后端接口，实现真实数据的获取和展示
 
-#### join 联表查询
+### 表关联
+- 例如给用户搭tag标签，user表与tag表是多对多关联，一个用户可用打多个tag标签，一个tag标签也可以给多个user用。
+- 所以，多对多 关联后会产生一个中间表 user_tag表
+```ts
+// 用户实体
+@Entity('user')
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-#### transaction 事务
+  @Column()
+  username: string;
+  // 多对多关联
+  @ManyToMany(() => Tag, (tag) => tag.users)
+  @JoinTable({
+    name: 'user_tags',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'tag_id', referencedColumnName: 'id' },
+  })
+  tags: Tag[];
+}
+
+//tag实体
+
+@Entity()
+export class Tag {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 100 })
+  name: string;
+  // tag这里只需声明多对多关系即可
+  @ManyToMany(() => User, (user) => user.tags)
+  users: User[];
+}
+
+// user.service.ts 查询用户，并带出关联tag表数据 
+findAll(keyword: string) {
+  return this.userRepository.find({
+    where: {
+      username: Like(`%${keyword}%`),
+    },
+    relations: { tags: true },
+  });
+}
+```
+
+### transaction 事务
 
 1. 事务：指数据库操作的原子性、一致性、隔离性、持久性
-2. 如何添加？
+2. 如何添加？ 
+  - 用typeOrm自带 dataSource
 3. 写个例子：例如小吴向小钱转账200员，必须确保金额增减都成功，否则转账失败，金额都还原。
 
+**锁**：防止并发请求，同时一条记录，造成数据互相覆盖，造成数据丢失
+
+**死锁**： 多个事务互相锁住对方，不能继续，这种情况mysql数据库会杀掉一个事务。
+  - 怎么解决？通过id排序，
+
+### 数据库迁移
+- 为什么要迁移？
+  - 因为生产环境，如果要更改表字段，`synchronize: true` **改完立即生效可能造成真实数据丢失，且无记录可回滚**，风险大，有问题，所以大家都用迁移。
+  > https://typeorm.bootcss.com/migrations
+- 怎么迁移？
+  1. 改实体，如加字段money
+  2. 通过命令行生成迁移文件
+```package.json
+"typeorm": "typeorm-ts-node-esm",
+"typeorm:gen": "typeorm-ts-node-esm migration:generate -d src/data-source.ts",
+"typeorm:run": "typeorm-ts-node-esm migration:run -d src/data-source.ts",
+"typeorm:revert": "typeorm-ts-node-esm migration:revert -d src/data-source.ts",
+```
+- 一条完整生产流水线长这样
+  - → 改 User 实体
+  - → git 提交（实体 + migration 文件一起提交）
+  - → CI 跑测试
+  - → 部署到预发：migration:run → 启动新应用 → 验收
+  - → 生产：备份 → migration:run → 滚动发布新应用 → 观察日志/监控
+
+  **实际问题**
+  1. Nest连数据库 与 typeOrm迁移共用mysql连接配置
+  2. 数据库加载实体entities
+      - CLI / migrations 用`entities: ['src/**/*.entity.ts']`；
+      - Nest 运行时走 `autoLoadEntities`, 因为`entity.ts`是ts文件，运行时读不了
+
+## 后端进阶能力
+### 方向
+
+**后端服务开发（微服务架构、分布式中间件、高并发高可用系统）**
+
 ## AI 应用
+
+### 方向
+**智能体开发（LangGraph、MCP、RAG、大模型微调）；**
