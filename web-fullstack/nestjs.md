@@ -301,6 +301,24 @@ nest.js 连接数据库，对app的数据进行表的定义和数据的存储
 ### 表关联
 - 例如给用户搭tag标签，user表与tag表是多对多关联，一个用户可用打多个tag标签，一个tag标签也可以给多个user用。
 - 所以，多对多 关联后会产生一个中间表 user_tag表
+
+**一对多**
+```ts
+pet.entity.ts
+
+// 用实体名字符串 + import type，避免与 User 的运行时循环依赖
+@ManyToOne('User', 'pets', { nullable: true })
+@JoinColumn({ name: 'user_id' })
+user: User | null;
+
+
+user.enetity.ts
+// 用实体名字符串，避免与 Pet 的运行时循环依赖
+@OneToMany('Pet', 'user')
+pets: Pet[];
+```
+
+**多对多**
 ```ts
 // 用户实体
 @Entity('user')
@@ -382,6 +400,63 @@ findAll(keyword: string) {
   2. 数据库加载实体entities
       - CLI / migrations 用`entities: ['src/**/*.entity.ts']`；
       - Nest 运行时走 `autoLoadEntities`, 因为`entity.ts`是ts文件，运行时读不了
+
+### prisma 连接 mysql
+#### 如何连接
+1. 方案一：用cursor的AI，输入提示词，帮我用当前稳定的prisma去连接mysql,然后告诉我接下来做什么
+  - 让AI帮我完成连接
+2. 方案二：先问好步骤，手动安装，版本问题会踩坑，现在版本7是稳定版。
+```ts
+// src/prisma/prisma.service.ts
+import { Injectable, OnModuleInit, OnModuleDestroy, Global } from '@nestjs/common';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { PrismaClient } from '../generated/prisma/client.js';
+
+@Injectable()
+export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+  constructor() {
+    const connectionString = process.env.DATABASE_URL;
+    if (!connectionString) {
+      throw new Error('DATABASE_URL is not set');
+    }
+    super({
+      adapter: new PrismaMariaDb(connectionString),
+    });
+  }
+
+  async onModuleInit() {
+    await this.$connect();
+  }
+
+  async onModuleDestroy() {
+    await this.$disconnect();
+  }
+}
+
+// prisma.module.ts
+import { Global, Module } from '@nestjs/common';
+import { PrismaService } from './prisma.service.js';
+@Global()
+@Module({
+  providers: [PrismaService],
+  exports: [PrismaService],
+})
+export class PrismaModule {}
+```
+#### prisma migrate 和 prisma generate
+#### @@id 和 @@index
+```text
+model UserRole {
+  userId     Int
+  roleId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role       Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  assignedAt DateTime @default(now())
+
+  @@id([userId, roleId])
+  @@index([roleId])
+}
+```
 
 ## 后端进阶能力
 ### 方向

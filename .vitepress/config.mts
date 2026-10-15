@@ -47,9 +47,9 @@ export default defineConfig({
         ],
       },
       {
-        text: "全栈之路",
+        text: "全栈之旅",
         items: [
-          { text: "全栈之路", link: "/web-fullstack/full-stack" },
+          { text: "全栈之旅", link: "/web-fullstack/full-stack" },
           { text: "Nestjs全栈开发", link: "/web-fullstack/nestjs" },
           { text: "Python全栈开发", link: "/web-fullstack/python" },
         ],
@@ -171,9 +171,9 @@ export default defineConfig({
       {
         text: "全栈开发",
         items: [
-          { text: "全栈之路", link: "/web-fullstack/full-stack" },
+          { text: "全栈之旅", link: "/web-fullstack/full-stack" },
           {
-            text: 'Nestjs全栈开发之路 <span class="st st-doing">Doing</span>',
+            text: 'Nestjs全栈开发之旅 <span class="st st-doing">Doing</span>',
             link: "/web-fullstack/nestjs",
           },
           {
