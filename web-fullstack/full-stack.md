@@ -39,26 +39,74 @@ Node.js
         消息队列: rabbitmq, Kafka
         权限系统：jwt, oauth2
         文件存储：oss bucketfs
-    AI agent: langchain, langgraph, Deep, agents
+    AI agent: langchain, langgraph, Deep agent
 
 Python
     基础：语法，条件判断，循环，函数
-    框架：Django FastAPI Flask
-    数据库：postgresql（orm-, typeorm, prisma）, mysql, mongodb
+    框架： FastAPI > Flask > Django（按需）
+    数据库：postgresql（SQLAlchemy / Tortoise ORM）, mysql, mongodb
     缓存：redis
     工具库, 中间件
         消息队列: rabbitmq, Kafka
         权限系统：jwt, oauth2
         文件存储：oss bucketfs
-    AI agent: langchain, langgraph, Deep, agents
+    AI agent: langchain, langgraph, Deep agent
 Java
     基础：语法，条件判断，循环，函数
     框架：spring boot， spring cloud
-    数据库：postgresql（orm-, typeorm, prisma）, mysql, mongodb
+    数据库：postgresql（MyBatis / MyBatis-Plus）, mysql, mongodb
     缓存：redis
     工具库, 中间件
         消息队列: rabbitmq, Kafka
         权限系统：jwt, oauth2
         文件存储：oss bucketfs
-    AI agent: langchain, langgraph, Deep, agents
+    AI agent: langchain, langgraph, Deep agent
+
+
+other
+    Docker / Docker Compose
+    基础 Linux & Nginx
+    OpenAPI（Swagger）
 ```
+✅ python更适合：
+- Python 是 AI / 脚本 / 工具链首选
+- FastAPI 和 Node 的写法非常像，迁移成本低
+
+✅ Java 更适合：
+- 高并发
+- 金融 / 电商 / 大型系统
+- 强类型、强工程规范
+
+**AI Agent细分**
+```text
+AI Agent（语言无关）
+- Prompt Engineering
+- RAG（向量数据库：Milvus / Qdrant / PGVector）
+- Agent 架构（ReAct / Plan-and-Execute）
+- LangGraph（工作流）
+- MCP / Tool Calling
+```
+
+**学习地图**
+```text
+第一阶段：建立工程化思维（Node.js）
+- NestJS
+- REST / OpenAPI
+- PostgreSQL + Redis
+- JWT / OAuth2
+- Docker
+
+第二阶段：AI 工程化（Python）
+- Python 基础
+- FastAPI
+- LangChain / LangGraph
+- RAG / Vector DB
+- Agent 设计模式
+
+第三阶段：企业级后端（Java，可选）
+- Spring Boot
+- MyBatis / JPA
+- MQ / 分布式基础
+- 高并发 & 稳定性
+```
+
