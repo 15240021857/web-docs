@@ -34,15 +34,19 @@
 
 ### 步骤与进度
 
-1. 先看官方文档，花20-30分钟看总体文档脉络，以后当字典查
-2. 问 AI 学习简单入门教程，学完跟着敲，了解哪些模块是干嘛的，不会的也可以去查视频课程
-3. 开始写一个Todo list CURD Demo，接入数据库如Postgresql, MySql, Mongodb（Orm框架、typeOrm、 prisma）
-   - 用 typeOrm 连接数据库，熟悉操作，实现CURD, 联表查询，事务等
-   - 用 prisma 连接数据库，熟悉操作，实现CURD, 联表查询，事务等
-4. 开始做完整的 Web 服务API接口， 包含用户登录注册，jwt权限系统，RBAC的角色权限模块，用户/企业等模块的CURD、统一错误和响应处理等
-5. 开始考虑进阶的性能优化，如缓存Redis, 中间件如消息队列 RabbitMq、kafka
-6. 开始接入AI 做流式输出，做智能客服
-7. 做Rag应用，如利用 langchain 等AI框架 做文档切片，向量化，向量检索，
+1. ✅ 先看官方文档，花20-30分钟看总体文档脉络，以后当字典查
+2. ✅ 问 AI 学习简单入门教程，学完跟着敲，了解哪些模块是干嘛的，不会的也可以去查视频课程
+3. ⏳ 开始写一个Todo list CURD Demo，接入数据库如Postgresql, MySql, Mongodb（Orm框架、typeOrm、 prisma）
+   - ✅ 用 typeOrm 连接数据库，熟悉操作，实现CURD, 联表查询，事务等
+   - ✅ 用 prisma 连接数据库，熟悉操作，实现CURD, 联表查询，事务等
+   - ⏳ 熟悉mysql语句
+   - ⏳ 使用 redis
+   - ⏳ 使用 rabbitMQ/ kafka
+   - ⏳ 使用 微服务
+4. ⏳ 开始做完整的 Web 服务API接口， 包含用户登录注册，jwt权限系统，RBAC的角色权限模块，用户/企业等模块的CURD、统一错误和响应处理等
+5. ⬜ 开始考虑进阶的性能优化，如缓存Redis, 中间件如消息队列 RabbitMq、kafka
+6. ⬜ 开始接入AI 做流式输出，做智能客服
+7. ⬜ 做Rag应用，如利用 langchain 等AI框架 做文档切片，向量化，向量检索，
 
 ## Nest 核心思想：AOP 面向切面编程
 
@@ -250,7 +254,7 @@ export class xxxInterceptor implements NestInterceptor {
 1. 在局部 controller 中，用 `@UseGuards(RoleGuard)` 去添加
 2. 在全局 `main.js`中，用 `app.useGlobalGuards(new RolesGuard());`
 3. 可以用cli命令生成guard文件 `nest g gu role`
-4. 方法装饰器`@Roles`精确到给每个controller的路由，增加角色权限控制 然后在`Gruard`守卫里用`reflector`反射去取值，如
+4. 方法装饰器`@Roles`精确到给每个controller的路由，增加角色权限控制 然后在`Guard`守卫里用`reflector`反射去取值，如
 
 ```ts
 @@filename(cats.controller)
@@ -368,7 +372,7 @@ findAll(keyword: string) {
 1. 事务：指数据库操作的原子性、一致性、隔离性、持久性
 2. 如何添加？ 
   - 用typeOrm自带 dataSource
-3. 写个例子：例如小吴向小钱转账200员，必须确保金额增减都成功，否则转账失败，金额都还原。
+3. 写个例子：例如小吴向小钱转账200元，必须确保金额增减都成功，否则转账失败，金额都还原。
 
 **锁**：防止并发请求，同时一条记录，造成数据互相覆盖，造成数据丢失
 
