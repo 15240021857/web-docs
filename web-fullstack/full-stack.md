@@ -44,7 +44,7 @@ Node.js
 Python
     基础：语法，条件判断，循环，函数
     框架： FastAPI > Flask > Django（按需）
-    数据库：postgresql（SQLAlchemy / Tortoise ORM）, mysql, mongodb
+    数据库：postgresql（SQLModel / Tortoise ORM）, mysql, mongodb
     缓存：redis
     工具库, 中间件
         消息队列: rabbitmq, Kafka

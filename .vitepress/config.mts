@@ -47,9 +47,11 @@ export default defineConfig({
         ],
       },
       {
-        text: "全栈之旅",
+        text: "AI全栈之旅",
         items: [
+          { text: "Vibe-coding", link: "/web-ai/vibe-coding.md" },
           { text: "全栈之旅", link: "/web-fullstack/full-stack" },
+          { text: "AI应用", link: "/web-fullstack/ai" },
           { text: "Nestjs全栈开发", link: "/web-fullstack/nestjs" },
           { text: "Python全栈开发", link: "/web-fullstack/python" },
         ],
@@ -65,6 +67,7 @@ export default defineConfig({
             text: "架构设计",
             link: "/web-architecture/architecture",
           },
+          { text: '微服务设计', link: '/web-architecture/micro-server.md' },
           // { text: '网站登录鉴权设计', link: '/web-architecture/login-auth' },
           // { text: '低代码平台', link: '/web-architecture/lower-code' },
           // { text: '微前端', link: '/web-architecture/micro-web' },
@@ -84,6 +87,13 @@ export default defineConfig({
           },
         ],
       },
+      { text: "行业垂直经验", items: [
+        { text: "Rag企业知识库通用系统落地经验", link: "/web-project-experience/rag" },
+        { text: "设备全寿命周期管控专家系统", link: "/web-project-experience/qingdao-device-expert-system" },
+        { text: "物联网行业落地经验", link: "/web-project-experience/iot" },
+        { text: "教育行业落地经验", link: "/web-project-experience/education" }
+      ] 
+    },
     ],
     lastUpdated: {
       // text: 'Updated at',

@@ -2,7 +2,7 @@
 > 实战中，敬请期待~~
 ## 为什么学Python
 - 因为 Python 非常适合做企业级AI应用
-- FastApi
+- FastApi 简洁，高效，适合做api
 
 ## 计划
 
@@ -17,4 +17,41 @@
 5. 开始考虑进阶的性能优化，如缓存redis, 中间件如消息队列 rabbitmq、kafka
 6. 开始接入AI 做流式输出，做智能客服
 7. 做企业级Rag应用，如利用 langchain 等AI框架 做文档切片，向量化，向量检索等等
+
+## 传参
+|参数来源 |	声明方式 |	常见场景 |
+| --- | --- | --- |
+| 路径参数	| def f(id: int) |	RESTful |
+| 查询参数	| Query(...) |	GET 筛选 |
+| 表单字段	| Form(...) |	文件上传 |
+| 文件	|File(...) |	上传 是从 form-data 文件字段​ 来的 |
+| JSON Body	| Pydantic / Body(...) |	POST/PUT |
+| Header	| Header(...) |	鉴权 |
+| Cookie |	Cookie(...) |	会话 |
+
+- File(...)        # 必传文件
+- File(None)       # 可选文件
+
+```Python
+from fastapi import FastAPI, File, UploadFile, Form, Query
+
+app = FastAPI()
+
+@app.post("/upload")
+async def upload(
+    file: UploadFile = File(...),    # 必传文件 form-data 文件字段
+    doc_type: str = Form(...), # 必传 form-data 字段
+    description: str | None = Form(None), # 可选
+    user_id: int = Query(...), # 必传 GET筛选 查询参数
+):
+    content = await file.read()
+    return {
+        "filename": file.filename,
+        "doc_type": doc_type,
+        "description": description,
+        "user_id": user_id,
+        "file_size": len(content),
+    }
+```
+
 

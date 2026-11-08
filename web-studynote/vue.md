@@ -48,12 +48,38 @@ vue 是构建用户界面的 js 库，我们只需关注数据，专注业务代
 ## vue的设计模式
 
 ### vue响应式原理的设计模式
-#### vue2：观察者模式
-#### vue3：代理模式 + 发布-订阅模式
+#### vue2：观察者模式 （Dep 实例直接把Watcher加到观察者队列）
+vue2的**watcher观察者**一般有三种：
+- render 函数，用于生成VDOM更新组件的 DOM
+- computed 属性，用于生成计算属性
+- watch 属性，用于监听数据变化，执行回调函数
+
+#### vue3：代理模式（Proxy） + 观察者模式（targetMap 在track/trigger时 把effect加到观察者队列）
+vue3的**effect副作用函数**（也算是观察者）一般有三种：
+- render 函数，用于生成VDOM更新组件的 DOM
+- computed函数，用于生成计算属性
+- watch函数，用于监听数据变化，执行回调函数
+
+### 组件的emit和on的设计模式
+#### 发布订阅模式
+emit发布者子组件 和 on父组件互相独立解耦，通过vue内部事件中心进行通信；emit 不管外界哪个父组件调用它。
 
 ### vue的provider & inject 设计模式
 #### 依赖注入模式
 
+## vue2/vue3的nextTick回调理解
+- 核心一句话：Vue 的 dom 更新是异步的，为了性能多次修改响应式数据不会立刻更新 dom，而 nextTick 是在所有 dom 更新完毕后执行。
+
+- 底层原理：Vue 把 nextTick 回调放进微任务队列，等待当前同步代码执行完成、Vue 内部 DOM 更新完毕之后调用。
+
+- vue2 是单独为 nextTick 维护 callbacks 队列，将回调使用微任务包裹，优先级 Promise → MutationObserver，环境不支持则降级 setTimeout，回调统一放入 callbacks 队列。
+
+- vue3 不再单独为 nextTick 维护 callbacks 队列，复用全局调度器，将 nextTick 注册为 post 后置任务（`queuePostRenderEffect`），等待所有 pending 的 queueJob（渲染任务）执行完毕（DOM 渲染完成）后 resolve。
+
+- vue3 对比 vue2 的区别与提升：
+
+1. Vue2 给 nextTick 单独维护 callbacks 队列，和 Watcher 调度队列是两套独立体系；
+2. Vue3 全部基于微任务，统一一套调度器，nextTick 使用 post 后置任务执行，消除两套队列，减少重复代码，架构更统一。
 
 ## new Vue() 和 vue3 的 createApp()
 

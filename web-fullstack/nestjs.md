@@ -278,7 +278,7 @@ async create(createCatDto) {
 2. [装饰器官方用法](https://www.nestjs.com.cn/custom-decorators#param-decorators)
 3. `createParamDecorator` 属性装饰器
 
-### nest.js 连接数据库
+### nest.js 连接mysql
 
 nest.js 连接数据库，对app的数据进行表的定义和数据的存储
 
@@ -462,11 +462,400 @@ model UserRole {
 }
 ```
 
+### prisma 连接 PostgreSQL
+1. 首先创建nest项目：nest new prisma-pg
+2. 然后启动项目: npm run start:dev
+3. 访问localhost:3000 看到hello world
+4. 书写docker-compose.yaml,拉取PostgreSQL镜像并启动docker, `docker compose up -d`
+```yaml
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres-local
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: prisma_pg
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d prisma_pg"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres_data:
+```
+5. 跟cursor交互 `现在帮我用prisma7稳定版去连接postgresql，用户名root, 密码123456，表名prisma_pg`
+  - cursor最终回复,如下，说明操作成功！
+```text
+已经用 Prisma 7.10.0 稳定版连上本机 PostgreSQL。prisma_pg 是数据库名，和 docker-compose.yml 里的 POSTGRES_DB 一致；业务表是 User。
+
+连接串在 .env 里：
+
+postgresql://root:123456@127.0.0.1:5432/prisma_pg
+这里用 127.0.0.1 是因为在这台 Windows 上，Prisma 走 localhost 连不上正在监听的端口。
+
+应用启动时，PrismaService 会通过 @prisma/adapter-pg 执行 $connect()。现有的 /user 接口已经改成读写这张 User 表。我实测了创建、查询和删除，数据库读写正常。
+```
+6. 与cursor交互，在项目中添加`在项目添加swagger,用pnpm去安装相关依赖`
+
+
+### redis 缓存
+**优势**
+1. 内存存储，比磁盘存储快
+2. 多种数据结构
+- 字符串、数组、集合set、哈希map等
+3. 发布订阅
+- 用于在redis多实例通信，可以接收有多少实例运行着
+- subscribe / publish
+4. 持久化，防止down机
+- RDB 快照存到磁盘 在redis.conf中设置
+- AOF 到文件 在redis.conf中设置
+5. 高可用
+6. 主从复制
+- 用于高可用方案
+- 配置主服务器 redis.config  默认端口 6379
+- 配置从服务器 redis-6378.config  配置replacaof 指向主服127.0.0.1:6379
+- 读写分离 主写数据，从自动同步
+- 故障恢复 主服宕机，从服自动顶上去
+7. 事务支持
+- 可同步执行多任务，但不能回滚
+
+#### 实际使用
+```js
+// 通过redis去拿数据, 有缓存就用，没有就去数据库拿，拿完再放缓存
+async function withCache(key, ttl, fn) {
+  const hit = await redis.get(key)
+  if (hit) return JSON.parse(hit)
+  const data = await fn()
+  await redis.set(key, JSON.stringify(data), 'EX', ttl)
+  return data
+}
+```
+TTL 参考：
+- 商品列表：5～10 分钟
+- 用户资料：2～5 分钟
+- 配置/分类：1 小时
+- 报表聚合：1～2 分钟
+- 实时库存：不缓存或 1～3 秒
+
+#### redis 进阶实战场景
+1. 缓存穿透
+- 大量请求获取不存在的数据，导致每次请求都打到数据库
+- 解决方案：缓存空值，或者布隆过滤器 `redis.set(key, null, 'EX', 10)`
+2. 缓存雪崩
+- 大量请求，缓存同时失效，导致大量请求同时打到数据库
+- 解决方案：设置不同的过期时间，或者预热缓存 `ttl = 300 + Math.floor(Math.random()*120 - 60)`
+`redis.set(key, value, 'EX', ttl)`
+3. 缓存击穿
+- 热点key缓存失效，导致瞬间大量请求都打到数据库
+- 解决方案：设置互斥锁`const lock = await Redis.set('lockHot', 1, 'NX', 'EX', 5)`，或者预热缓存
+#### 分布式锁（生产级，不能只用简单 setnx）
+#### 限流（接口限流，IP 限流，滑动窗口）
+#### 分布式 Session（Express-session + redis）
+#### 消息队列（Redis List / Stream 实现简单 MQ）
+#### ## 计数器、排行榜（INCR、ZSet）
+- 阅读量：`INCR article:read:1001`，定期异步落库 mysql
+- 排行榜：zset，`zadd rank 99 user1`，`zrevrange rank 0 10 WITHSCORES`
+#### Lua 脚本（原子复杂逻辑，大量业务场景使用）
+
+一次性执行多条逻辑，减少多次网络往返，保证原子。
+示例：库存扣减
+#### **Redis 集群 / 哨兵 Sentinel**：高可用，ioredis 原生支持连接集群 
+```js
+const Redis = require('ioredis');
+const cluster = new Redis.Cluster([
+  { host: '127.0.0.1', port: 7000 },
+  { host: '127.0.0.1', port: 7001 },
+]);
+```
+
 ## 后端进阶能力
-### 方向
 
 **后端服务开发（微服务架构、分布式中间件、高并发高可用系统）**
+### 微服务
+- 核心优势：解耦
+### RabbitMQ 消息队列
+MQ, Message Queue消息队列，
 
+> RabbitMQ = 消息中转站，前端/后端把消息丢进去，消费者慢慢处理
+
+**架构是：**
+**发布者producer -> rabbitMQ（交换机(exchange) + 队列(Queue)） -> 消费者consumer**
+
+- 安装erlang, 加环境变量，mq 基于 Erlang环境
+- 安装rabbitMQ, 加环境变量
+- 启动express web服务，
+- mq进阶用法：四种匹配模式：direct、topic、headers、fanout
+- mq高级用法：
+  1. 延时队列：需要安装mq插件，安装完成还要启动，然后才可以创建延时类型的exchange交换机
+- mq的写法
+```text
+express-rabbitmq/
+├── app.js          # Express 入口
+├── producer.js     # 生产者
+├── consumer.js     # 消费者
+├── queue.js        # RabbitMQ 连接 & 队列配置
+```
+```js
+例子：用express连接 MQ,用到 amqplib
+// producer 生产者
+1. 连接MQ
+2. 创建一个通道channel
+3. 创建一个交换机exchange 如 名称叫direct-name
+4. 发送publish到这个通道的 direct-name交换机 的 key
+
+// 消费者
+1. connect连接MQ
+2. createChannel 创建通道
+3. 订阅消息
+```
+
+### kafka 消息传递系统
+定义：是可持久化、高吞吐量、分布式的消息传递系统，基于java环境、
+
+#### 手动安装kafka
+1. 安装java jdk8+, 自动配置环境变量或手动
+2. 安装zooKeeper
+3. 解压后运行
+```bash
+# 启动 ZooKeeper
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+# 另一个终端启动 Kafka
+bin/kafka-server-start.sh config/server.properties
+```
+
+> 新版本 Kafka 也支持 KRaft 模式（不用 ZooKeeper），但学习阶段用上面的就行。
+
+#### docker方式安装
+```yaml
+version: '3'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+```
+启动 `docker compose up -d`
+
+kafka访问地址：http://localhost:9092
+
+#### express连接kafka
+1. express服务搭建启动
+2. 引入kafkajs
+
+**典型架构**
+```text
+浏览器 / 前端
+   ↓ HTTP
+Express API
+   ↓ produce
+Kafka topic
+   ↓ consume
+Consumer 服务（发邮件 / 落库 / 推送给其他系统）
+```
+
+**最小可用目录结构**
+```js
+express-kafka/
+├── server.js      # Express + Producer
+├── consumer.js    # Kafka Consumer
+├── package.json
+```
+
+#### Nestjs + Kafka
+```text
+src/
+├── app.module.ts
+├── main.ts
+│
+├── user/
+│   ├── user.module.ts
+│   ├── user.controller.ts
+│   ├── user.service.ts        ✅ Producer
+│
+├── order/
+│   ├── order.module.ts
+│   ├── order.controller.ts
+│   ├── order.service.ts
+│
+├── kafka/
+│   ├── kafka.module.ts
+│   ├── kafka.producer.ts
+│   ├── kafka.consumer.ts      ✅ Consumer
+│
+├── mail/
+│   ├── mail.module.ts
+│   ├── mail.service.ts        ✅ 邮件逻辑
+
+```
+**user.service.ts**
+```nest.js
+import { Injectable } from '@nestjs/common'
+import { KafkaProducerService } from '../kafka/kafka.producer'
+
+@Injectable()
+export class UserService {
+  constructor(
+    private readonly kafkaProducer: KafkaProducerService
+  ) {}
+
+  async signup(email: string, username: string) {
+    // 1️⃣ 本地业务（可选）
+    // await this.userRepo.save(...)
+
+    // 2️⃣ 发事件（核心）
+    await this.kafkaProducer.send('user-signup-events', {
+      key: username,
+      value: JSON.stringify({
+        email,
+        username,
+        timestamp: new Date().toISOString()
+      })
+    })
+
+    return { message: 'signup event sent' }
+  }
+}
+```
+
+**kafka.producer.ts**
+```nest.js
+import { Injectable } from '@nestjs/common'
+import { Kafka } from 'kafkajs'
+
+@Injectable()
+export class KafkaProducerService {
+  private readonly kafka = new Kafka({
+    clientId: 'express-kafka',
+    brokers: ['localhost:9092']
+  })
+  private readonly producer = this.kafka.producer()
+
+  async send(topic: string, message: { key: string, value: string }) {
+    await this.producer.connect()
+    await this.producer.send({
+      topic,
+      messages: [message]
+    })
+  }
+}
+```
+#### 多个业务模块的consumer
+
+一个业务模块一个consumer, 用groupId区分
+```text
+src/
+├── kafka/
+│   ├── kafka.module.ts
+│
+├── user/
+│   ├── user.consumer.ts     ✅ 只消费 user-*
+│
+├── order/
+│   ├── order.consumer.ts    ✅ 只消费 order-*
+│
+├── notification/
+│   ├── mail.consumer.ts     ✅ 只消费邮件相关
+```
+
+```nest.js
+// user.consumer.ts
+@Injectable()
+export class UserConsumer implements OnModuleInit {
+  constructor(
+    private readonly kafka: Kafka,
+    private readonly mailService: MailService
+  ) {}
+
+  async onModuleInit() {
+    const consumer = this.kafka.consumer({
+      groupId: 'user-consumer-group'
+    })
+
+    await consumer.connect()
+
+    await consumer.subscribe({
+      topic: 'user-signup-events'
+    })
+
+    await consumer.subscribe({
+      topic: 'user-update-events'
+    })
+
+    await consumer.run({
+      eachMessage: async ({ topic, message }) => {
+        const event = JSON.parse(message.value!.toString())
+
+        if (topic === 'user-signup-events') {
+          await this.mailService.sendWelcomeEmail(event.email)
+        }
+
+        if (topic === 'user-update-events') {
+          await this.mailService.sendProfileUpdateEmail(event.email)
+        }
+      }
+    })
+  }
+}
+```
+### rabbitMQ VS kafka
+> **RabbitMQ 是"邮局"，消息送到就完事，灵活、可靠、好上手。
+> Kafka 是"黑匣子记录仪"，所有事件全记下来，随时可以回放，吞吐巨大但重。**
+
+```text
+--------------------
+RabbitMQ
+
+订单处理
+邮件/短信发送
+微服务间 RPC
+任务队列
+你需要"消息被处理完就完事"的场景
+--------------------------------
+
+-------------------
+kafka
+
+用户行为日志
+系统审计日志
+事件溯源（Event Sourcing）
+实时流计算
+数据管道（把数据从 A 搬到 B 再搬到 C）
+你需要"消息保留 7 天，随时可以重新消费"的场景
+--------------------
+
+你需要消息被消费后删除？  → RabbitMQ
+你需要消息保留 + 重放？   → Kafka
+
+你团队 < 10 人？          → RabbitMQ
+你团队有专职大数据/中间件？ → Kafka
+
+你吞吐 < 1 万/秒？        → RabbitMQ
+你吞吐 > 10 万/秒？       → Kafka
+
+你需要复杂路由/重试/死信？ → RabbitMQ
+你需要流处理/聚合/窗口？   → Kafka
+```
 ## AI 应用
 
 ### 方向
