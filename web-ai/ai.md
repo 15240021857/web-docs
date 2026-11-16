@@ -11,7 +11,6 @@ Agent，直译叫代理，也叫智能体。普通对话模型是一问一答，
 - 说白了，就是普通对话模型能答，Agent 能办事。
 
 
-
 ## Harness coding
 是驾驭编程。
 
@@ -64,7 +63,7 @@ Agent，直译叫代理，也叫智能体。普通对话模型是一问一答，
 
 ### Context 上下文
 - 每次调用 agent 时，模型调用的工具 Tools 需要`拿调用者的信息、配置、依赖等上下文信息`，就要靠 Context 上下文来传递。
-- 特性：① 用户提问，调用服务端/chat接口，agent.invoke 时传入 context ② agent执行过程中只读，不可修改
+- 特性：① 用户提问，调用服务端/chat接口，`agent.invoke` 时传入 context ② agent执行过程中只读，不可修改
 
 ```python
 # 定义上下文
@@ -132,7 +131,6 @@ response = agent.invoke(
 
 for message in response["messages"]:
   print(message.pretty_print())
-
 ```
 ### Middleware 中间件
 在agent执行 
@@ -153,7 +151,7 @@ for message in response["messages"]:
   - 需要 class 继承 AgentMiddle, 然后在 class 内部写对应方式的中间件即可
   - 适合当某个功能需要多个中间件配合时
 
-- 中间件跳转，可以在装饰器上面加 jump_to, 取值可以是['end', 'model', 'tools'], 比如 end 表示直接结束会话
+- 中间件跳转，可以在装饰器上面加 jump_to, 取值可以是`['end', 'model', 'tools']`, 比如 end 表示直接结束会话
 
 ### MCP 模型上下文协议
 模型通过调用工具，就有了做事能力，现在不仅调用本地tool, 还可以调外部工具做事，只要外部工具遵循 MCP 协议，就能让模型调用。
@@ -166,7 +164,7 @@ for message in response["messages"]:
 有多种方式：[Multi-agent](https://docs.langchain.com/oss/python/langchain/multi-agent/index#why-multi-agent)
 1. Subagents: 一个主 agent 协调多个子 agent, 所有 子agent 都通过 主agent。子agent 作为 主agent 的 tools 在适当时候干事。
 ![subagent](/web-ai/ai/subagent.png)
-2. Handoffs: 
+2. Handoffs
   
 
 

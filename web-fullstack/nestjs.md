@@ -657,7 +657,7 @@ services:
 ```
 启动 `docker compose up -d`
 
-kafka访问地址：http://localhost:9092
+kafka访问地址：`http://localhost:9092`
 
 #### express连接kafka
 1. express服务搭建启动

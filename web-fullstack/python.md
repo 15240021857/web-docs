@@ -21,16 +21,18 @@
 ## 传参
 |参数来源 |	声明方式 |	常见场景 |
 | --- | --- | --- |
-| 路径参数	| def f(id: int) |	RESTful |
-| 查询参数	| Query(...) |	GET 筛选 |
-| 表单字段	| Form(...) |	文件上传 |
-| 文件	|File(...) |	上传 是从 form-data 文件字段​ 来的 |
+| 路径参数	| `def f(id: int)` |	RESTful |
+| 查询参数	| `Query(...)` |	GET 筛选 |
+| 表单字段	| `Form(...)` |	文件上传 |
+| 文件	| `File(...)` |	上传 是从 form-data 文件字段​ 来的 |
 | JSON Body	| Pydantic / Body(...) |	POST/PUT |
-| Header	| Header(...) |	鉴权 |
-| Cookie |	Cookie(...) |	会话 |
+| Header	| `Header(...)` |	鉴权 |
+| Cookie |	`Cookie(...)` |	会话 |
 
-- File(...)        # 必传文件
-- File(None)       # 可选文件
+```python
+File(...)        # 必传文件
+File(None)       # 可选文件
+```
 
 ```Python
 from fastapi import FastAPI, File, UploadFile, Form, Query
