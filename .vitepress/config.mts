@@ -50,10 +50,11 @@ export default defineConfig({
         text: "AI全栈之旅",
         items: [
           { text: "Vibe-coding", link: "/web-ai/vibe-coding.md" },
+          { text: "AI Agent 应用总结", link: "/web-ai/ai" },
+          { text: "RAG 知识库应用", link: "/web-ai/Rag" },
           { text: "全栈之旅", link: "/web-fullstack/full-stack" },
-          { text: "AI应用", link: "/web-fullstack/ai" },
-          { text: "Nestjs全栈开发", link: "/web-fullstack/nestjs" },
-          { text: "Python全栈开发", link: "/web-fullstack/python" },
+          { text: "Nestjs 全栈开发", link: "/web-fullstack/nestjs" },
+          { text: "Python 全栈开发", link: "/web-fullstack/python" },
         ],
       },
       {
@@ -139,6 +140,20 @@ export default defineConfig({
         ],
       },
       {
+        text: "AI全栈开发",
+        items: [
+          { text: "全栈之旅", link: "/web-fullstack/full-stack" },
+          {
+            text: 'Nestjs全栈开发之旅 <span class="st st-doing">Doing</span>',
+            link: "/web-fullstack/nestjs",
+          },
+          {
+            text: 'Python全栈开发之路 <span class="st st-doing">Doing</span>',
+            link: "/web-fullstack/python",
+          },
+        ],
+      },
+      {
         text: "工程化",
         items: [
           { text: "前端基建", link: "/web-engineering/base-building" },
@@ -146,11 +161,6 @@ export default defineConfig({
             text: '大前端脚手架 <span class="st st-doing">Doing</span>',
             link: "/web-mycreation/cli",
           },
-          {
-            text: '建设NPM私仓 <span class="st st-done">Done</span>',
-            link: "/web-engineering/self-npm",
-          },
-          { text: "mock数据", link: "/web-engineering/mock" },
           {
             text: '性能优化 <span class="st st-done">Done</span>',
             link: "/web-engineering/performance-improve",
@@ -163,6 +173,12 @@ export default defineConfig({
             text: '错误监控与埋点 <span class="st st-done">Done</span>',
             link: "/web-engineering/monitor",
           },
+          {
+            text: '建设NPM私仓 <span class="st st-done">Done</span>',
+            link: "/web-engineering/self-npm",
+          },
+          { text: "mock数据", link: "/web-engineering/mock" },
+          
           { text: "JS/TS配置", link: "/web-engineering/js-config" },
           {
             text: "编辑器配置",
@@ -176,20 +192,6 @@ export default defineConfig({
           { text: "测试体系", link: "/web-engineering/test" },
           { text: "用户体验", link: "/web-engineering/ue" },
           { text: "安全加密", link: "/web-engineering/secret" },
-        ],
-      },
-      {
-        text: "全栈开发",
-        items: [
-          { text: "全栈之旅", link: "/web-fullstack/full-stack" },
-          {
-            text: 'Nestjs全栈开发之旅 <span class="st st-doing">Doing</span>',
-            link: "/web-fullstack/nestjs",
-          },
-          {
-            text: 'Python全栈开发之路 <span class="st st-doing">Doing</span>',
-            link: "/web-fullstack/python",
-          },
         ],
       },
       {

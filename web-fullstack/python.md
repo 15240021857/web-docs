@@ -54,4 +54,38 @@ async def upload(
     }
 ```
 
+## 环境变量与配置管理
+- dotenv可 加载环境变量
+- pydentic-settings 可加载+管理配置 （官方推荐）
 
+## log 统一日志管理
+- structlog 包配置log, 提供配置log, 获取logger的方法，供项目适用
+- 位置放在 `app.cor.logging.py`
+
+## main.py 启动文件
+```python
+from fastapi import FastAPI
+
+configure_logging(settings.logging.level)
+logger = get_logger(__name__) # __name__ 当前模块
+
+app = FastAPI(
+    title=settinggs.app.name
+    debug=settinggs.app.debug
+)
+
+# 测试接口，健康检查
+@app.get("/healthy", summary="健康检查接口")
+async def healthy() -> dict[str, str]:
+    logger.info("健康正常调用")
+    return {"status": "ok"}
+
+if __name__ == "__main__"
+    uvicorn.run(
+        "app.main:app",
+        host: settings.app.host,
+        port: settings.app.port,
+        reload=False
+    )
+
+```

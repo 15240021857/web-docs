@@ -1,13 +1,15 @@
-# AI 应用
+# AI 应用技术总结
 
-> 学习实践中，敬请期待！
+> 只总结核心意思，具体代码建议看 [langchain](https://docs.langchain.com/) 等框架官网 
 
 ## LLM 大模型
 - AI应用的大脑：用于思考，推理，生成内容，回答问题等
 - 如GPT, Claude, DeepSeek, qianwen, GLM, kimi, doubao等
 
 ## AI Agent
-简单说就是通过
+Agent，直译叫代理，也叫智能体。普通对话模型是一问一答，能回答问题；而 Agent 不仅能回答问题，还能通过工具 Tools 办事，能通过 RAG 读内部资料，能通过 ReAct 不断反馈知道下一步要做什么，最终完成用户的目的。
+- 说白了，就是普通对话模型能答，Agent 能办事。
+
 
 
 ## Harness coding
@@ -57,9 +59,116 @@
 
 ### SKILLs
 - 是大模型留的口子，通过**文件的形式**，预先自定义好**系统提示词**，通过`/skill`接口调用，来引导和约束模型的思考。
-- 解
 
-#### xxxx
+## langchain LLM应用框架
+
+### Context 上下文
+- 每次调用 agent 时，模型调用的工具 Tools 需要`拿调用者的信息、配置、依赖等上下文信息`，就要靠 Context 上下文来传递。
+- 特性：① 用户提问，调用服务端/chat接口，agent.invoke 时传入 context ② agent执行过程中只读，不可修改
+
+```python
+# 定义上下文
+@dataclass
+class Context:
+    user_id: str
+    user_role: str
+
+# 在tool的runtime中获取user_id
+@tool
+def get_user_info(runtime: ToolRuntime[Context]) -> str:
+    """Look up user info."""
+    assert runtime.store is not None
+    user_id = runtime.context.user_id
+    user_role = runtime.context.user_role
+
+agent = create_agent(
+  'deepseek-flash',
+  context_schema=Context
+)
+```
+
+### State 短期记忆-当前agent会话内的状态数据共享
+- 短期记忆，agent执行过程中的状态数据+messages历史消息。一个会话内有效
+- thread_id一样，就可以共享state
+```python
+from langchain.agents import AgentState
+
+# 创建自定义State
+class CustomState(AgentState):
+    count: Int
+
+#定义函数工具
+@tool
+def update_count_tool(runtime: ToolRuntime):
+  # 获取state中的tool
+  prev_count = runtile.state.get('count', 0)
+
+  update = {
+    "count": prev_count + 1,
+    "message": [
+      ToolMessage(
+        content="Successfully updated state"
+        tool_call_id=runtime.tool_call_id
+      )
+    ]
+  }
+  return Command(update=update)
+
+# 创建agent,传入state
+agent = create_agent(
+  'deepseek-flash',
+  tools=[update_count_tool],
+  checkpointer=InMemorySaver()
+  state_schema=CustomState
+  system_prompt="你是一个热心的助手，你需要调用工具记录模型调用次数"
+)
+
+# 调用模型
+agent_config = {thread_id: 1}
+response = agent.invoke(
+  HumanMessage('Hi,我是小吴'),
+  agent_config
+)
+
+for message in response["messages"]:
+  print(message.pretty_print())
+
+```
+### Middleware 中间件
+在agent执行 
+### Human-in-the-loop HITL 循环中的人工确认
+
+
+### 自定义中间件
+如果Langchain 预定义中间件不满足我们业务，那咱就需要自定义中间件，有两种类型的自定义方式：
+1. node-style 方式：
+  - before_agent
+  - before_model
+  - after_model
+  - after_agent
+2. warp-style 方式：环绕包裹的方式
+  - wrap_model_call：支持模型调用前后执行
+  - wrap_tool_call：支持tool调用前后执行
+3. class 类方式：可以重写多个 node-style 和 wrap-style 的中间件
+  - 需要 class 继承 AgentMiddle, 然后在 class 内部写对应方式的中间件即可
+  - 适合当某个功能需要多个中间件配合时
+
+- 中间件跳转，可以在装饰器上面加 jump_to, 取值可以是['end', 'model', 'tools'], 比如 end 表示直接结束会话
+
+### MCP 模型上下文协议
+模型通过调用工具，就有了做事能力，现在不仅调用本地tool, 还可以调外部工具做事，只要外部工具遵循 MCP 协议，就能让模型调用。
+- 两种方式调用：`stdIO` 与 `Streamable HTTP`
+
+#### 自定义 MCP
+**fastMcp**帮我们把普通函数装饰成遵循 mcp 协议的函数
+
+### MultiAgent 多子 agent
+有多种方式：[Multi-agent](https://docs.langchain.com/oss/python/langchain/multi-agent/index#why-multi-agent)
+1. Subagents: 一个主 agent 协调多个子 agent, 所有 子agent 都通过 主agent。子agent 作为 主agent 的 tools 在适当时候干事。
+![subagent](/web-ai/ai/subagent.png)
+2. Handoffs: 
+  
+
 
 ### 思考，推理
 模型层：作为大脑
@@ -71,7 +180,6 @@
 
 ### 编排
 
-## langchain 实战
 
 ### Ollama 本地部署
 
